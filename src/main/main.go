@@ -22,7 +22,8 @@ import (
 	//"goTcpServer"
 	//"goredis"
 	//"workerpool"
-	"handleRedis"
+	//"handleRedis"
+	"handleMySql"
 )
 
 func main() {
@@ -109,6 +110,7 @@ func main() {
 
 	time.Sleep(time.Second * 2)
 	*/
+	/*
 	//RedisJson测试
 	var key01 string
 	//var key02 string
@@ -124,6 +126,29 @@ func main() {
 	delv := handleRedis.HandleRedisJsonDel(key01)
 	fmt.Println("---> delv: ", delv)
 	//handleRedis.HandleRedisJson(key02, kvJson)
+	*/
+	//MySql测试
+	//handleMySql.HandleMySqlPool()
+	// handleMySql.HandleDBCreateTable()
+	var a = 1.0
+	fmt.Println(a + 0.7)
+	elecDatas := make([]float64, 5)
+	// elecDatas = append(elecDatas, 1.21, 1.31, 1.401, 1.5001, 1.5)
+	
+	for i := 0; i < 5; i++ {
+		elecDatas[i] = float64(i)+100.11
+	}
+	fmt.Println("---> elecDatas: ", elecDatas)
+	
+	
+	handleMySql.HandleDBElecInsert(2, elecDatas, "dbelec")
+
+	//handleMySql.HandleDBElecDelete(18)
+	fmt.Println("---> Select Single.")
+	buff := handleMySql.HandleDBElecGetSingle(2)
+	fmt.Println("---> buff: ", len(buff), buff)
+	fmt.Println("---> Select Manny.")
+	handleMySql.HandleDBElecGetManny(1, 10)
 	/*
 	//chgoroutines.Main()
 	//chgoroutines.SelectMain()
