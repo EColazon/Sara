@@ -5,6 +5,10 @@ import (
 	"bytes"
 )
 
+type elecGeter interface {
+	HandleDBElecGetSingle()		[]interface{}
+	HandleDBElecGetManny()		[]interface{}
+}
 //定义电参量数据库表结构体
 type Buff struct{
 	uid,num int
@@ -232,6 +236,7 @@ func HandleDBCreateTable() {
 
 //更新数据
 func HandleDBElecInsert(num int, elecDatas []float64, dbname string) (bool){
+	var buff Buff
 	//开启事务
 	tx, err := DB.Begin()
 	if err != nil{
@@ -257,7 +262,7 @@ func HandleDBElecInsert(num int, elecDatas []float64, dbname string) (bool){
 	fmt.Println("---> Insert SqlString Up", sqlElecUp)
 	// sqlElecIn := "INSERT dbelec SET num=?,current=?,volt=?,pf=?,power=?,energy=?"
 	// sqlElecUp := "UPDATE dbelec SET num=?,current=?,volt=?,pf=?,power=?,energy=? WHERE num = ?"
-	ok := HandleDBElecGetSingle(num)
+	ok := buff.HandleDBElecGetSingle(num)
 	if len(ok) > 0{ //数据存在->更新
 		stmt, err := tx.Prepare(sqlElecUp)
 		fmt.Println("---> Prepare Up")
@@ -327,8 +332,8 @@ func HandleDBElecDelete(num int) (bool) {
 }
 
 // 获取单条数据
-func HandleDBElecGetSingle(num int) ([]interface{}) {
-	var buff Buff
+func (buff Buff)HandleDBElecGetSingle(num int) ([]interface{}) {
+	// var buff Buff
 	var buffs []interface{}
 	// var num int
 	// var current,volt,pf,power,energy float64
@@ -355,8 +360,8 @@ func HandleDBElecGetSingle(num int) ([]interface{}) {
 }
 
 // 获取多条数据
-func HandleDBElecGetManny(index, end int) ([]interface{}) {
-	var buff Buff
+func (buff Buff)HandleDBElecGetManny(index, end int) ([]interface{}) {
+	// var buff Buff
 	// var num int
 	// var current,volt,pf,power,energy float64
 	//执行查询语句

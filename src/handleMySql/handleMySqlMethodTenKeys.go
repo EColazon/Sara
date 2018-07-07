@@ -6,6 +6,10 @@ import (
 )
 
 //03
+type tenKeysGeter interface {
+	HandleDBTenKeysGetSingle()		[]interface{}
+	HandleDBTenKeysGetManny()		[]interface{}
+}
 
 //定义TenKeys数据库表结构体
 //单灯阶段调光&特殊策略&节假日策略
@@ -38,6 +42,7 @@ const (
 
 //更新数据
 func HandleDBTenKeysInsert(num int, tenDatas []int, dbname string) (bool){
+	var buff BuffTenKeys
 	//开启事务
 	tx, err := DB.Begin()
 	if err != nil{
@@ -63,7 +68,7 @@ func HandleDBTenKeysInsert(num int, tenDatas []int, dbname string) (bool){
 	fmt.Println("---> Insert SqlString Up", sqlElecUp)
 	// sqlElecIn := "INSERT dbelec SET num=?,current=?,volt=?,pf=?,power=?,energy=?"
 	// sqlElecUp := "UPDATE dbelec SET num=?,current=?,volt=?,pf=?,power=?,energy=? WHERE num = ?"
-	ok := HandleDBTenKeysGetSingle(num, dbname)
+	ok := buff.HandleDBTenKeysGetSingle(num, dbname)
 	if len(ok) > 0{ //数据存在->更新
 		stmt, err := tx.Prepare(sqlElecUp)
 		fmt.Println("---> Prepare Up")
@@ -140,7 +145,7 @@ func HandleDBTenKeysDelete(num int, dbname string) (bool) {
 }
 
 // 获取单条数据
-func HandleDBTenKeysGetSingle(num int, dbname string) ([]interface{}) {
+func (buff BuffTenKeys)HandleDBTenKeysGetSingle(num int, dbname string) ([]interface{}) {
 	//准备sql语句
 	sqlSelect := bytes.Buffer{}
 	//拼组Insert
@@ -149,7 +154,7 @@ func HandleDBTenKeysGetSingle(num int, dbname string) ([]interface{}) {
 	sqlSelect.WriteString(sqlTenKeysSlctSinTail)
 	sqlSlct := sqlSelect.String()
 
-	var buff BuffTenKeys
+	// var buff BuffTenKeys
 	var buffs []interface{}
 	// var num int
 	// var current,volt,pf,power,energy float64
@@ -176,7 +181,7 @@ func HandleDBTenKeysGetSingle(num int, dbname string) ([]interface{}) {
 }
 
 // 获取多条数据
-func HandleDBTenKeysGetManny(index, end int, dbname string) ([]interface{}) {
+func (buff BuffTenKeys)HandleDBTenKeysGetManny(index, end int, dbname string) ([]interface{}) {
 	//准备sql语句
 	sqlSelect := bytes.Buffer{}
 	//拼组Insert
@@ -185,7 +190,7 @@ func HandleDBTenKeysGetManny(index, end int, dbname string) ([]interface{}) {
 	sqlSelect.WriteString(sqlTenKeysSlctMnyTail)
 	sqlSlct := sqlSelect.String()
 
-	var buff BuffTenKeys
+	// var buff BuffTenKeys
 	// var num int
 	// var current,volt,pf,power,energy float64
 	//执行查询语句

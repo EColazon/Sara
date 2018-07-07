@@ -6,6 +6,10 @@ import (
 )
 
 //03
+type oneKeysGeter interface {
+	HandleDBOneKeysGetSingle()	[]interface{}
+	HandleDBOneKeysGetManny()	[]interface{}
+}
 
 //定义OneKeys数据库表结构体
 // 单灯PWM数据表&其他&单灯组类型&单灯组号&单灯继电器状态&单灯手动开关状态
@@ -29,6 +33,7 @@ const (
 
 //更新数据
 func HandleDBOneKeysInsert(num int, oneDatas []int, dbname string) (bool){
+	var buff BuffOneKeys
 	//开启事务
 	tx, err := DB.Begin()
 	if err != nil{
@@ -54,7 +59,7 @@ func HandleDBOneKeysInsert(num int, oneDatas []int, dbname string) (bool){
 	fmt.Println("---> Insert SqlString Up", sqlElecUp)
 	// sqlElecIn := "INSERT dbelec SET num=?,current=?,volt=?,pf=?,power=?,energy=?"
 	// sqlElecUp := "UPDATE dbelec SET num=?,current=?,volt=?,pf=?,power=?,energy=? WHERE num = ?"
-	ok := HandleDBOneKeysGetSingle(num, dbname)
+	ok := buff.HandleDBOneKeysGetSingle(num, dbname)
 	if len(ok) > 0{ //数据存在->更新
 		stmt, err := tx.Prepare(sqlElecUp)
 		fmt.Println("---> Prepare Up")
@@ -131,7 +136,7 @@ func HandleDBOneKeysDelete(num int, dbname string) (bool) {
 }
 
 // 获取单条数据
-func HandleDBOneKeysGetSingle(num int, dbname string) ([]interface{}) {
+func (buff BuffOneKeys)HandleDBOneKeysGetSingle(num int, dbname string) ([]interface{}) {
 	//准备sql语句
 	sqlSelect := bytes.Buffer{}
 	//拼组Insert
@@ -140,7 +145,7 @@ func HandleDBOneKeysGetSingle(num int, dbname string) ([]interface{}) {
 	sqlSelect.WriteString(sqlOneKeysSlctSinTail)
 	sqlSlct := sqlSelect.String()
 
-	var buff BuffOneKeys
+	// var buff BuffOneKeys
 	var buffs []interface{}
 	// var num int
 	// var current,volt,pf,power,energy float64
@@ -167,7 +172,7 @@ func HandleDBOneKeysGetSingle(num int, dbname string) ([]interface{}) {
 }
 
 // 获取多条数据
-func HandleDBOneKeysGetManny(index, end int, dbname string) ([]interface{}) {
+func (buff BuffOneKeys)HandleDBOneKeysGetManny(index, end int, dbname string) ([]interface{}) {
 	//准备sql语句
 	sqlSelect := bytes.Buffer{}
 	//拼组Insert
@@ -176,7 +181,7 @@ func HandleDBOneKeysGetManny(index, end int, dbname string) ([]interface{}) {
 	sqlSelect.WriteString(sqlOneKeysSlctMnyTail)
 	sqlSlct := sqlSelect.String()
 
-	var buff BuffOneKeys
+	// var buff BuffOneKeys
 	// var num int
 	// var current,volt,pf,power,energy float64
 	//执行查询语句

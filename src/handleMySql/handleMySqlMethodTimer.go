@@ -5,6 +5,10 @@ import (
 	"bytes"
 )
 
+type timerGeter interface {
+	HandleDBSlTimerSwitchGetSingle()	[]interface{}
+	HandleDBSlTimerSwitchGetManny()		[]interface{}
+}
 //定义电参量数据库表结构体
 type BuffTimer struct{
 	uid,num 	int
@@ -23,6 +27,7 @@ const (
 
 //更新数据
 func HandleDBSlTimerSwitchInsert(num int, timerDatas []int, dbname string) (bool){
+	var buff BuffTimer
 	//开启事务
 	tx, err := DB.Begin()
 	if err != nil{
@@ -48,7 +53,7 @@ func HandleDBSlTimerSwitchInsert(num int, timerDatas []int, dbname string) (bool
 	fmt.Println("---> Insert SqlString Up", sqlElecUp)
 	// sqlElecIn := "INSERT dbelec SET num=?,current=?,volt=?,pf=?,power=?,energy=?"
 	// sqlElecUp := "UPDATE dbelec SET num=?,current=?,volt=?,pf=?,power=?,energy=? WHERE num = ?"
-	ok := HandleDBSlTimerSwitchGetSingle(num)
+	ok := buff.HandleDBSlTimerSwitchGetSingle(num)
 	if len(ok) > 0{ //数据存在->更新
 		stmt, err := tx.Prepare(sqlElecUp)
 		fmt.Println("---> Prepare Up")
@@ -118,8 +123,8 @@ func HandleDBSlTimerSwitchDelete(num int) (bool) {
 }
 
 // 获取单条数据
-func HandleDBSlTimerSwitchGetSingle(num int) ([]interface{}) {
-	var buff BuffTimer
+func (buff BuffTimer)HandleDBSlTimerSwitchGetSingle(num int) ([]interface{}) {
+	// var buff BuffTimer
 	var buffs []interface{}
 	// var num int
 	// var current,volt,pf,power,energy float64
@@ -146,8 +151,8 @@ func HandleDBSlTimerSwitchGetSingle(num int) ([]interface{}) {
 }
 
 // 获取多条数据
-func HandleDBSlTimerSwitchGetManny(index, end int) ([]interface{}) {
-	var buff BuffTimer
+func (buff BuffTimer)HandleDBSlTimerSwitchGetManny(index, end int) ([]interface{}) {
+	// var buff BuffTimer
 	// var num int
 	// var current,volt,pf,power,energy float64
 	//执行查询语句

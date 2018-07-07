@@ -6,6 +6,11 @@ import (
 )
 
 //02
+type nodeGeter interface {
+
+	HandleDBNodeGetSingle()	[]interface{}
+	HandleDBNodeGetManny()	[]interface{}
+}
 
 //定义电参量数据库表结构体
 type BuffNode struct{
@@ -32,6 +37,7 @@ const (
 
 //更新数据
 func HandleDBNodeInsert(num int, nodeDatas []int, dbname string) (bool){
+	var buff BuffNode
 	//开启事务
 	tx, err := DB.Begin()
 	if err != nil{
@@ -57,7 +63,7 @@ func HandleDBNodeInsert(num int, nodeDatas []int, dbname string) (bool){
 	fmt.Println("---> Insert SqlString Up", sqlElecUp)
 	// sqlElecIn := "INSERT dbelec SET num=?,current=?,volt=?,pf=?,power=?,energy=?"
 	// sqlElecUp := "UPDATE dbelec SET num=?,current=?,volt=?,pf=?,power=?,energy=? WHERE num = ?"
-	ok := HandleDBNodeGetSingle(num)
+	ok := buff.HandleDBNodeGetSingle(num)
 	if len(ok) > 0{ //数据存在->更新
 		stmt, err := tx.Prepare(sqlElecUp)
 		fmt.Println("---> Prepare Up")
@@ -127,8 +133,8 @@ func HandleDBNodeDelete(num int) (bool) {
 }
 
 // 获取单条数据
-func HandleDBNodeGetSingle(num int) ([]interface{}) {
-	var buff BuffNode
+func (buff BuffNode)HandleDBNodeGetSingle(num int) ([]interface{}) {
+	// var buff BuffNode
 	var buffs []interface{}
 	// var num int
 	// var current,volt,pf,power,energy float64
@@ -155,8 +161,8 @@ func HandleDBNodeGetSingle(num int) ([]interface{}) {
 }
 
 // 获取多条数据
-func HandleDBNodeGetManny(index, end int) ([]interface{}) {
-	var buff BuffNode
+func (buff BuffNode)HandleDBNodeGetManny(index, end int) ([]interface{}) {
+	// var buff BuffNode
 	// var num int
 	// var current,volt,pf,power,energy float64
 	//执行查询语句
