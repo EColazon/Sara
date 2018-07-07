@@ -133,6 +133,7 @@ func main() {
 	// handleMySql.HandleDBCreateTable()
 	//电参量测试
 	/*
+	var buffElec handleMySql.Buff
 	elecDatas := make([]float64, 5)
 	// elecDatas = append(elecDatas, 1.21, 1.31, 1.401, 1.5001, 1.5)
 	
@@ -146,13 +147,14 @@ func main() {
 
 	//handleMySql.HandleDBElecDelete(18)
 	fmt.Println("---> Select Single.")
-	buff := handleMySql.HandleDBElecGetSingle(2)
+	buff := buffElec.HandleDBElecGetSingle(2)
 	fmt.Println("---> buff: ", len(buff), buff)
 	fmt.Println("---> Select Manny.")
-	handleMySql.HandleDBElecGetManny(1, 10)
+	buffElec.HandleDBElecGetManny(1, 10)
 	*/
 	//节点测试
 	/*
+	var buffnode handleMySql.BuffNode
 	nodeDatas := make([]int, 10)
 	// elecDatas = append(elecDatas, 1.21, 1.31, 1.401, 1.5001, 1.5)
 	
@@ -162,17 +164,18 @@ func main() {
 	fmt.Println("---> elecDatas: ", nodeDatas)
 	
 	
-	handleMySql.HandleDBNodeInsert(1, nodeDatas, "dbnode")
+	handleMySql.HandleDBNodeInsert(2, nodeDatas, "dbnode")
 
 	handleMySql.HandleDBNodeDelete(1)
 	fmt.Println("---> Select Single.")
-	buff := handleMySql.HandleDBNodeGetSingle(2)
+	buff := buffnode.HandleDBNodeGetSingle(2)
 	fmt.Println("---> buff: ", len(buff), buff)
 	fmt.Println("---> Select Manny.")
-	handleMySql.HandleDBNodeGetManny(1, 10)
+	buffnode.HandleDBNodeGetManny(1, 10)
 	*/
 	//TenKeys测试
 	/*
+	var buffTenKeys handleMySql.BuffTenKeys
 	TenDatas := make([]int, 10)
 	dbname := "dbstagepwm"
 	// dbname := "dbspecial"
@@ -190,19 +193,20 @@ func main() {
 	// fmt.Println("---> Delete One.")
 	// handleMySql.HandleDBTenKeysDelete(1, dbname)
 	fmt.Println("---> Select Single.")
-	buff := handleMySql.HandleDBTenKeysGetSingle(2, dbname)
+	buff := buffTenKeys.HandleDBTenKeysGetSingle(2, dbname)
 	fmt.Println("---> buff: ", len(buff), buff)
 	fmt.Println("---> Select Manny.")
-	handleMySql.HandleDBTenKeysGetManny(1, 10, dbname)
+	buffTenKeys.HandleDBTenKeysGetManny(1, 10, dbname)
 	*/
 	//OneKeys测试
 	/*
+	var buffOneKeys handleMySql.BuffOneKeys
 	OneDatas := make([]int, 10)
 	dbname := "dbslpwm" //单灯PWM
-	dbname := "dbslgtype" //单灯组类型
-	dbname := "dbslgnum"  //单灯组号
-	dbname := "dbslrelayst" //单灯继电器状态
-	dbname := "dbslhandst"  //单灯手动开关状态
+	// dbname := "dbslgtype" //单灯组类型
+	// dbname := "dbslgnum"  //单灯组号
+	// dbname := "dbslrelayst" //单灯继电器状态
+	// dbname := "dbslhandst"  //单灯手动开关状态
 
 	// elecDatas = append(elecDatas, 1.21, 1.31, 1.401, 1.5001, 1.5)
 	
@@ -216,12 +220,13 @@ func main() {
 	// fmt.Println("---> Delete One.")
 	handleMySql.HandleDBOneKeysDelete(1, dbname)
 	fmt.Println("---> Select Single.")
-	buff := handleMySql.HandleDBOneKeysGetSingle(1, dbname)
+	buff := buffOneKeys.HandleDBOneKeysGetSingle(1, dbname)
 	fmt.Println("---> buff: ", len(buff), buff)
 	fmt.Println("---> Select Manny.")
-	handleMySql.HandleDBOneKeysGetManny(1, 10, dbname)
+	buffOneKeys.HandleDBOneKeysGetManny(1, 10, dbname)
 	*/
 	//单灯定时开关测试
+	var buffTimer handleMySql.BuffTimer
 	FourDatas := make([]int, 10)
 	dbname := "dbsltimer"
 
@@ -237,10 +242,11 @@ func main() {
 	// fmt.Println("---> Delete One.")
 	handleMySql.HandleDBSlTimerSwitchDelete(2)
 	fmt.Println("---> Select Single.")
-	buff := handleMySql.HandleDBSlTimerSwitchGetSingle(3)
+	buff := buffTimer.HandleDBSlTimerSwitchGetSingle(3)
 	fmt.Println("---> buff: ", len(buff), buff)
 	fmt.Println("---> Select Manny.")
-	handleMySql.HandleDBSlTimerSwitchGetManny(1, 10)
+	buffTimer.HandleDBSlTimerSwitchGetManny(1, 10)
+	
 	/*
 	//chgoroutines.Main()
 	//chgoroutines.SelectMain()
