@@ -16,9 +16,12 @@ Author:mengfei.wu@foxmail.com
 import (
 	"fmt"
 	"time"
+	"reflect"
+
+	"handleShared"
 )
 
-// 实现两个接口
+// 实现两个接口s
 // HandleCmdGeter:监听channel
 // HandleCmdSender:DoZigBeeTasks
 
@@ -52,16 +55,24 @@ func HandleCmdGeter() {
 				fmt.Println("---> buff33: ", len(ChCmd33), cap(ChCmd33), buff33, time.Now())
 				switch buff33["id"] {
 				case 73000:
+					// DoTimeSaveLatLongitude()
 					fmt.Println("---> id 73000")
 				
 				case 73001:
+					// DoTimeSaveHoliday()
 					fmt.Println("---> id 73001")
 				
 				case 73002:
+					// DoTimeSaveSpecial()
 					fmt.Println("---> id 73002")
 				
 				case 73003:
-					fmt.Println("---> id 73003")
+					// DoTimeSavePwmStage()
+					// 将interface{}类型转为[]int类型(通过断言)
+					value, _ := buff33["data"].([]int)
+					snum, _ := buff33["snum"].(int)
+					handleShared.HandleSharedCmdOk(22, value[:8], snum)
+					fmt.Println("---> id 73003", reflect.TypeOf(value), value[:3], snum)
 				
 				case 73004:
 					fmt.Println("---> id 73004")
@@ -87,7 +98,8 @@ func HandleCmdGeter() {
 			case buff2f := <- ChCmd2F:
 				fmt.Println("---> buff2f: ", len(ChCmd2F), cap(ChCmd2F), buff2f, time.Now())
 				switch buff2f["id"] {
-				case 72000:
+				case 72000: // 返回8字节IEEE地址
+					// handleShared.HandleSharedCmdOk(22, buff2f, 0x01)
 					fmt.Println("---> id 72000")
 				case 72001:
 					fmt.Println("---> id 72001")
@@ -264,6 +276,9 @@ func HandleCmdGeter() {
 				case 72087:
 					fmt.Println("---> id 72087")
 				case 72088:
+					value, _ := buff2f["data"].([]int)
+					snum, _ := buff2f["snum"].(int)
+					handleShared.HandleSharedCmdOk(22, value[:8], snum)
 					fmt.Println("---> id 72088")
 				case 72089:
 					fmt.Println("---> id 72089")
