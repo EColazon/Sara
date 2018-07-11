@@ -340,212 +340,218 @@ func cmdZigbeeParsingDeeper(buff []int, snumData int) {
 			case 0x00:
 				fmt.Println("zig14Parsing ---> 0x00")
 				switch zig15Ident {
-				case 0x20:
+				case 0x20: // 设置节点控制器的感应恢复时间和触发间隔时间
 					MapCmd2f["id"] = 72053
 					MapCmd2f["data"] = sliceCmdZigDeep
 					MapCmd2f["snum"] = snumData
 					ChCmd2F <- MapCmd2f
 					fmt.Println("zig15Parsing ---> 0x0020")
-				case 0x92:
+				case 0x92: // 设置单灯组号
 					MapCmd2f["id"] = 72054
 					MapCmd2f["data"] = sliceCmdZigDeep
 					MapCmd2f["snum"] = snumData
 					ChCmd2F <- MapCmd2f
 					fmt.Println("zig15Parsing ---> 0x0092")
-				case 0x94:
+				case 0x94: // 单灯主辅互换
 					MapCmd2f["id"] = 72055
 					MapCmd2f["data"] = sliceCmdZigDeep
 					MapCmd2f["snum"] = snumData
 					ChCmd2F <- MapCmd2f
 					fmt.Println("zig15Parsing ---> 0x0094")
-				case 0x95:
+				case 0x95: // 保留
 					MapCmd2f["id"] = 72056
 					MapCmd2f["data"] = sliceCmdZigDeep
 					MapCmd2f["snum"] = snumData
 					ChCmd2F <- MapCmd2f
 					fmt.Println("zig15Parsing ---> 0x0095")
-				case 0x96:
+				case 0x96: // 设置单灯与节点关联
 					MapCmd2f["id"] = 72057
 					MapCmd2f["data"] = sliceCmdZigDeep
 					MapCmd2f["snum"] = snumData
 					ChCmd2F <- MapCmd2f
 					fmt.Println("zig15Parsing ---> 0x0096")
-				case 0x98:
+				case 0x98: // 设置单灯在节点触发后的感应恢复时间
 					MapCmd2f["id"] = 72058
 					MapCmd2f["data"] = sliceCmdZigDeep
 					MapCmd2f["snum"] = snumData
 					ChCmd2F <- MapCmd2f
 					fmt.Println("zig15Parsing ---> 0x0098")
-				case 0x99:
+				case 0x99: // 设置命令单灯自校验
 					MapCmd2f["id"] = 72059
 					MapCmd2f["data"] = sliceCmdZigDeep
 					MapCmd2f["snum"] = snumData
 					ChCmd2F <- MapCmd2f
 					fmt.Println("zig15Parsing ---> 0x0099")
-				case 0x9A:
+				case 0x9A: // 固定单灯拨码
 					MapCmd2f["id"] = 72060
 					MapCmd2f["data"] = sliceCmdZigDeep
 					MapCmd2f["snum"] = snumData
 					ChCmd2F <- MapCmd2f
 					fmt.Println("zig15Parsing ---> 0x009A")
-				case 0x9D:
+				case 0x9D: // 查询返回单灯ieee地址
 					MapCmd2f["id"] = 72061
 					MapCmd2f["data"] = sliceCmdZigDeep
 					MapCmd2f["snum"] = snumData
 					ChCmd2F <- MapCmd2f
 					fmt.Println("zig15Parsing ---> 0x009D")
-				case 0x9E:
+				case 0x9E: // 单灯常关
 					MapCmd2f["id"] = 72062
 					MapCmd2f["data"] = sliceCmdZigDeep
 					MapCmd2f["snum"] = snumData
 					ChCmd2F <- MapCmd2f
 					fmt.Println("zig15Parsing ---> 0x009E")
-				case 0x9F:
+				case 0x9F: // 单灯内部开
 					MapCmd2f["id"] = 72063
 					MapCmd2f["data"] = sliceCmdZigDeep
 					MapCmd2f["snum"] = snumData
 					ChCmd2F <- MapCmd2f
 					fmt.Println("zig15Parsing ---> 0x009F")
-				case 0xAC:
+				case 0xAC: // 单灯内部关
 					MapCmd2f["id"] = 72064
 					MapCmd2f["data"] = sliceCmdZigDeep
 					MapCmd2f["snum"] = snumData
 					ChCmd2F <- MapCmd2f
 					fmt.Println("zig15Parsing ---> 0x00AC")
-				case 0xAD:
+				case 0xAD: // 单灯内部开
 					MapCmd2f["id"] = 72065
 					MapCmd2f["data"] = sliceCmdZigDeep
 					MapCmd2f["snum"] = snumData
 					ChCmd2F <- MapCmd2f
 					fmt.Println("zig15Parsing ---> 0x00AD")
-				case 0xAE:
+				case 0xAE: // 单灯内部关
 					MapCmd2f["id"] = 72066
 					MapCmd2f["data"] = sliceCmdZigDeep
 					MapCmd2f["snum"] = snumData
 					ChCmd2F <- MapCmd2f
 					fmt.Println("zig15Parsing ---> 0x00AE")
-				case 0xAF:
+				case 0xAF: // 单灯内部开
 					MapCmd2f["id"] = 72067
 					MapCmd2f["data"] = sliceCmdZigDeep
 					MapCmd2f["snum"] = snumData
 					ChCmd2F <- MapCmd2f
 					fmt.Println("zig15Parsing ---> 0x00AF")
-				case 0xB1:
+				case 0xB1: // 单灯内部关
 					MapCmd2f["id"] = 72068
 					MapCmd2f["data"] = sliceCmdZigDeep
 					MapCmd2f["snum"] = snumData
 					ChCmd2F <- MapCmd2f
 					fmt.Println("zig15Parsing ---> 0x00B1")
-				case 0xB2:
+				case 0xB2: // 单灯电量保存
 					MapCmd2f["id"] = 72069
 					MapCmd2f["data"] = sliceCmdZigDeep
 					MapCmd2f["snum"] = snumData
 					ChCmd2F <- MapCmd2f
 					fmt.Println("zig15Parsing ---> 0x00B2")
-				case 0xB3:
+				case 0xA2: // 设置单灯电压报警上下限
 					MapCmd2f["id"] = 72070
 					MapCmd2f["data"] = sliceCmdZigDeep
 					MapCmd2f["snum"] = snumData
 					ChCmd2F <- MapCmd2f
 					fmt.Println("zig15Parsing ---> 0x00B3")
-				case 0xB4:
+				case 0xA3: // 设置单灯电流报警上下限
 					MapCmd2f["id"] = 72071
 					MapCmd2f["data"] = sliceCmdZigDeep
 					MapCmd2f["snum"] = snumData
 					ChCmd2F <- MapCmd2f
 					fmt.Println("zig15Parsing ---> 0x00B4")
-				case 0xB5:
+				case 0xA4: // 设置单灯功率报警上下限
 					MapCmd2f["id"] = 72072
 					MapCmd2f["data"] = sliceCmdZigDeep
 					MapCmd2f["snum"] = snumData
 					ChCmd2F <- MapCmd2f
 					fmt.Println("zig15Parsing ---> 0x00B5")
-				case 0xB6:
+				case 0xA5: // 设置单灯功率因素报警上下限
 					MapCmd2f["id"] = 72073
 					MapCmd2f["data"] = sliceCmdZigDeep
 					MapCmd2f["snum"] = snumData
 					ChCmd2F <- MapCmd2f
 					fmt.Println("zig15Parsing ---> 0x00B6")
-				case 0xB8:
+				case 0xA6: // 清除单灯能量数据
 					MapCmd2f["id"] = 72074
 					MapCmd2f["data"] = sliceCmdZigDeep
 					MapCmd2f["snum"] = snumData
 					ChCmd2F <- MapCmd2f
 					fmt.Println("zig15Parsing ---> 0x00B8")
-				case 0xB9:
+				case 0xA8: // 设置单灯电压放大倍数
 					MapCmd2f["id"] = 72075
 					MapCmd2f["data"] = sliceCmdZigDeep
 					MapCmd2f["snum"] = snumData
 					ChCmd2F <- MapCmd2f
 					fmt.Println("zig15Parsing ---> 0x00B9")
-				case 0xAA:
+				case 0xA9: // 设置单灯电压放大倍数
 					MapCmd2f["id"] = 72076
 					MapCmd2f["data"] = sliceCmdZigDeep
 					MapCmd2f["snum"] = snumData
 					ChCmd2F <- MapCmd2f
 					fmt.Println("zig15Parsing ---> 0x00AA")
-				case 0xAB:
+				case 0xAA: // 设置单灯电流放大倍数
 					MapCmd2f["id"] = 72077
 					MapCmd2f["data"] = sliceCmdZigDeep
 					MapCmd2f["snum"] = snumData
 					ChCmd2F <- MapCmd2f
 					fmt.Println("zig15Parsing ---> 0x00AB")
-				case 0xFA:
+				case 0xAB: // 设置单灯电流放大倍数
 					MapCmd2f["id"] = 72078
 					MapCmd2f["data"] = sliceCmdZigDeep
 					MapCmd2f["snum"] = snumData
 					ChCmd2F <- MapCmd2f
 					fmt.Println("zig15Parsing ---> 0x00FA")
-				case 0xFB:
+				case 0xFA: // rn8209有效值offset和有功offset校正
 					MapCmd2f["id"] = 72079
 					MapCmd2f["data"] = sliceCmdZigDeep
 					MapCmd2f["snum"] = snumData
 					ChCmd2F <- MapCmd2f
 					fmt.Println("zig15Parsing ---> 0x00FB")
-				case 0xFC:
+				case 0xFB: // rn8209参数设置 
 					MapCmd2f["id"] = 72080
 					MapCmd2f["data"] = sliceCmdZigDeep
 					MapCmd2f["snum"] = snumData
 					ChCmd2F <- MapCmd2f
 					fmt.Println("zig15Parsing ---> 0x00FC")
-				case 0xBA:
+				case 0xFC: // rn8209比例系数设置
 					MapCmd2f["id"] = 72081
 					MapCmd2f["data"] = sliceCmdZigDeep
 					MapCmd2f["snum"] = snumData
 					ChCmd2F <- MapCmd2f
 					fmt.Println("zig15Parsing ---> 0x00BA")
-				case 0xBB:
+				case 0xBA: // 单灯与rtu时间同步命令
 					MapCmd2f["id"] = 72082
 					MapCmd2f["data"] = sliceCmdZigDeep
 					MapCmd2f["snum"] = snumData
 					ChCmd2F <- MapCmd2f
 					fmt.Println("zig15Parsing ---> 0x00BB")
-				case 0xBC:
+				case 0xBB: // 开关时间同步?
 					MapCmd2f["id"] = 72083
 					MapCmd2f["data"] = sliceCmdZigDeep
 					MapCmd2f["snum"] = snumData
 					ChCmd2F <- MapCmd2f
 					fmt.Println("zig15Parsing ---> 0x00BC")
-				case 0xBD:
+				case 0xBC: // 查询锂电池电平
 					MapCmd2f["id"] = 72084
 					MapCmd2f["data"] = sliceCmdZigDeep
 					MapCmd2f["snum"] = snumData
 					ChCmd2F <- MapCmd2f
 					fmt.Println("zig15Parsing ---> 0x00BD")
-				case 0xBE:
+				case 0xBD: // 查询温度
 					MapCmd2f["id"] = 72085
 					MapCmd2f["data"] = sliceCmdZigDeep
 					MapCmd2f["snum"] = snumData
 					ChCmd2F <- MapCmd2f
 					fmt.Println("zig15Parsing ---> 0x00BE")
-				case 0xBF:
+				case 0xBE: // 擦除NV，重新加入网络
 					MapCmd2f["id"] = 72086
 					MapCmd2f["data"] = sliceCmdZigDeep
 					MapCmd2f["snum"] = snumData
 					ChCmd2F <- MapCmd2f
 					fmt.Println("zig15Parsing ---> 0x00BF")
-				case 0x80:
+				case 0xBF: // 单灯开闪烁功能
 					MapCmd2f["id"] = 72087
+					MapCmd2f["data"] = sliceCmdZigDeep
+					MapCmd2f["snum"] = snumData
+					ChCmd2F <- MapCmd2f
+					fmt.Println("zig15Parsing ---> 0x0080")
+				case 0x80: // 查询stc时间
+					MapCmd2f["id"] = 72116
 					MapCmd2f["data"] = sliceCmdZigDeep
 					MapCmd2f["snum"] = snumData
 					ChCmd2F <- MapCmd2f
@@ -557,25 +563,25 @@ func cmdZigbeeParsingDeeper(buff []int, snumData int) {
 			case 0xC0:
 				fmt.Println("zig14Parsing ---> 0xC0")
 				switch zig15Ident {
-				case 0xB4:
+				case 0xB4: // 单灯召测命令
 					MapCmd2f["id"] = 72088
 					MapCmd2f["data"] = sliceCmdZigDeep
 					MapCmd2f["snum"] = snumData
 					ChCmd2F <- MapCmd2f
 					fmt.Println("zig15Parsing ---> 0xC0B4")
-				case 0xB6:
+				case 0xB6: // 单灯召测命令
 					MapCmd2f["id"] = 72089
 					MapCmd2f["data"] = sliceCmdZigDeep
 					MapCmd2f["snum"] = snumData
 					ChCmd2F <- MapCmd2f
 					fmt.Println("zig15Parsing ---> 0xC0B6")
-				case 0xC1:
+				case 0xC1: // 单灯手动开
 					MapCmd2f["id"] = 72090
 					MapCmd2f["data"] = sliceCmdZigDeep
 					MapCmd2f["snum"] = snumData
 					ChCmd2F <- MapCmd2f
 					fmt.Println("zig15Parsing ---> 0xC0C1")
-				case 0xC2:
+				case 0xC2: // 单灯手动关
 					MapCmd2f["id"] = 72091
 					MapCmd2f["data"] = sliceCmdZigDeep
 					MapCmd2f["snum"] = snumData
@@ -599,13 +605,13 @@ func cmdZigbeeParsingDeeper(buff []int, snumData int) {
 			case 0xC1:
 				fmt.Println("zig14Parsing ---> 0xC1")
 				switch zig15Ident {
-				case 0xC1:
+				case 0xC1: // 单灯手动开
 					MapCmd2f["id"] = 72094
 					MapCmd2f["data"] = sliceCmdZigDeep
 					MapCmd2f["snum"] = snumData
 					ChCmd2F <- MapCmd2f
 					fmt.Println("zig15Parsing ---> 0xC1C1")
-				case 0xC2:
+				case 0xC2: // 单灯手动关
 					MapCmd2f["id"] = 72095
 					MapCmd2f["data"] = sliceCmdZigDeep
 					MapCmd2f["snum"] = snumData
@@ -617,13 +623,13 @@ func cmdZigbeeParsingDeeper(buff []int, snumData int) {
 			case 0xC2:
 				fmt.Println("zig14Parsing ---> 0xC2")
 				switch zig15Ident {
-				case 0xC1:
+				case 0xC1: // 单灯手动开
 					MapCmd2f["id"] = 72096
 					MapCmd2f["data"] = sliceCmdZigDeep
 					MapCmd2f["snum"] = snumData
 					ChCmd2F <- MapCmd2f
 					fmt.Println("zig15Parsing ---> 0xC2C1")
-				case 0xC2:
+				case 0xC2: // 单灯手动关
 					MapCmd2f["id"] = 72097
 					MapCmd2f["data"] = sliceCmdZigDeep
 					MapCmd2f["snum"] = snumData
@@ -728,157 +734,157 @@ func parsingProcess0A(buff []int, snumData int) {
 		prcIdent := sliceCmdPrc[15]
 
 		switch prcIdent {
-		case 0x30:
+		case 0x30: //设置RTU配置:IP
 			MapCmd2f["id"] = 72006
 			MapCmd2f["data"] = sliceCmdPrc
 			MapCmd2f["snum"] = snumData
 			ChCmd2F <- MapCmd2f
 			fmt.Println("---> sliceCmdPrc00---> 0x30", prcIdent)
-		case 0x31:
+		case 0x31: //设置RTU配置:Port
 			MapCmd2f["id"] = 72007
 			MapCmd2f["data"] = sliceCmdPrc
 			MapCmd2f["snum"] = snumData
 			ChCmd2F <- MapCmd2f
 			fmt.Println("---> sliceCmdPrc00---> 0x31", prcIdent)
-		case 0x32:
+		case 0x32: //获取3G/4G信号强度
 			MapCmd2f["id"] = 72008
 			MapCmd2f["data"] = sliceCmdPrc
 			MapCmd2f["snum"] = snumData
 			ChCmd2F <- MapCmd2f
 			fmt.Println("---> sliceCmdPrc00---> 0x30", prcIdent)
-		case 0x62:
+		case 0x62: //设置RTU意外亮灭灯报警阈值
 			MapCmd2f["id"] = 72008
 			MapCmd2f["data"] = sliceCmdPrc
 			MapCmd2f["snum"] = snumData
 			ChCmd2F <- MapCmd2f
 			fmt.Println("---> sliceCmdPrc00---> 0x31", prcIdent)
-		case 0x63:
+		case 0x63: //RTU经纬度开关状态 
 			MapCmd2f["id"] = 72009
 			MapCmd2f["data"] = sliceCmdPrc
 			MapCmd2f["snum"] = snumData
 			ChCmd2F <- MapCmd2f
 			fmt.Println("---> sliceCmdPrc00---> 0x30", prcIdent)
-		case 0x71:
+		case 0x71: //设置经度
 			MapCmd2f["id"] = 72010
 			MapCmd2f["data"] = sliceCmdPrc
 			MapCmd2f["snum"] = snumData
 			ChCmd2F <- MapCmd2f
 			fmt.Println("---> sliceCmdPrc00---> 0x31", prcIdent)
-		case 0x72:
+		case 0x72: //设置纬度
 			MapCmd2f["id"] = 72011
 			MapCmd2f["data"] = sliceCmdPrc
 			MapCmd2f["snum"] = snumData
 			ChCmd2F <- MapCmd2f
 			fmt.Println("---> sliceCmdPrc00---> 0x30", prcIdent)
-		case 0x81:
+		case 0x81: //设置RTU时间(秒/分/时/星期)
 			MapCmd2f["id"] = 72012
 			MapCmd2f["data"] = sliceCmdPrc
 			MapCmd2f["snum"] = snumData
 			ChCmd2F <- MapCmd2f
 			fmt.Println("---> sliceCmdPrc00---> 0x31", prcIdent)
-		case 0x82:
+		case 0x82: //设置RTU时间(日/月/年#)
 			MapCmd2f["id"] = 72013
 			MapCmd2f["data"] = sliceCmdPrc
 			MapCmd2f["snum"] = snumData
 			ChCmd2F <- MapCmd2f
 			fmt.Println("---> sliceCmdPrc00---> 0x30", prcIdent)
-		case 0x88:
+		case 0x88: //查询RTU时间(秒/分/时/星期) 
 			MapCmd2f["id"] = 72014
 			MapCmd2f["data"] = sliceCmdPrc
 			MapCmd2f["snum"] = snumData
 			ChCmd2F <- MapCmd2f
 			fmt.Println("---> sliceCmdPrc00---> 0x31", prcIdent)
-		case 0x89:
+		case 0x89: //查询RTU时间(日/月/年)
 			MapCmd2f["id"] = 72015
 			MapCmd2f["data"] = sliceCmdPrc
 			MapCmd2f["snum"] = snumData
 			ChCmd2F <- MapCmd2f
 			fmt.Println("---> sliceCmdPrc00---> 0x30", prcIdent)
-		case 0x8B:
+		case 0x8B: //设置RTU电参数采样间隔时间
 			MapCmd2f["id"] = 72016
 			MapCmd2f["data"] = sliceCmdPrc
 			MapCmd2f["snum"] = snumData
 			ChCmd2F <- MapCmd2f
 			fmt.Println("--> sliceCmdPrc00---> 0x31", prcIdent)
-		case 0x8C:
+		case 0x8C: //设置外接电流互感器比例
 			MapCmd2f["id"] = 72017
 			MapCmd2f["data"] = sliceCmdPrc
 			MapCmd2f["snum"] = snumData
 			ChCmd2F <- MapCmd2f
 			fmt.Println("---> sliceCmdPrc00---> 0x30", prcIdent)
-		case 0x92:
+		case 0x92: //设置回路数量
 			MapCmd2f["id"] = 72018
 			MapCmd2f["data"] = sliceCmdPrc
 			MapCmd2f["snum"] = snumData
 			ChCmd2F <- MapCmd2f
 			fmt.Println("---> sliceCmdPrc00---> 0x31", prcIdent)
-		case 0x95:
+		case 0x95: //设置报警屏蔽
 			MapCmd2f["id"] = 72019
 			MapCmd2f["data"] = sliceCmdPrc
 			MapCmd2f["snum"] = snumData
 			ChCmd2F <- MapCmd2f
 			fmt.Println("---> sliceCmdPrc00---> 0x30", prcIdent)
-		case 0x96:
+		case 0x96: //设置报警屏蔽
 			MapCmd2f["id"] = 72020
 			MapCmd2f["data"] = sliceCmdPrc
 			MapCmd2f["snum"] = snumData
 			ChCmd2F <- MapCmd2f
 			fmt.Println("---> sliceCmdPrc00---> 0x31", prcIdent)
-		case 0x97:
+		case 0x97: //设置单灯数量
 			MapCmd2f["id"] = 72021
 			MapCmd2f["data"] = sliceCmdPrc
 			MapCmd2f["snum"] = snumData
 			ChCmd2F <- MapCmd2f
 			fmt.Println("---> sliceCmdPrc00---> 0x30", prcIdent)
-		case 0x98:
+		case 0x98: //按位开继电器(总开)
 			MapCmd2f["id"] = 72022
 			MapCmd2f["data"] = sliceCmdPrc
 			MapCmd2f["snum"] = snumData
 			ChCmd2F <- MapCmd2f
 			fmt.Println("---> sliceCmdPrc00---> 0x31", prcIdent)
-		case 0x9A:
+		case 0x9A: //查询RTU温度值(##buff[17]buff[18])
 			MapCmd2f["id"] = 72023
 			MapCmd2f["data"] = sliceCmdPrc
 			MapCmd2f["snum"] = snumData
 			ChCmd2F <- MapCmd2f
 			fmt.Println("--> sliceCmdPrc00---> 0x30", prcIdent)
-		case 0x9B:
+		case 0x9B: //查询RTU门的状态
 			MapCmd2f["id"] = 72024
 			MapCmd2f["data"] = sliceCmdPrc
 			MapCmd2f["snum"] = snumData
 			ChCmd2F <- MapCmd2f
 			fmt.Println("---> sliceCmdPrc00---> 0x31", prcIdent)
-		case 0x9C:
+		case 0x9C: //保留
 			MapCmd2f["id"] = 72025
 			MapCmd2f["data"] = sliceCmdPrc
 			MapCmd2f["snum"] = snumData
 			ChCmd2F <- MapCmd2f
 			fmt.Println("sliceCmdPrc00---> 0x30", prcIdent)
-		case 0x9D:
+		case 0x9D: //设置单灯组数
 			MapCmd2f["id"] = 72026
 			MapCmd2f["data"] = sliceCmdPrc
 			MapCmd2f["snum"] = snumData
 			ChCmd2F <- MapCmd2f
 			fmt.Println("sliceCmdPrc00---> 0x31", prcIdent)
-		case 0x9F:
+		case 0x9F: //保留
 			MapCmd2f["id"] = 72027
 			MapCmd2f["data"] = sliceCmdPrc
 			MapCmd2f["snum"] = snumData
 			ChCmd2F <- MapCmd2f
 			fmt.Println("sliceCmdPrc00---> 0x30", prcIdent)
-		case 0xA0:
+		case 0xA0: //保留
 			MapCmd2f["id"] = 72028
 			MapCmd2f["data"] = sliceCmdPrc
 			MapCmd2f["snum"] = snumData
 			ChCmd2F <- MapCmd2f
 			fmt.Println("sliceCmdPrc00---> 0x31", prcIdent)
-		case 0xA1:
+		case 0xA1: //查询锂电池电平值
 			MapCmd2f["id"] = 72029
 			MapCmd2f["data"] = sliceCmdPrc
 			MapCmd2f["snum"] = snumData
 			ChCmd2F <- MapCmd2f
 			fmt.Println("sliceCmdPrc00---> 0x30", prcIdent)
-		case 0xA2:
+		case 0xA2: //保留
 			MapCmd2f["id"] = 72030
 			MapCmd2f["data"] = sliceCmdPrc
 			MapCmd2f["snum"] = snumData
@@ -970,25 +976,25 @@ func parsingProcess0A(buff []int, snumData int) {
 		prcIdent := sliceCmdPrc[15]
 
 		switch prcIdent {
-		case 0xB4:
+		case 0xB4: //查询RTU召测
 			MapCmd2f["id"] = 72107
 			MapCmd2f["data"] = sliceCmdPrc
 			MapCmd2f["snum"] = snumData
 			ChCmd2F <- MapCmd2f
 			fmt.Println("sliceCmdPrcC0---> 0x30", prcIdent)
-		case 0xB5:
+		case 0xB5: //液晶召测(保留)
 			MapCmd2f["id"] = 72108
 			MapCmd2f["data"] = sliceCmdPrc
 			MapCmd2f["snum"] = snumData
 			ChCmd2F <- MapCmd2f
 			fmt.Println("sliceCmdPrcC0---> 0x31", prcIdent)
-		case 0xC1:
+		case 0xC1: //设置RTU继电器全开
 			MapCmd2f["id"] = 72109
 			MapCmd2f["data"] = sliceCmdPrc
 			MapCmd2f["snum"] = snumData
 			ChCmd2F <- MapCmd2f
 			fmt.Println("sliceCmdPrcC0---> 0x30", prcIdent)
-		case 0xC2:
+		case 0xC2: //设置RTU继电器全关
 			MapCmd2f["id"] = 72110
 			MapCmd2f["data"] = sliceCmdPrc
 			MapCmd2f["snum"] = snumData
@@ -1002,25 +1008,25 @@ func parsingProcess0A(buff []int, snumData int) {
 		prcIdent := sliceCmdPrc[15]
 
 		switch prcIdent {
-		case 0x91:
+		case 0x91: //设置RTU回路电流上下限
 			MapCmd2f["id"] = 72111
 			MapCmd2f["data"] = sliceCmdPrc
 			MapCmd2f["snum"] = snumData
 			ChCmd2F <- MapCmd2f
 			fmt.Println("sliceCmdPrcC0---> 0x30", prcIdent)
-		case 0x94:
+		case 0x94: //设置RTU回路电压上下限
 			MapCmd2f["id"] = 72112
 			MapCmd2f["data"] = sliceCmdPrc
 			MapCmd2f["snum"] = snumData
 			ChCmd2F <- MapCmd2f
 			fmt.Println("sliceCmdPrcC0---> 0x31", prcIdent)
-		case 0xC1:
+		case 0xC1: //设置RTU继电器1-6开
 			MapCmd2f["id"] = 72113
 			MapCmd2f["data"] = sliceCmdPrc
 			MapCmd2f["snum"] = snumData
 			ChCmd2F <- MapCmd2f
 			fmt.Println("sliceCmdPrcC0---> 0x30", prcIdent)
-		case 0xC2:
+		case 0xC2: //设置RTU继电器1-6关
 			MapCmd2f["id"] = 72114
 			MapCmd2f["data"] = sliceCmdPrc
 			MapCmd2f["snum"] = snumData
@@ -1031,7 +1037,7 @@ func parsingProcess0A(buff []int, snumData int) {
 
 		}
 	} else if sliceCmdPrc[14] == 0xCE {
-		if sliceCmdPrc[15] ==0xB2 {
+		if sliceCmdPrc[15] ==0xB2 { //获取历史电参量?
 			MapCmd2f["id"] = 72115
 			MapCmd2f["data"] = sliceCmdPrc
 			MapCmd2f["snum"] = snumData
@@ -1051,12 +1057,14 @@ func parsingProcess8A(buff []int, snumData int) {
 	fmt.Println("sliceCmdZig---> 0x8A", sliceCmdPrc)
 
 	if sliceCmdPrc[14] == 0xC0 && sliceCmdPrc[15] == 0xC1 {
+		// 设置节点功能定时开(秒/分/时/PWM)
 		MapCmd2f["id"] = 72044
 		MapCmd2f["data"] = sliceCmdPrc
 		MapCmd2f["snum"] = snumData
 		ChCmd2F <- MapCmd2f
 		fmt.Println("sliceCmdZig---> 0x8A-C0C1")
 	} else if sliceCmdPrc[14] == 0xC0 && sliceCmdPrc[15] == 0xC2 {
+		// 设置节点功能定时关(秒/分/时/PWM)
 		MapCmd2f["id"] = 72045
 		MapCmd2f["data"] = sliceCmdPrc
 		MapCmd2f["snum"] = snumData
@@ -1072,6 +1080,7 @@ func parsingProcess8B(buff []int, snumData int) {
 	fmt.Println("sliceCmdZig---> 0x8B", sliceCmdPrc)
 
 	if sliceCmdPrc[14] == 0xC0 && sliceCmdPrc[15] == 0xC1 {
+		// 设置单灯报警屏蔽(#/#/D1/D2)D1为0x55屏蔽单灯失去连接报警,为0不屏蔽
 		MapCmd2f["id"] = 72046
 		MapCmd2f["data"] = sliceCmdPrc
 		MapCmd2f["snum"] = snumData
@@ -1087,6 +1096,7 @@ func parsingProcess8C(buff []int, snumData int) {
 	fmt.Println("sliceCmdZig---> 0x8C", sliceCmdPrc)
 
 	if sliceCmdPrc[14] == 0xC0 && sliceCmdPrc[15] == 0xC1 {
+		// 设置单灯巡检时间(#/#/DH/DL)范围500ms~20000ms
 		MapCmd2f["id"] = 72047
 		MapCmd2f["data"] = sliceCmdPrc
 		MapCmd2f["snum"] = snumData
@@ -1102,6 +1112,7 @@ func parsingProcess8D(buff []int, snumData int) {
 	fmt.Println("sliceCmdZig---> 0x8D", sliceCmdPrc)
 
 	if sliceCmdPrc[14] == 0xC0 && sliceCmdPrc[15] == 0xC1 {
+		// 保留
 		MapCmd2f["id"] = 72048
 		MapCmd2f["data"] = sliceCmdPrc
 		MapCmd2f["snum"] = snumData
@@ -1117,6 +1128,7 @@ func parsingProcess8E(buff []int, snumData int) {
 	fmt.Println("sliceCmdZig---> 0x8E", sliceCmdPrc)
 
 	if sliceCmdPrc[14] == 0xC0 && sliceCmdPrc[15] == 0xC1 {
+		// 设置回路常开模式(###DD)DD为0x55回路常开,影响单灯报警的处理方式
 		MapCmd2f["id"] = 72049
 		MapCmd2f["data"] = sliceCmdPrc
 		MapCmd2f["snum"] = snumData
@@ -1132,6 +1144,7 @@ func parsingProcess8F(buff []int, snumData int) {
 	fmt.Println("sliceCmdZig---> 0x8F", sliceCmdPrc)
 
 	if sliceCmdPrc[14] == 0xC0 && sliceCmdPrc[15] == 0xC1 {
+		// 设置辅灯不接灯(#/#/Num/DD)Num单灯编号,DD为0x55辅灯不接灯
 		MapCmd2f["id"] = 72050
 		MapCmd2f["data"] = sliceCmdPrc
 		MapCmd2f["snum"] = snumData
@@ -1147,6 +1160,7 @@ func parsingProcess90(buff []int, snumData int) {
 	fmt.Println("sliceCmdZig---> 0x90", sliceCmdPrc)
 
 	if sliceCmdPrc[14] == 0xC0 && sliceCmdPrc[15] == 0xC1 {
+		// 保留
 		MapCmd2f["id"] = 72051
 		MapCmd2f["data"] = sliceCmdPrc
 		MapCmd2f["snum"] = snumData
@@ -1187,6 +1201,7 @@ func parsingProcess70(buff []int, snumData int) {
 	fmt.Println("sliceCmdZig---> 0x70", sliceCmdPrc)
 
 	if sliceCmdPrc[14] == 0xC0 && sliceCmdPrc[15] >= 0xC1 && sliceCmdPrc[15] <= 0xC4{
+		// 主灯定时开(秒/分/时/#)第11字节代表组号
 		MapCmd2f["id"] = 72052
 		MapCmd2f["data"] = sliceCmdPrc
 		MapCmd2f["snum"] = snumData
