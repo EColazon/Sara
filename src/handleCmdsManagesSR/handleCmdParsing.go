@@ -587,13 +587,13 @@ func cmdZigbeeParsingDeeper(buff []int, snumData int) {
 					MapCmd2f["snum"] = snumData
 					ChCmd2F <- MapCmd2f
 					fmt.Println("zig15Parsing ---> 0xC0C2")
-				case 0xBE:
+				case 0xBE: // 巡检manny命令 
 					MapCmd2f["id"] = 72092
 					MapCmd2f["data"] = sliceCmdZigDeep
 					MapCmd2f["snum"] = snumData
 					ChCmd2F <- MapCmd2f
 					fmt.Println("zig15Parsing ---> 0xC0BE")
-				case 0xBF:
+				case 0xBF: // 巡检内部命令
 					MapCmd2f["id"] = 72093
 					MapCmd2f["data"] = sliceCmdZigDeep
 					MapCmd2f["snum"] = snumData
@@ -650,7 +650,7 @@ func cmdZigbeeParsingDeeper(buff []int, snumData int) {
 				MapCmd2f["snum"] = snumData
 				ChCmd2F <- MapCmd2f
 				fmt.Println("zig14Parsing ---> 0x01")
-				if zig15Ident == 0x15 {
+				if zig15Ident == 0x15 { // 节点开关命令
 					MapCmd2f["id"] = 72100
 					MapCmd2f["data"] = sliceCmdZigDeep
 					MapCmd2f["snum"] = snumData
@@ -665,18 +665,21 @@ func cmdZigbeeParsingDeeper(buff []int, snumData int) {
 		case 0x8E:
 			fmt.Println("zig13Parsing ---> 0x8E")
 			if zig14Ident == 0xC0 && zig15Ident == 0xC1 {
+				// 单灯调光
 				MapCmd2f["id"] = 72101
 				MapCmd2f["data"] = sliceCmdZigDeep
 				MapCmd2f["snum"] = snumData
 				ChCmd2F <- MapCmd2f
 				fmt.Println("zig15Parsing 8E---> 0xC0C1")
 			} else if zig14Ident == 0xC1 && zig15Ident == 0xC1 {
+				// 单灯调光
 				MapCmd2f["id"] = 72102
 				MapCmd2f["data"] = sliceCmdZigDeep
 				MapCmd2f["snum"] = snumData
 				ChCmd2F <- MapCmd2f
 				fmt.Println("zig15Parsing 8E---> 0xC1C1")
 			} else if zig14Ident == 0xC2 && zig15Ident == 0xC1 {
+				// 单灯调光
 				MapCmd2f["id"] = 72103
 				MapCmd2f["data"] = sliceCmdZigDeep
 				MapCmd2f["snum"] = snumData
@@ -688,6 +691,7 @@ func cmdZigbeeParsingDeeper(buff []int, snumData int) {
 		case 0xFC:
 			fmt.Println("zig13Parsing ---> 0xFC")
 			if zig14Ident == 0x00 && zig15Ident == 0x00 {
+				// 返回单灯panid
 				MapCmd2f["id"] = 72104
 				MapCmd2f["data"] = sliceCmdZigDeep
 				MapCmd2f["snum"] = snumData
@@ -699,6 +703,7 @@ func cmdZigbeeParsingDeeper(buff []int, snumData int) {
 		case 0xFD:
 			fmt.Println("zig13Parsing ---> 0xFD")
 			if zig14Ident == 0x00 && zig15Ident == 0x00 {
+				// 返回程序版本
 				MapCmd2f["id"] = 72105
 				MapCmd2f["data"] = sliceCmdZigDeep
 				MapCmd2f["snum"] = snumData
@@ -710,6 +715,7 @@ func cmdZigbeeParsingDeeper(buff []int, snumData int) {
 		case 0xFE:
 			fmt.Println("zig13Parsing ---> 0xFE")
 			if zig14Ident == 0x00 && zig15Ident == 0x00 {
+				// 重启单灯
 				MapCmd2f["id"] = 72106
 				MapCmd2f["data"] = sliceCmdZigDeep
 				MapCmd2f["snum"] = snumData
