@@ -278,142 +278,188 @@ func (cmd CmdChannel)HandleCmdGeter() {
 					handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
 					fmt.Println("---> id 72052")
 				case 72053: //设置节点控制器的感应恢复时间和触发间隔时间
+					GZigbeeNode.GZB72053InductAndTrigeTimeActer(cmd.data[11]<<8|cmd.data[12], cmd.data[16]<<8|cmd.data[17], cmd.data[18]<<8|cmd.data[19], cmd.data[4], cmd.data[12], cmd.snum)
 					// handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
 					fmt.Println("---> id 72053")
+					// ZigbeeActer Start.
 				case 72054: // 设置单灯组号
-					handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
+					GZigbeeNode.GZB72054SetLampGroupActer(cmd.data[11]<<8|cmd.data[12], cmd.data[19], cmd.data[4], cmd.data[12], cmd.snum)
+					// handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
 					fmt.Println("---> id 72054")
 				case 72055: // 单灯主辅互换
-					handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
+					GZigbeeNode.GZB72055SetLampRelayChangeActer(cmd.data[11]<<8|cmd.data[12], cmd.data[19], cmd.data[4], cmd.data[12], cmd.snum)
+					// handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
 					fmt.Println("---> id 72055")
 				case 72056: // 保留
 					handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
 					fmt.Println("---> id 72056")
 				case 72057: // 设置单灯与节点关联
-					handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
+					GZigbeeNode.GZB72057SetLampAndNodeRelatedActer(cmd.data[11]<<8|cmd.data[12], cmd.data[18], cmd.data[19], cmd.data[4], cmd.data[12], cmd.snum)
+					// handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
 					fmt.Println("---> id 72057")
 				case 72058: // 设置单灯在节点触发后的感应恢复时间
-					handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
+					GZigbeeNode.GZB72058SetLampInductRecoverTimeActer(cmd.data[11]<<8|cmd.data[12], cmd.data[18]<<8|cmd.data[19], cmd.data[4], cmd.data[12], cmd.snum)
+					// handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
 					fmt.Println("---> id 72058")
 				case 72059: // 设置命令单灯自校验
-					handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
+					GZigbeeNode.GZB72059SetLampSelfCheckActer(cmd.data[11]<<8|cmd.data[12], cmd.data[4], cmd.data[12], cmd.snum)
+					// handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
 					fmt.Println("---> id 72059")
 				case 72060: // 固定单灯拨码
-					handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
+					GZigbeeNode.GZB72060SetLampFixedKeyActer(cmd.data[11]<<8|cmd.data[12], cmd.data[19], cmd.data[4], cmd.data[12], cmd.snum)
+					// handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
 					fmt.Println("---> id 72060")
 				case 72061: // 查询返回单灯ieee地址
-					handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
+					GZigbeeNode.GZB72061QueryLampIEEEActer(cmd.data[11]<<8|cmd.data[12], cmd.data[4], cmd.data[12], cmd.snum)
+					// handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
 					fmt.Println("---> id 72061")
 				case 72062: // 单灯常关
-					handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
+					GZigbeeNode.GZB72062SetLampAlwaysCloseActer(cmd.data[11]<<8|cmd.data[12], cmd.data[18]<<8|cmd.data[19], cmd.data[4], cmd.data[12], cmd.snum)
+					// handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
 					fmt.Println("---> id 72062")
-				case 72063: // 单灯内部开
-					handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
+				case 72063: // 单灯内部开主灯
+					GZigbeeNode.GZB72063SetLampInterOpenActer(cmd.data[11]<<8|cmd.data[12], LAMPADV, cmd.data[4], cmd.data[12], cmd.snum)
+					// handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
 					fmt.Println("---> id 72063")
-				case 72064: // 单灯内部关
+				case 72064: // 单灯内部关主灯
+					GZigbeeNode.GZB72064SetLampInterCloseActer(cmd.data[11]<<8|cmd.data[12], LAMPADV, cmd.data[4], cmd.data[12], cmd.snum)
 					handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
 					fmt.Println("---> id 72064")
-				case 72065: // 单灯内部开
-					handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
+				case 72065: // 单灯内部开辅灯
+					GZigbeeNode.GZB72063SetLampInterOpenActer(cmd.data[11]<<8|cmd.data[12], LAMPAUX, cmd.data[4], cmd.data[12], cmd.snum)
+					// handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
 					fmt.Println("---> id 72065")
-				case 72066: // 单灯内部关
-					handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
+				case 72066: // 单灯内部关辅灯
+					GZigbeeNode.GZB72064SetLampInterCloseActer(cmd.data[11]<<8|cmd.data[12], LAMPAUX, cmd.data[4], cmd.data[12], cmd.snum)
+					// handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
 					fmt.Println("---> id 72066")
-				case 72067: // 单灯内部开
-					handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
+				case 72067: // 单灯内部开主辅灯
+					GZigbeeNode.GZB72063SetLampInterOpenActer(cmd.data[11]<<8|cmd.data[12], LAMPADU, cmd.data[4], cmd.data[12], cmd.snum)
+					// handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
 					fmt.Println("---> id 72067")
-				case 72068: // 单灯内部关
-					handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
+				case 72068: // 单灯内部关主辅灯
+					GZigbeeNode.GZB72064SetLampInterCloseActer(cmd.data[11]<<8|cmd.data[12], LAMPADU, cmd.data[4], cmd.data[12], cmd.snum)
+					// handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
 					fmt.Println("---> id 72068")
 				case 72069: // 单灯电量保存
-					handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
+					GZigbeeNode.GZB72069SetLampSaveElecsActer(cmd.data[11]<<8|cmd.data[12], cmd.data[4], cmd.data[12], cmd.snum)
+					// handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
 					fmt.Println("---> id 72069")
 				case 72070: // 设置单灯电压报警上下限
-					handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
+					GZigbeeNode.GZB72070SetLampAlarmLimitVActer(cmd.data[11]<<8|cmd.data[12], cmd.data[16]<<8|cmd.data[17], cmd.data[18]<<8|cmd.data[19], cmd.data[4], cmd.data[12], cmd.snum)
+					// handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
 					fmt.Println("---> id 72070")
 				case 72071: // 设置单灯电流报警上下限
-					handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
+					GZigbeeNode.GZB72071SetLampAlarmLimitIActer(cmd.data[11]<<8|cmd.data[12], cmd.data[16]<<8|cmd.data[17], cmd.data[18]<<8|cmd.data[19], cmd.data[4], cmd.data[12], cmd.snum)
+					// handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
 					fmt.Println("---> id 72071")
 				case 72072: // 设置单灯功率报警上下限
-					handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
+					GZigbeeNode.GZB72072SetLampAlarmLimitPActer(cmd.data[11]<<8|cmd.data[12], cmd.data[16]<<8|cmd.data[17], cmd.data[18]<<8|cmd.data[19], cmd.data[4], cmd.data[12], cmd.snum)
+					// handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
 					fmt.Println("---> id 72072")
 				case 72073: // 设置单灯功率因素报警上下限
-					handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
+					GZigbeeNode.GZB72073SetLampAlarmLimitPFActer(cmd.data[11]<<8|cmd.data[12], cmd.data[16]<<8|cmd.data[17], cmd.data[18]<<8|cmd.data[19], cmd.data[4], cmd.data[12], cmd.snum)
+					// handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
 					fmt.Println("---> id 72073")
 				case 72074: // 清除单灯能量数据
-					handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
+					GZigbeeNode.GZB72074SetLampAnergyClearActer(cmd.data[11]<<8|cmd.data[12], cmd.data[4], cmd.data[12], cmd.snum)
+					// handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
 					fmt.Println("---> id 72074")
-				case 72075: // 设置单灯电压放大倍数
-					handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
+				case 72075: // 设置单灯电压放大倍数主灯
+					GZigbeeNode.GZB72075SetLampAmplifyVActer(cmd.data[11]<<8|cmd.data[12], cmd.data[19], cmd.data[18], LAMPADV, cmd.data[4], cmd.data[12], cmd.snum)
+					// handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
 					fmt.Println("---> id 72075")
-				case 72076: // 设置单灯电压放大倍数
-					handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
+				case 72076: // 设置单灯电压放大倍数辅灯
+					GZigbeeNode.GZB72075SetLampAmplifyVActer(cmd.data[11]<<8|cmd.data[12], cmd.data[19], cmd.data[18], LAMPAUX, cmd.data[4], cmd.data[12], cmd.snum)
+					// handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
 					fmt.Println("---> id 72076")
-				case 72077: // 设置单灯电流放大倍数
-					handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
+				case 72077: // 设置单灯电流放大倍数主灯
+					GZigbeeNode.GZB72077SetLampAmplifyIActer(cmd.data[11]<<8|cmd.data[12], cmd.data[19], cmd.data[18], LAMPADV, cmd.data[4], cmd.data[12], cmd.snum)
+					// handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
 					fmt.Println("---> id 72077")
-				case 72078: // 设置单灯电流放大倍数
-					handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
+				case 72078: // 设置单灯电流放大倍数辅灯
+					GZigbeeNode.GZB72077SetLampAmplifyIActer(cmd.data[11]<<8|cmd.data[12], cmd.data[19], cmd.data[18], LAMPAUX, cmd.data[4], cmd.data[12], cmd.snum)
+					// handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
 					fmt.Println("---> id 72078")
 				case 72079: // rn8209有效值offset和有功offset校正
-					handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
+					GZigbeeNode.GZB72079SetLampRN8209OffsetActer(cmd.data[11]<<8|cmd.data[12], cmd.snum)
+					// handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
 					fmt.Println("---> id 72079")
 				case 72080: // rn8209参数设置 
-					handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
+					GZigbeeNode.GZB72080SetLampRN8209ParasActer(cmd.data[11]<<8|cmd.data[12], cmd.snum)
+					// handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
 					fmt.Println("---> id 72080")
 				case 72081: // rn8209比例系数设置
-					handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
+					GZigbeeNode.GZB72081SetLampRN8209RatioActer(cmd.data[11]<<8|cmd.data[12], cmd.snum)
+					// handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
 					fmt.Println("---> id 72081")
 				case 72082: // 单灯与rtu时间同步命令
-					handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
+					// GZigbeeNode.GZB72082SetLampRtuSyncTimeActer()
+					// handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
 					fmt.Println("---> id 72082")
 				case 72083: // 开关时间同步?
-					handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
+					// GZigbeeNode.GZB72083SetLampSwitchSyncTimeActer()
+					// handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
 					fmt.Println("---> id 72083")
 				case 72084: // 查询锂电池电平
-					handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
+					GZigbeeNode.GZB72084QueryBatteryVoltActer(cmd.data[11]<<8|cmd.data[12], cmd.data[4], cmd.data[12], cmd.snum)
+					// handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
 					fmt.Println("---> id 72084")
 				case 72085: // 查询温度
-					handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
+					GZigbeeNode.GZB72085QueryTemperatureActer(cmd.data[11]<<8|cmd.data[12], cmd.data[4], cmd.data[12], cmd.snum)
+					// handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
 					fmt.Println("---> id 72085")
 				case 72086: // 擦除NV，重新加入网络
-					handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
+					GZigbeeNode.GZB72086SetClearNVAdderActer(cmd.data[11]<<8|cmd.data[12], cmd.data[4], cmd.data[12], cmd.snum)
+					// handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
 					fmt.Println("---> id 72086")
 				case 72087: // 单灯开闪烁功能
-					handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
+					GZigbeeNode.GZB72087SetLampTwinkleActer(cmd.data[11]<<8|cmd.data[12], cmd.data[19], cmd.data[4], cmd.data[12], cmd.snum)
+					// handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
 					fmt.Println("---> id 72087")
 				case 72088: // 单灯召测命令
 					// value, _ := buff2f["data"].([]int)
 					// snum, _ := buff2f["snum"].(int)
 					// handleShared.HandleSharedCmdOk(22, value[:8], snum)
-					handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
+					GZigbeeNode.GZB72088QueryLampCalledDataActer(cmd.data[11]<<8|cmd.data[12], cmd.data[4], cmd.data[12], cmd.snum)
+					// handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
 					fmt.Println("---> id 72088")
+					fmt.Println("---> 72088 amd: ", cmd.data, cmd.data[0], cmd.snum)
 				case 72089: // 单灯召测命令
-					handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
+					GZigbeeNode.GZB72088QueryLampCalledDataActer(cmd.data[11]<<8|cmd.data[12], cmd.data[4], cmd.data[12], cmd.snum)
+					// handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
 					fmt.Println("---> id 72089")
-				case 72090: // 单灯手动开
-					handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
+				case 72090: // 单灯手动开主辅灯
+					GZigbeeNode.GZB72090SetLampOpenByHandsActer(cmd.data[11]<<8|cmd.data[12], LAMPADU, cmd.data[4], cmd.data[12], cmd.snum)
+					// handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
 					fmt.Println("---> id 72090")
-				case 72091: // 单灯手动关
-					handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
+				case 72091: // 单灯手动关主辅灯
+					GZigbeeNode.GZB72091SetLampCloseByHandsActer(cmd.data[11]<<8|cmd.data[12], LAMPADU, cmd.data[4], cmd.data[12], cmd.snum)
+					// handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
 					fmt.Println("---> id 72091")
 				case 72092: // 巡检manny命令 
-					handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
+					GZigbeeNode.GZB72092QueryLampDetecDataMannyActer(cmd.data[11]<<8|cmd.data[12], cmd.data[18], cmd.data[19], cmd.data[4], cmd.data[12], cmd.snum)
+					// handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
 					fmt.Println("---> id 72092")
 				case 72093: // 巡检内部命令 
-					handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
+					GZigbeeNode.GZB72093QueryLampDetecDataInterActer(cmd.data[11]<<8|cmd.data[12], cmd.data[4], cmd.data[12], cmd.snum)
+					// handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
 					fmt.Println("---> id 72093")
-				case 72094: // 单灯手动开
-					handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
+				case 72094: // 单灯手动开主灯
+					GZigbeeNode.GZB72090SetLampOpenByHandsActer(cmd.data[11]<<8|cmd.data[12], LAMPADV, cmd.data[4], cmd.data[12], cmd.snum)
+					// handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
 					fmt.Println("---> id 72094")
-				case 72095: // 单灯手动关
-					handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
+				case 72095: // 单灯手动关主灯
+					GZigbeeNode.GZB72091SetLampCloseByHandsActer(cmd.data[11]<<8|cmd.data[12], LAMPADV, cmd.data[4], cmd.data[12], cmd.snum)
+					// handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
 					fmt.Println("---> id 72095")
-				case 72096: // 单灯手动开
-					handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
+				case 72096: // 单灯手动开辅灯
+					GZigbeeNode.GZB72090SetLampOpenByHandsActer(cmd.data[11]<<8|cmd.data[12], LAMPAUX, cmd.data[4], cmd.data[12], cmd.snum)
+					// handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
 					fmt.Println("---> id 72096")
-				case 72097: // 单灯手动关
-					handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
+				case 72097: // 单灯手动关辅灯
+					GZigbeeNode.GZB72091SetLampCloseByHandsActer(cmd.data[11]<<8|cmd.data[12], LAMPAUX, cmd.data[4], cmd.data[12], cmd.snum)
+					// handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
 					fmt.Println("---> id 72097")
 				case 72098: // 保留
 					handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
@@ -422,26 +468,35 @@ func (cmd CmdChannel)HandleCmdGeter() {
 					handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
 					fmt.Println("---> id 72099")
 				case 72100: // 节点开关命令
-					handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
+					GZigbeeNode.GZB72100SetNodeSwitchActer(cmd.data[11]<<8|cmd.data[12], cmd.data[19], cmd.snum)
+					// handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
 					fmt.Println("---> id 72100")
-				case 72101: // 单灯调光
-					handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
+				case 72101: // 单灯调光主辅灯
+					GZigbeeNode.GZB72101SetLampDimmer(cmd.data[11]<<8|cmd.data[12], LAMPADU, cmd.data[19], cmd.data[4], cmd.data[12], cmd.snum)
+					// handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
 					fmt.Println("---> id 72101")
-				case 72102: // 单灯调光
-					handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
+				case 72102: // 单灯调光主灯
+					GZigbeeNode.GZB72101SetLampDimmer(cmd.data[11]<<8|cmd.data[12], LAMPADV, cmd.data[19], cmd.data[4], cmd.data[12], cmd.snum)
+					// handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
 					fmt.Println("---> id 72102")
-				case 72103: // 单灯调光
-					handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
+				case 72103: // 单灯调光辅灯
+					GZigbeeNode.GZB72101SetLampDimmer(cmd.data[11]<<8|cmd.data[12], LAMPAUX, cmd.data[19], cmd.data[4], cmd.data[12], cmd.snum)
+					// handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
 					fmt.Println("---> id 72103")
 				case 72104: // 返回单灯panid
-					handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
+					GZigbeeNode.GZB72104QueryLampPanidActer(cmd.data[11]<<8|cmd.data[12], cmd.data[4], cmd.data[12], cmd.snum)
+					// handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
 					fmt.Println("---> id 72104")
-				case 72105: // 返回程序版本
-					handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
+				case 72105: // 返回单灯程序版本
+					GZigbeeNode.GZB72105QueryLampProgramVersionActer(cmd.data[11]<<8|cmd.data[12], cmd.data[4], cmd.data[12], cmd.snum)
+					// handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
 					fmt.Println("---> id 72105")
 				case 72106: // 重启单灯
-					handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
+					GZigbeeNode.GZB72106SetLampResetActer(cmd.data[11]<<8|cmd.data[12], cmd.data[4], cmd.data[12], cmd.snum)
+					// handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
 					fmt.Println("---> id 72106")
+
+					// ZigbeeActer End.
 				case 72107: //查询RTU召测
 					handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
 					fmt.Println("---> id 72107")

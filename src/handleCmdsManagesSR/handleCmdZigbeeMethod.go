@@ -787,7 +787,7 @@ func (gzbNode GZBNode)GZB72064SetLampInterCloseActer(lampNum, stateRelay, modeTX
 }
 
 // 单灯电量保存
-func (gzbNode GZBNode)ZB72069SetLampSaveElecsActer(lampNum, modeTX, groupNum, snum int) {
+func (gzbNode GZBNode)GZB72069SetLampSaveElecsActer(lampNum, modeTX, groupNum, snum int) {
 	
 	// 初始化局部变量:校验和&命令缓存
 	checkSum := 0
@@ -1162,7 +1162,7 @@ func (gzbNode GZBNode)GZB72077SetLampAmplifyIActer(lampNum, stateOk, valueAmpli,
 }
 
 // rn8209有效值offset和有功offset校正
-func (gzbNode GZBNode)ZB72079SetLampRN8209OffsetActer(lampNum, snum int) {
+func (gzbNode GZBNode)GZB72079SetLampRN8209OffsetActer(lampNum, snum int) {
 	
 	// 初始化局部变量:校验和&命令缓存
 	checkSum := 0
@@ -1531,6 +1531,7 @@ func (gzbNode GZBNode)GZB72087SetLampTwinkleActer(lampNum, stateOk, modeTX, grou
 
 // 单灯召测命令
 func (gzbNode GZBNode)GZB72088QueryLampCalledDataActer(lampNum, modeTX, groupNum, snum int) {
+	fmt.Println("---> 72088 sliceCommandOK.", modeTX)
 
 	// 初始化局部变量:校验和&命令缓存
 	checkSum := 0
