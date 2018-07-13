@@ -91,9 +91,62 @@ type GZBNode []ZigebeeNode
 // 相当于面向对象的类(GZigbeeNode)
 var GZigbeeNode GZBNode
 
-
+// Methods:51
 type GZigbeeNodeActer interface {
-	GZB72053InductAndTrigeTimeActer()
+	GZB72053InductAndTrigeTimeActer()			// 设置节点控制器的感应恢复时间和触发间隔时间
+	GZB72054SetLampGroupActer()					// 设置单灯组号
+	GZB72055SetLampRelayChangeActer()			// 单灯主辅互换
+	GZB72057SetLampAndNodeRelatedActer()		// 设置单灯与节点关联
+	GZB72058SetLampInductRecoverTimeActer()  	// 设置单灯在节点触发后的感应恢复时间
+	GZB72059SetLampSelfCheckActer()				// 设置命令单灯自校验
+	GZB72060SetLampFixedKeyActer()				// 固定单灯拨码
+	GZB72061QueryLampIEEEActer()				// 查询返回单灯ieee地址
+	GZB72062SetLampAlwaysCloseActer()			// 单灯常关
+	GZB72063SetLampInterOpenActer()   	  		// 单灯内部开主灯
+	GZB72064SetLampInterCloseActer()   	  		// 单灯内部关主灯
+	// GZB72065SetLampInterAuxOpenActer()   	// 单灯内部开辅灯
+	// GZB72066SetLampInterAuxCloseActer()   	// 单灯内部关辅灯
+	// GZB72067SetLampInterAduOpenActer()   	// 单灯内部开主辅灯
+	// GZB72068SetLampInterAduCloseActer()   	// 单灯内部关主辅灯
+	GZB72069SetLampSaveElecsActer()				// 单灯电量保存
+	GZB72070SetLampAlarmLimitVActer()			// 设置单灯电压报警上下限
+	GZB72071SetLampAlarmLimitIActer()			// 设置单灯电流报警上下限
+	GZB72072SetLampAlarmLimitPActer()			// 设置单灯功率报警上下限
+	GZB72073SetLampAlarmLimitPFActer()			// 设置单灯功率因素报警上下限
+	GZB72074SetLampAnergyClearActer()			// 清除单灯能量数据
+	GZB72075SetLampAmplifyVActer()				// 设置单灯电压放大倍数主灯
+	// GZB72076SetLampAmplifyVActer()			// 设置单灯电压放大倍数辅灯
+	GZB72077SetLampAmplifyIActer()				// 设置单灯电流放大倍数主灯
+	// GZB72078SetLampmplifyIActer()			// 设置单灯电流放大倍数辅灯
+	GZB72079SetLampRN8209OffsetActer()			// rn8209有效值offset和有功offset校正
+	GZB72080SetLampRN8209ParasActer()			// rn8209参数设置
+	GZB72081SetLampRN8209RatioActer()			// rn8209比例系数设置
+	GZB72082SetLampRtuSyncTimeActer()			// 单灯与rtu时间同步命令
+	GZB72083SetLampSwitchSyncTimeActer()		// 开关时间同步?
+	GZB72084QueryBatteryVoltActer()				// 查询锂电池电平
+	GZB72085QueryTemperatureActer()				// 查询温度
+	GZB72086SetClearNVAdderActer()				// 擦除NV，重新加入网络
+	GZB72087SetLampTwinkleActer()				// 单灯开闪烁功能
+	GZB72088QueryLampCalledDataActer()			// 单灯召测命令
+	// GZB72089QueryLampCalledDataNextActer()	// 单灯召测命令
+	GZB72090SetLampOpenByHandsActer()			// 单灯手动开主辅灯
+	GZB72091SetLampCloseByHandsActer()			// 单灯手动关主辅灯
+	GZB72092QueryLampDetecDataMannyActer()		// 巡检manny命令
+	GZB72093QueryLampDetecDataInterActer()		// 巡检内部命令	// GZB72094SetLampAdvOpenByHandsActer()		// 单灯手动开主灯
+	// GZB72095SetLampAdvOpenByHandsActer()		// 单灯手动关主灯
+	// GZB72096SetLampAuxOpenByHandsActer()		// 单灯手动开辅灯
+	// GZB72097SetLampAuxOpenByHandsActer()		// 单灯手动关辅灯
+	GZB72100SetNodeSwitchActer()				// 节点开关命令
+	GZB7210SetLampDimmer()						// 单灯调光主灯
+	// GZB72102SetLampAdvDimmerActer()			// 单灯调光辅灯
+	// GZB72103SetLampAuxDimmerActer()			// 单灯调光主辅灯
+	GZB72104QueryLampPanidActer()				// 返回单灯panid
+	GZB72105QueryLampProgramVersionActer()		// 返回单灯程序版本
+	GZB72106SetLampResetActer()					// 重启单灯
+	GZB72116QueryLampTimeSTC()					// 查询STC时间
+
+
+
 }
 func init() {
 	// var zigbeeNode ZigebeeNode
@@ -194,7 +247,7 @@ func (gzbNode GZBNode)GZB72053InductAndTrigeTimeActer(lampNum, buffA, buffB, mod
 	}
 
 	sliceCommand[3] = modeTX
-	sliceCommand[4] = TYPENODE
+	sliceCommand[4] = TYPENODE | ((lampNum>>8)<<4)
 	sliceCommand[5] = 0x20
 	sliceCommand[6] = 0x23
 	sliceCommand[7] = 0x04
@@ -211,4 +264,1891 @@ func (gzbNode GZBNode)GZB72053InductAndTrigeTimeActer(lampNum, buffA, buffB, mod
 
 	fmt.Println("---> 72053 sliceCommandOK.", sliceCommand)
 
+	// TODO Uart.Send()
+
+	// TODO CMD.StateOK
+
+}
+
+// 设置单灯组号
+func (gzbNode GZBNode)GZB72054SetLampGroupActer(lampNum, gNum, modeTX, groupNum, snum int) {
+
+	// 初始化局部变量:校验和&命令缓存
+	checkSum := 0
+	sliceCommand := make([]int, 14)
+
+	// Start
+	sliceCommand[0] = 0x33
+	sliceCommand[1] = snum
+
+	switch modeTX {
+	case 0x01:
+		sliceCommand[2] = lampNum & 0xFF
+	case 0x02:
+		sliceCommand[2] = lampNum & 0xFF
+	default:
+		sliceCommand[2] = groupNum
+	}
+
+	sliceCommand[3] = modeTX
+	sliceCommand[4] = TYPELAMP | ((lampNum>>8)<<4)
+	sliceCommand[5] = 0x20
+	sliceCommand[6] = 0x01
+	sliceCommand[7] = 0x04
+	sliceCommand[8] = 0x00
+	sliceCommand[9] = 0x00
+	sliceCommand[10] = 0x00
+	sliceCommand[11] = gNum
+
+	for i := 0; i < 12; i++ {
+		checkSum ^= sliceCommand[i]
+	}
+	sliceCommand[12] = checkSum
+	sliceCommand[13] = 0x99
+
+	fmt.Println("---> 72054 sliceCommandOK.", sliceCommand)
+
+	// TODO Uart.Send()
+
+	// TODO CMD.StateOK
+}
+
+// 单灯主辅互换
+func (gzbNode GZBNode)GZB72055SetLampRelayChangeActer(lampNum, stateOk, modeTX, groupNum, snum int) {
+
+	// 初始化局部变量:校验和&命令缓存
+	checkSum := 0
+	sliceCommand := make([]int, 14)
+
+	// Start
+	sliceCommand[0] = 0x33
+	sliceCommand[1] = snum
+
+	switch modeTX {
+	case 0x01:
+		sliceCommand[2] = lampNum & 0xFF
+	case 0x02:
+		sliceCommand[2] = lampNum & 0xFF
+	default:
+		sliceCommand[2] = groupNum
+	}
+
+	sliceCommand[3] = modeTX
+	sliceCommand[4] = TYPELAMP | ((lampNum>>8)<<4)
+	sliceCommand[5] = 0x20
+	sliceCommand[6] = 0x02
+	sliceCommand[7] = 0x04
+	sliceCommand[8] = 0x00
+	sliceCommand[9] = 0x00
+	sliceCommand[10] = 0x00
+	sliceCommand[11] = stateOk
+
+	for i := 0; i < 12; i++ {
+		checkSum ^= sliceCommand[i]
+	}
+	sliceCommand[12] = checkSum
+	sliceCommand[13] = 0x99
+
+	fmt.Println("---> 72055 sliceCommandOK.", sliceCommand)
+
+	// TODO Uart.Send()
+
+	// TODO CMD.StateOK
+}
+
+// 设置单灯与节点关联
+func (gzbNode GZBNode)GZB72057SetLampAndNodeRelatedActer(lampNum, numMax, numMin, modeTX, groupNum, snum int) {
+	
+	// 初始化局部变量:校验和&命令缓存
+	checkSum := 0
+	sliceCommand := make([]int, 14)
+
+	// Start
+	sliceCommand[0] = 0x33
+	sliceCommand[1] = snum
+
+	switch modeTX {
+	case 0x01:
+		sliceCommand[2] = lampNum & 0xFF
+	case 0x02:
+		sliceCommand[2] = lampNum & 0xFF
+	default:
+		sliceCommand[2] = groupNum
+	}
+
+	sliceCommand[3] = modeTX
+	sliceCommand[4] = TYPELAMP | ((lampNum>>8)<<4)
+	sliceCommand[5] = 0x20
+	sliceCommand[6] = 0x0C
+	sliceCommand[7] = 0x04
+	sliceCommand[8] = 0x00
+	sliceCommand[9] = 0x00
+	sliceCommand[10] = numMax
+	sliceCommand[11] = numMin
+
+	for i := 0; i < 12; i++ {
+		checkSum ^= sliceCommand[i]
+	}
+	sliceCommand[12] = checkSum
+	sliceCommand[13] = 0x99
+
+	fmt.Println("---> 72057 sliceCommandOK.", sliceCommand)
+
+	// TODO Uart.Send()
+
+	// TODO CMD.StateOK
+
+}
+
+// 设置单灯在节点触发后的感应恢复时间
+func (gzbNode GZBNode)GZB72058SetLampInductRecoverTimeActer(lampNum, timeRecover, modeTX, groupNum, snum int) {
+	
+	// 初始化局部变量:校验和&命令缓存
+	checkSum := 0
+	sliceCommand := make([]int, 14)
+
+	// Start
+	sliceCommand[0] = 0x33
+	sliceCommand[1] = snum
+
+	switch modeTX {
+	case 0x01:
+		sliceCommand[2] = lampNum & 0xFF
+	case 0x02:
+		sliceCommand[2] = lampNum & 0xFF
+	default:
+		sliceCommand[2] = groupNum
+	}
+
+	sliceCommand[3] = modeTX
+	sliceCommand[4] = TYPELAMP | ((lampNum>>8)<<4)
+	sliceCommand[5] = 0x20
+	sliceCommand[6] = 0x0D
+	sliceCommand[7] = 0x04
+	sliceCommand[8] = 0x00
+	sliceCommand[9] = 0x00
+	sliceCommand[10] = (timeRecover>>8)&0xFF
+	sliceCommand[11] = timeRecover&0xFF
+
+	for i := 0; i < 12; i++ {
+		checkSum ^= sliceCommand[i]
+	}
+	sliceCommand[12] = checkSum
+	sliceCommand[13] = 0x99
+
+	fmt.Println("---> 72058 sliceCommandOK.", sliceCommand)
+
+	// TODO Uart.Send()
+
+	// TODO CMD.StateOK
+
+}
+
+// 设置命令单灯自校验
+func (gzbNode GZBNode)GZB72059SetLampSelfCheckActer(lampNum, modeTX, groupNum, snum int) {
+	
+	// 初始化局部变量:校验和&命令缓存
+	checkSum := 0
+	sliceCommand := make([]int, 14)
+
+	// Start
+	sliceCommand[0] = 0x33
+	sliceCommand[1] = snum
+
+	switch modeTX {
+	case 0x01:
+		sliceCommand[2] = lampNum & 0xFF
+	case 0x02:
+		sliceCommand[2] = lampNum & 0xFF
+	default:
+		sliceCommand[2] = groupNum
+	}
+
+	sliceCommand[3] = modeTX
+	sliceCommand[4] = TYPELAMP | ((lampNum>>8)<<4)
+	sliceCommand[5] = 0x20
+	sliceCommand[6] = 0x0E
+	sliceCommand[7] = 0x04
+	sliceCommand[8] = 0x00
+	sliceCommand[9] = 0x00
+	sliceCommand[10] = 0x00
+	sliceCommand[11] = 0x00
+
+	for i := 0; i < 12; i++ {
+		checkSum ^= sliceCommand[i]
+	}
+	sliceCommand[12] = checkSum
+	sliceCommand[13] = 0x99
+
+	fmt.Println("---> 72059 sliceCommandOK.", sliceCommand)
+
+	// TODO Uart.Send()
+
+	// TODO CMD.StateOK
+
+}
+
+//  固定单灯拨码
+func (gzbNode GZBNode)GZB72060SetLampFixedKeyActer(lampNum, stateOk, modeTX, groupNum, snum int) {
+
+	// 初始化局部变量:校验和&命令缓存
+	checkSum := 0
+	sliceCommand := make([]int, 14)
+
+	// Start
+	sliceCommand[0] = 0x33
+	sliceCommand[1] = snum
+
+	switch modeTX {
+	case 0x01:
+		sliceCommand[2] = lampNum & 0xFF
+	case 0x02:
+		sliceCommand[2] = lampNum & 0xFF
+	default:
+		sliceCommand[2] = groupNum
+	}
+
+	sliceCommand[3] = modeTX
+	sliceCommand[4] = TYPELAMP | ((lampNum>>8)<<4)
+	sliceCommand[5] = 0x20
+	sliceCommand[6] = 0x0F
+	sliceCommand[7] = 0x04
+	sliceCommand[8] = 0x00
+	sliceCommand[9] = 0x00
+	sliceCommand[10] = 0x00
+	sliceCommand[11] = stateOk
+
+	for i := 0; i < 12; i++ {
+		checkSum ^= sliceCommand[i]
+	}
+	sliceCommand[12] = checkSum
+	sliceCommand[13] = 0x99
+
+	fmt.Println("---> 72060 sliceCommandOK.", sliceCommand)
+
+	// TODO Uart.Send()
+
+	// TODO CMD.StateOK
+}
+
+// 查询返回单灯ieee地址
+func (gzbNode GZBNode)GZB72061QueryLampIEEEActer(lampNum, modeTX, groupNum, snum int) {
+	
+	// 初始化局部变量:校验和&命令缓存
+	checkSum := 0
+	sliceCommand := make([]int, 14)
+
+	// Start
+	sliceCommand[0] = 0x33
+	sliceCommand[1] = snum
+
+	switch modeTX {
+	case 0x01:
+		sliceCommand[2] = lampNum & 0xFF
+	case 0x02:
+		sliceCommand[2] = lampNum & 0xFF
+	default:
+		sliceCommand[2] = groupNum
+	}
+
+	sliceCommand[3] = modeTX
+	sliceCommand[4] = TYPELAMP | ((lampNum>>8)<<4)
+	sliceCommand[5] = 0x10
+	sliceCommand[6] = 0x11
+	sliceCommand[7] = 0x04
+	sliceCommand[8] = 0x00
+	sliceCommand[9] = 0x00
+	sliceCommand[10] = 0x00
+	sliceCommand[11] = 0x00
+
+	for i := 0; i < 12; i++ {
+		checkSum ^= sliceCommand[i]
+	}
+	sliceCommand[12] = checkSum
+	sliceCommand[13] = 0x99
+
+	fmt.Println("---> 72061 sliceCommandOK.", sliceCommand)
+
+	// TODO Uart.Send()
+
+	// TODO CMD.StateOK
+
+}
+
+// 单灯常关
+func (gzbNode GZBNode)GZB72062SetLampAlwaysCloseActer(lampNum, stateOk, modeTX, groupNum, snum int) {
+
+	// 初始化局部变量:校验和&命令缓存
+	checkSum := 0
+	sliceCommand := make([]int, 14)
+
+	// Start
+	sliceCommand[0] = 0x33
+	sliceCommand[1] = snum
+
+	switch modeTX {
+	case 0x01:
+		sliceCommand[2] = lampNum & 0xFF
+	case 0x02:
+		sliceCommand[2] = lampNum & 0xFF
+	default:
+		sliceCommand[2] = groupNum
+	}
+
+	sliceCommand[3] = modeTX
+	sliceCommand[4] = TYPELAMP | ((lampNum>>8)<<4)
+	sliceCommand[5] = 0x20
+	sliceCommand[6] = 0x15
+	sliceCommand[7] = 0x04
+	sliceCommand[8] = 0x00
+	sliceCommand[9] = 0x00
+	sliceCommand[10] = (stateOk>>8)&0xFF
+	sliceCommand[11] = stateOk&0xFF
+
+	for i := 0; i < 12; i++ {
+		checkSum ^= sliceCommand[i]
+	}
+	sliceCommand[12] = checkSum
+	sliceCommand[13] = 0x99
+
+	fmt.Println("---> 72062 sliceCommandOK.", sliceCommand)
+
+	// TODO Uart.Send()
+
+	// TODO CMD.StateOK
+}
+
+//单灯内部开主灯
+// stateRelay:标识不同类型(主灯&辅灯&主辅灯)
+func (gzbNode GZBNode)GZB72063SetLampInterOpenActer(lampNum, stateRelay, modeTX, groupNum, snum int) {
+
+	// 初始化局部变量:校验和&命令缓存
+	checkSum := 0
+	sliceCommand := make([]int, 14)
+
+	// Start
+	sliceCommand[0] = 0x33
+	sliceCommand[1] = snum
+
+	switch modeTX {
+	case 0x01:
+		sliceCommand[2] = lampNum & 0xFF
+	case 0x02:
+		sliceCommand[2] = lampNum & 0xFF
+	default:
+		sliceCommand[2] = groupNum
+	}
+
+	sliceCommand[3] = modeTX
+	sliceCommand[4] = TYPELAMP | ((lampNum>>8)<<4)
+
+	switch stateRelay {
+	case 0x01: // 开主灯
+		sliceCommand[5] = 0x10
+		sliceCommand[6] = 0x12
+		if modeTX == 0x01 {
+			// 开一个灯
+			fmt.Println("---> modeTx0x01.")
+		} else if modeTX == 0x02 {
+			// 开所有灯
+			fmt.Println("---> modeTx0x02.")
+		} else {
+			// 开一组灯
+			fmt.Println("---> modeTx0x03.")
+		}
+	case 0x02: // 开辅灯
+		sliceCommand[5] = 0x10
+		sliceCommand[6] = 0x14
+		if modeTX == 0x01 {
+			// 开一个灯
+			fmt.Println("---> modeTx0x01.")
+		} else if modeTX == 0x02 {
+			// 开所有灯
+			fmt.Println("---> modeTx0x02.")
+		} else {
+			// 开一组灯
+			fmt.Println("---> modeTx0x03.")
+		}
+	case 0x03: // 开主辅灯
+		sliceCommand[5] = 0x10
+		sliceCommand[6] = 0x16
+		if modeTX == 0x01 {
+			// 开一个灯
+			fmt.Println("---> modeTx0x01.")
+		} else if modeTX == 0x02 {
+			// 开所有灯
+			fmt.Println("---> modeTx0x02.")
+		} else {
+			// 开一组灯
+			fmt.Println("---> modeTx0x03.")
+		}
+	}
+	sliceCommand[7] = 0x04
+	sliceCommand[8] = 0x00
+	sliceCommand[9] = 0x00
+	sliceCommand[10] = 0x00
+	sliceCommand[11] = 0x00
+
+	for i := 0; i < 12; i++ {
+		checkSum ^= sliceCommand[i]
+	}
+	sliceCommand[12] = checkSum
+	sliceCommand[13] = 0x99
+
+	fmt.Println("---> 72063 sliceCommandOK.", sliceCommand)
+
+	// TODO Uart.Send()
+
+	// TODO CMD.StateOK
+}
+
+// 单灯内部关主灯
+// stateRelay:标识不同类型(主灯&辅灯&主辅灯)
+func (gzbNode GZBNode)GZB72064SetLampInterCloseActer(lampNum, stateRelay, modeTX, groupNum, snum int) {
+
+	// 初始化局部变量:校验和&命令缓存
+	checkSum := 0
+	sliceCommand := make([]int, 14)
+
+	// Start
+	sliceCommand[0] = 0x33
+	sliceCommand[1] = snum
+
+	switch modeTX {
+	case 0x01:
+		sliceCommand[2] = lampNum & 0xFF
+	case 0x02:
+		sliceCommand[2] = lampNum & 0xFF
+	default:
+		sliceCommand[2] = groupNum
+	}
+
+	sliceCommand[3] = modeTX
+	sliceCommand[4] = TYPELAMP | ((lampNum>>8)<<4)
+
+	switch stateRelay {
+	case 0x01: // 关主灯
+		sliceCommand[5] = 0x10
+		sliceCommand[6] = 0x13
+		if modeTX == 0x01 {
+			// 关一个灯
+			fmt.Println("---> modeTx0x01.")
+		} else if modeTX == 0x02 {
+			// 关所有灯
+			fmt.Println("---> modeTx0x02.")
+		} else {
+			// 关一组灯
+			fmt.Println("---> modeTx0x03.")
+		}
+	case 0x02: // 关辅灯
+		sliceCommand[5] = 0x10
+		sliceCommand[6] = 0x15
+		if modeTX == 0x01 {
+			// 关一个灯
+			fmt.Println("---> modeTx0x01.")
+		} else if modeTX == 0x02 {
+			// 关所有灯
+			fmt.Println("---> modeTx0x02.")
+		} else {
+			// 关一组灯
+			fmt.Println("---> modeTx0x03.")
+		}
+	case 0x03: // 关主辅灯
+		sliceCommand[5] = 0x10
+		sliceCommand[6] = 0x17
+		if modeTX == 0x01 {
+			// 开一个灯
+			fmt.Println("---> modeTx0x01.")
+		} else if modeTX == 0x02 {
+			// 开所有灯
+			fmt.Println("---> modeTx0x02.")
+		} else {
+			// 开一组灯
+			fmt.Println("---> modeTx0x03.")
+		}
+	}
+	sliceCommand[7] = 0x04
+	sliceCommand[8] = 0x00
+	sliceCommand[9] = 0x00
+	sliceCommand[10] = 0x00
+	sliceCommand[11] = 0x00
+
+	for i := 0; i < 12; i++ {
+		checkSum ^= sliceCommand[i]
+	}
+	sliceCommand[12] = checkSum
+	sliceCommand[13] = 0x99
+
+	fmt.Println("---> 72064 sliceCommandOK.", sliceCommand)
+
+	// TODO Uart.Send()
+
+	// TODO CMD.StateOK
+}
+
+// 单灯电量保存
+func (gzbNode GZBNode)ZB72069SetLampSaveElecsActer(lampNum, modeTX, groupNum, snum int) {
+	
+	// 初始化局部变量:校验和&命令缓存
+	checkSum := 0
+	sliceCommand := make([]int, 14)
+
+	// Start
+	sliceCommand[0] = 0x33
+	sliceCommand[1] = snum
+
+	switch modeTX {
+	case 0x01:
+		sliceCommand[2] = lampNum & 0xFF
+	case 0x02:
+		sliceCommand[2] = lampNum & 0xFF
+	default:
+		sliceCommand[2] = groupNum
+	}
+
+	sliceCommand[3] = modeTX
+	sliceCommand[4] = TYPELAMP | ((lampNum>>8)<<4)
+	sliceCommand[5] = 0x20
+	sliceCommand[6] = 0x27
+	sliceCommand[7] = 0x04
+	sliceCommand[8] = 0x00
+	sliceCommand[9] = 0x00
+	sliceCommand[10] = 0x00
+	sliceCommand[11] = 0x00
+
+	for i := 0; i < 12; i++ {
+		checkSum ^= sliceCommand[i]
+	}
+	sliceCommand[12] = checkSum
+	sliceCommand[13] = 0x99
+
+	fmt.Println("---> 72069 sliceCommandOK.", sliceCommand)
+
+	// TODO Uart.Send()
+
+	// TODO CMD.StateOK
+
+}
+
+// 设置单灯电压报警上下限
+func (gzbNode GZBNode)GZB72070SetLampAlarmLimitVActer(lampNum, numMax, numMin, modeTX, groupNum, snum int) {
+	
+	// 初始化局部变量:校验和&命令缓存
+	checkSum := 0
+	sliceCommand := make([]int, 14)
+
+	// Start
+	sliceCommand[0] = 0x33
+	sliceCommand[1] = snum
+
+	switch modeTX {
+	case 0x01:
+		sliceCommand[2] = lampNum & 0xFF
+	case 0x02:
+		sliceCommand[2] = lampNum & 0xFF
+	default:
+		sliceCommand[2] = groupNum
+	}
+
+	sliceCommand[3] = modeTX
+	sliceCommand[4] = TYPELAMP | ((lampNum>>8)<<4)
+	sliceCommand[5] = 0x20
+	sliceCommand[6] = 0x06
+	sliceCommand[7] = 0x04
+	sliceCommand[8] = (numMax>>8)&0xFF
+	sliceCommand[9] = numMax&0xFF
+	sliceCommand[10] = (numMin>>8)&0xFF
+	sliceCommand[11] = numMin&0xFF
+
+	for i := 0; i < 12; i++ {
+		checkSum ^= sliceCommand[i]
+	}
+	sliceCommand[12] = checkSum
+	sliceCommand[13] = 0x99
+
+	fmt.Println("---> 72070 sliceCommandOK.", sliceCommand)
+
+	// TODO Uart.Send()
+
+	// TODO CMD.StateOK
+
+}
+
+// 设置单灯电流报警上下限
+func (gzbNode GZBNode)GZB72071SetLampAlarmLimitIActer(lampNum, numMax, numMin, modeTX, groupNum, snum int) {
+	
+	// 初始化局部变量:校验和&命令缓存
+	checkSum := 0
+	sliceCommand := make([]int, 14)
+
+	// Start
+	sliceCommand[0] = 0x33
+	sliceCommand[1] = snum
+
+	switch modeTX {
+	case 0x01:
+		sliceCommand[2] = lampNum & 0xFF
+	case 0x02:
+		sliceCommand[2] = lampNum & 0xFF
+	default:
+		sliceCommand[2] = groupNum
+	}
+
+	sliceCommand[3] = modeTX
+	sliceCommand[4] = TYPELAMP | ((lampNum>>8)<<4)
+	sliceCommand[5] = 0x20
+	sliceCommand[6] = 0x07
+	sliceCommand[7] = 0x04
+	sliceCommand[8] = (numMax>>8)&0xFF
+	sliceCommand[9] = numMax&0xFF
+	sliceCommand[10] = (numMin>>8)&0xFF
+	sliceCommand[11] = numMin&0xFF
+
+	for i := 0; i < 12; i++ {
+		checkSum ^= sliceCommand[i]
+	}
+	sliceCommand[12] = checkSum
+	sliceCommand[13] = 0x99
+
+	fmt.Println("---> 72071 sliceCommandOK.", sliceCommand)
+
+	// TODO Uart.Send()
+
+	// TODO CMD.StateOK
+
+}
+
+// 设置单灯功率报警上下限
+func (gzbNode GZBNode)GZB72072SetLampAlarmLimitPActer(lampNum, numMax, numMin, modeTX, groupNum, snum int) {
+	
+	// 初始化局部变量:校验和&命令缓存
+	checkSum := 0
+	sliceCommand := make([]int, 14)
+
+	// Start
+	sliceCommand[0] = 0x33
+	sliceCommand[1] = snum
+
+	switch modeTX {
+	case 0x01:
+		sliceCommand[2] = lampNum & 0xFF
+	case 0x02:
+		sliceCommand[2] = lampNum & 0xFF
+	default:
+		sliceCommand[2] = groupNum
+	}
+
+	sliceCommand[3] = modeTX
+	sliceCommand[4] = TYPELAMP | ((lampNum>>8)<<4)
+	sliceCommand[5] = 0x20
+	sliceCommand[6] = 0x08
+	sliceCommand[7] = 0x04
+	sliceCommand[8] = (numMax>>8)&0xFF
+	sliceCommand[9] = numMax&0xFF
+	sliceCommand[10] = (numMin>>8)&0xFF
+	sliceCommand[11] = numMin&0xFF
+
+	for i := 0; i < 12; i++ {
+		checkSum ^= sliceCommand[i]
+	}
+	sliceCommand[12] = checkSum
+	sliceCommand[13] = 0x99
+
+	fmt.Println("---> 72072 sliceCommandOK.", sliceCommand)
+
+	// TODO Uart.Send()
+
+	// TODO CMD.StateOK
+
+}
+
+// 设置单灯功率因素报警上下限
+func (gzbNode GZBNode)GZB72073SetLampAlarmLimitPFActer(lampNum, numMax, numMin, modeTX, groupNum, snum int) {
+	
+	// 初始化局部变量:校验和&命令缓存
+	checkSum := 0
+	sliceCommand := make([]int, 14)
+
+	// Start
+	sliceCommand[0] = 0x33
+	sliceCommand[1] = snum
+
+	switch modeTX {
+	case 0x01:
+		sliceCommand[2] = lampNum & 0xFF
+	case 0x02:
+		sliceCommand[2] = lampNum & 0xFF
+	default:
+		sliceCommand[2] = groupNum
+	}
+
+	sliceCommand[3] = modeTX
+	sliceCommand[4] = TYPELAMP | ((lampNum>>8)<<4)
+	sliceCommand[5] = 0x20
+	sliceCommand[6] = 0x09
+	sliceCommand[7] = 0x04
+	sliceCommand[8] = (numMax>>8)&0xFF
+	sliceCommand[9] = numMax&0xFF
+	sliceCommand[10] = (numMin>>8)&0xFF
+	sliceCommand[11] = numMin&0xFF
+
+	for i := 0; i < 12; i++ {
+		checkSum ^= sliceCommand[i]
+	}
+	sliceCommand[12] = checkSum
+	sliceCommand[13] = 0x99
+
+	fmt.Println("---> 72073 sliceCommandOK.", sliceCommand)
+
+	// TODO Uart.Send()
+
+	// TODO CMD.StateOK
+
+}
+
+// 清除单灯能量数据
+func (gzbNode GZBNode)GZB72074SetLampAnergyClearActer(lampNum, modeTX, groupNum, snum int) {
+	
+	// 初始化局部变量:校验和&命令缓存
+	checkSum := 0
+	sliceCommand := make([]int, 14)
+
+	// Start
+	sliceCommand[0] = 0x33
+	sliceCommand[1] = snum
+
+	switch modeTX {
+	case 0x01:
+		sliceCommand[2] = lampNum & 0xFF
+	case 0x02:
+		sliceCommand[2] = lampNum & 0xFF
+	default:
+		sliceCommand[2] = groupNum
+	}
+
+	sliceCommand[3] = modeTX
+	sliceCommand[4] = TYPELAMP | ((lampNum>>8)<<4)
+	sliceCommand[5] = 0x20
+	sliceCommand[6] = 0x0A
+	sliceCommand[7] = 0x04
+	sliceCommand[8] = 0x00
+	sliceCommand[9] = 0x00
+	sliceCommand[10] = 0x00
+	sliceCommand[11] = 0x00
+
+	for i := 0; i < 12; i++ {
+		checkSum ^= sliceCommand[i]
+	}
+	sliceCommand[12] = checkSum
+	sliceCommand[13] = 0x99
+
+	fmt.Println("---> 72074 sliceCommandOK.", sliceCommand)
+
+	// TODO Uart.Send()
+
+	// TODO CMD.StateOK
+
+}
+
+// 设置单灯电压放大倍数
+// stateRelay:标识不同类型(主灯&辅灯)
+func (gzbNode GZBNode)GZB72075SetLampAmplifyVActer(lampNum, stateOk, valueAmpli, stateRelay, modeTX, groupNum, snum int) {
+	
+	// 初始化局部变量:校验和&命令缓存
+	checkSum := 0
+	sliceCommand := make([]int, 14)
+
+	// Start
+	sliceCommand[0] = 0x33
+	sliceCommand[1] = snum
+
+	switch modeTX {
+	case 0x01:
+		sliceCommand[2] = lampNum & 0xFF
+	case 0x02:
+		sliceCommand[2] = lampNum & 0xFF
+	default:
+		sliceCommand[2] = groupNum
+	}
+
+	sliceCommand[3] = modeTX
+	sliceCommand[4] = TYPENODE | ((lampNum>>8)<<4)
+	switch stateRelay {
+	case 0x01:
+		sliceCommand[5] = 0x20
+		sliceCommand[6] = 0x11
+	case 0x02:
+		sliceCommand[5] = 0x20
+		sliceCommand[6] = 0x12
+	default:
+		sliceCommand[5] = 0x20
+		sliceCommand[6] = 0x11
+	}
+	
+	sliceCommand[7] = 0x04
+	sliceCommand[8] = 0x00
+	sliceCommand[9] = 0x00
+	sliceCommand[10] = valueAmpli
+	sliceCommand[11] = stateOk
+
+	for i := 0; i < 12; i++ {
+		checkSum ^= sliceCommand[i]
+	}
+	sliceCommand[12] = checkSum
+	sliceCommand[13] = 0x99
+
+	fmt.Println("---> 72075 sliceCommandOK.", sliceCommand)
+
+	// TODO Uart.Send()
+
+	// TODO CMD.StateOK
+
+}
+
+
+// 设置单灯电流放大倍数
+// stateRelay:标识不同类型(主灯&辅灯)
+func (gzbNode GZBNode)GZB72077SetLampAmplifyIActer(lampNum, stateOk, valueAmpli, stateRelay, modeTX, groupNum, snum int) {
+	
+	// 初始化局部变量:校验和&命令缓存
+	checkSum := 0
+	sliceCommand := make([]int, 14)
+
+	// Start
+	sliceCommand[0] = 0x33
+	sliceCommand[1] = snum
+
+	switch modeTX {
+	case 0x01:
+		sliceCommand[2] = lampNum & 0xFF
+	case 0x02:
+		sliceCommand[2] = lampNum & 0xFF
+	default:
+		sliceCommand[2] = groupNum
+	}
+
+	sliceCommand[3] = modeTX
+	sliceCommand[4] = TYPENODE | ((lampNum>>8)<<4)
+	switch stateRelay {
+	case 0x01:
+		sliceCommand[5] = 0x20
+		sliceCommand[6] = 0x13
+	case 0x02:
+		sliceCommand[5] = 0x20
+		sliceCommand[6] = 0x14
+	default:
+		sliceCommand[5] = 0x20
+		sliceCommand[6] = 0x13
+	}
+	
+	sliceCommand[7] = 0x04
+	sliceCommand[8] = 0x00
+	sliceCommand[9] = 0x00
+	sliceCommand[10] = valueAmpli
+	sliceCommand[11] = stateOk
+
+	for i := 0; i < 12; i++ {
+		checkSum ^= sliceCommand[i]
+	}
+	sliceCommand[12] = checkSum
+	sliceCommand[13] = 0x99
+
+	fmt.Println("---> 72077 sliceCommandOK.", sliceCommand)
+
+	// TODO Uart.Send()
+
+	// TODO CMD.StateOK
+
+}
+
+// rn8209有效值offset和有功offset校正
+func (gzbNode GZBNode)ZB72079SetLampRN8209OffsetActer(lampNum, snum int) {
+	
+	// 初始化局部变量:校验和&命令缓存
+	checkSum := 0
+	sliceCommand := make([]int, 14)
+
+	// Start
+	sliceCommand[0] = 0x33
+	sliceCommand[1] = snum
+	sliceCommand[2] = lampNum & 0xFF
+	sliceCommand[3] = 0x01
+	sliceCommand[4] = TYPELAMP | ((lampNum>>8)<<4)
+	sliceCommand[5] = 0x09
+	sliceCommand[6] = 0x96
+	sliceCommand[7] = 0x04
+	sliceCommand[8] = 0x00
+	sliceCommand[9] = 0x00
+	sliceCommand[10] = 0x00
+	sliceCommand[11] = 0x00
+
+	for i := 0; i < 12; i++ {
+		checkSum ^= sliceCommand[i]
+	}
+	sliceCommand[12] = checkSum
+	sliceCommand[13] = 0x99
+
+	fmt.Println("---> 72079 sliceCommandOK.", sliceCommand)
+
+	// TODO Uart.Send()
+
+	// TODO CMD.StateOK
+
+}
+
+// rn8209参数设置
+func (gzbNode GZBNode)GZB72080SetLampRN8209ParasActer(lampNum, snum int) {
+	
+	// 初始化局部变量:校验和&命令缓存
+	checkSum := 0
+	sliceCommand := make([]int, 14)
+
+	// Start
+	sliceCommand[0] = 0x33
+	sliceCommand[1] = snum
+	sliceCommand[2] = lampNum & 0xFF
+	sliceCommand[3] = 0x01
+	sliceCommand[4] = TYPELAMP | ((lampNum>>8)<<4)
+	sliceCommand[5] = 0x09
+	sliceCommand[6] = 0x97
+	sliceCommand[7] = 0x04
+	sliceCommand[8] = 0x00
+	sliceCommand[9] = 0x00
+	sliceCommand[10] = 0x00
+	sliceCommand[11] = 0x00
+
+	for i := 0; i < 12; i++ {
+		checkSum ^= sliceCommand[i]
+	}
+	sliceCommand[12] = checkSum
+	sliceCommand[13] = 0x99
+
+	fmt.Println("---> 72080 sliceCommandOK.", sliceCommand)
+
+	// TODO Uart.Send()
+
+	// TODO CMD.StateOK
+
+}
+
+// rn8209比例系数设置
+func (gzbNode GZBNode)GZB72081SetLampRN8209RatioActer(lampNum, snum int) {
+	
+	// 初始化局部变量:校验和&命令缓存
+	checkSum := 0
+	sliceCommand := make([]int, 14)
+
+	// Start
+	sliceCommand[0] = 0x33
+	sliceCommand[1] = snum
+	sliceCommand[2] = lampNum & 0xFF
+	sliceCommand[3] = 0x01
+	sliceCommand[4] = TYPELAMP | ((lampNum>>8)<<4)
+	sliceCommand[5] = 0x09
+	sliceCommand[6] = 0x98
+	sliceCommand[7] = 0x04
+	sliceCommand[8] = 0x00
+	sliceCommand[9] = 0x00
+	sliceCommand[10] = 0x00
+	sliceCommand[11] = 0x00
+
+	for i := 0; i < 12; i++ {
+		checkSum ^= sliceCommand[i]
+	}
+	sliceCommand[12] = checkSum
+	sliceCommand[13] = 0x99
+
+	fmt.Println("---> 72081 sliceCommandOK.", sliceCommand)
+
+	// TODO Uart.Send()
+
+	// TODO CMD.StateOK
+
+}
+
+// 单灯与rtu时间同步命令
+func (gzbNode GZBNode)GZB72082SetLampRtuSyncTimeActer(lampNum, timeSec, timeMin, timeH, timeD, timeW, timeMon, timeY, modeTX, groupNum, snum int) {
+
+	// 初始化局部变量:校验和&命令缓存
+	checkSum := 0
+	sliceCommand := make([]int, 17)
+
+	// Start
+	sliceCommand[0] = 0x33
+	sliceCommand[1] = snum
+
+	switch modeTX {
+	case 0x01:
+		sliceCommand[2] = lampNum & 0xFF
+	case 0x02:
+		sliceCommand[2] = lampNum & 0xFF
+	default:
+		sliceCommand[2] = groupNum
+	}
+
+	sliceCommand[3] = modeTX
+	sliceCommand[4] = TYPELAMP | ((lampNum>>8)<<4)
+	sliceCommand[5] = 0x20
+	sliceCommand[6] = 0x1E
+	sliceCommand[7] = 0x07
+	sliceCommand[8] = timeSec
+	sliceCommand[9] = timeMin
+	sliceCommand[10] = timeH
+	sliceCommand[11] = timeD
+	sliceCommand[12] = timeW
+	sliceCommand[13] = timeMon
+	sliceCommand[14] = timeY%100
+
+	for i := 0; i < 15; i++ {
+		checkSum ^= sliceCommand[i]
+	}
+	sliceCommand[15] = checkSum
+	sliceCommand[16] = 0x99
+
+	fmt.Println("---> 72082 sliceCommandOK.", sliceCommand)
+
+	// TODO Uart.Send()
+
+	// TODO CMD.StateOK
+}
+
+// 开关时间同步?
+func (gzbNode GZBNode)GZB72083SetLampSwitchSyncTimeActer(lampNum, timeOnSec, timeOnMin, timeOnH, timeOffSec, timeOffMin, timeOffH, modeTX, groupNum, snum int) {
+
+	// 初始化局部变量:校验和&命令缓存
+	checkSum := 0
+	sliceCommand := make([]int, 16)
+
+	// Start
+	sliceCommand[0] = 0x33
+	sliceCommand[1] = snum
+
+	switch modeTX {
+	case 0x01:
+		sliceCommand[2] = lampNum & 0xFF
+	case 0x02:
+		sliceCommand[2] = lampNum & 0xFF
+	default:
+		sliceCommand[2] = groupNum
+	}
+
+	sliceCommand[3] = modeTX
+	sliceCommand[4] = TYPELAMP | ((lampNum>>8)<<4)
+	sliceCommand[5] = 0x20
+	sliceCommand[6] = 0x20
+	sliceCommand[7] = 0x06
+	sliceCommand[8] = timeOnSec
+	sliceCommand[9] = timeOnMin
+	sliceCommand[10] = timeOnH
+	sliceCommand[11] = timeOffSec
+	sliceCommand[12] = timeOffMin
+	sliceCommand[13] = timeOffH
+
+	for i := 0; i < 14; i++ {
+		checkSum ^= sliceCommand[i]
+	}
+	sliceCommand[14] = checkSum
+	sliceCommand[15] = 0x99
+
+	fmt.Println("---> 72083 sliceCommandOK.", sliceCommand)
+
+	// TODO Uart.Send()
+
+	// TODO CMD.StateOK
+}
+
+// 查询锂电池电平
+func (gzbNode GZBNode)GZB72084QueryBatteryVoltActer(lampNum, modeTX, groupNum, snum int) {
+
+	// 初始化局部变量:校验和&命令缓存
+	checkSum := 0
+	sliceCommand := make([]int, 14)
+
+	// Start
+	sliceCommand[0] = 0x33
+	sliceCommand[1] = snum
+
+	switch modeTX {
+	case 0x01:
+		sliceCommand[2] = lampNum & 0xFF
+	case 0x02:
+		sliceCommand[2] = lampNum & 0xFF
+	default:
+		sliceCommand[2] = groupNum
+	}
+
+	sliceCommand[3] = modeTX
+	sliceCommand[4] = TYPELAMP | ((lampNum>>8)<<4)
+	sliceCommand[5] = 0x10
+	sliceCommand[6] = 0x18
+	sliceCommand[7] = 0x04
+	sliceCommand[8] = 0x00
+	sliceCommand[9] = 0x00
+	sliceCommand[10] = 0x00
+	sliceCommand[11] = 0x00
+
+	for i := 0; i < 12; i++ {
+		checkSum ^= sliceCommand[i]
+	}
+	sliceCommand[12] = checkSum
+	sliceCommand[13] = 0x99
+
+	fmt.Println("---> 72084 sliceCommandOK.", sliceCommand)
+
+	// TODO Uart.Send()
+
+	// TODO CMD.StateOK
+}
+
+// 查询温度
+func (gzbNode GZBNode)GZB72085QueryTemperatureActer(lampNum, modeTX, groupNum, snum int) {
+
+	// 初始化局部变量:校验和&命令缓存
+	checkSum := 0
+	sliceCommand := make([]int, 14)
+
+	// Start
+	sliceCommand[0] = 0x33
+	sliceCommand[1] = snum
+
+	switch modeTX {
+	case 0x01:
+		sliceCommand[2] = lampNum & 0xFF
+	case 0x02:
+		sliceCommand[2] = lampNum & 0xFF
+	default:
+		sliceCommand[2] = groupNum
+	}
+
+	sliceCommand[3] = modeTX
+	sliceCommand[4] = TYPELAMP | ((lampNum>>8)<<4)
+	sliceCommand[5] = 0x10
+	sliceCommand[6] = 0x19
+	sliceCommand[7] = 0x04
+	sliceCommand[8] = 0x00
+	sliceCommand[9] = 0x00
+	sliceCommand[10] = 0x00
+	sliceCommand[11] = 0x00
+
+	for i := 0; i < 12; i++ {
+		checkSum ^= sliceCommand[i]
+	}
+	sliceCommand[12] = checkSum
+	sliceCommand[13] = 0x99
+
+	fmt.Println("---> 72085 sliceCommandOK.", sliceCommand)
+
+	// TODO Uart.Send()
+
+	// TODO CMD.StateOK
+}
+
+// 擦除NV，重新加入网络
+func (gzbNode GZBNode)GZB72086SetClearNVAdderActer(lampNum, modeTX, groupNum, snum int) {
+
+	// 初始化局部变量:校验和&命令缓存
+	checkSum := 0
+	sliceCommand := make([]int, 14)
+
+	// Start
+	sliceCommand[0] = 0x33
+	sliceCommand[1] = snum
+
+	switch modeTX {
+	case 0x01:
+		sliceCommand[2] = lampNum & 0xFF
+	case 0x02:
+		sliceCommand[2] = lampNum & 0xFF
+	default:
+		sliceCommand[2] = groupNum
+	}
+
+	sliceCommand[3] = modeTX
+	sliceCommand[4] = TYPELAMP | ((lampNum>>8)<<4)
+	sliceCommand[5] = 0x10
+	sliceCommand[6] = 0x20
+	sliceCommand[7] = 0x04
+	sliceCommand[8] = 0x00
+	sliceCommand[9] = 0x00
+	sliceCommand[10] = 0x00
+	sliceCommand[11] = 0x00
+
+	for i := 0; i < 12; i++ {
+		checkSum ^= sliceCommand[i]
+	}
+	sliceCommand[12] = checkSum
+	sliceCommand[13] = 0x99
+
+	fmt.Println("---> 72086 sliceCommandOK.", sliceCommand)
+
+	// TODO Uart.Send()
+
+	// TODO CMD.StateOK
+}
+
+// 单灯开闪烁功能
+func (gzbNode GZBNode)GZB72087SetLampTwinkleActer(lampNum, stateOk, modeTX, groupNum, snum int) {
+
+	// 初始化局部变量:校验和&命令缓存
+	checkSum := 0
+	sliceCommand := make([]int, 14)
+
+	// Start
+	sliceCommand[0] = 0x33
+	sliceCommand[1] = snum
+
+	switch modeTX {
+	case 0x01:
+		sliceCommand[2] = lampNum & 0xFF
+	case 0x02:
+		sliceCommand[2] = lampNum & 0xFF
+	default:
+		sliceCommand[2] = groupNum
+	}
+
+	sliceCommand[3] = modeTX
+	sliceCommand[4] = TYPELAMP | ((lampNum>>8)<<4)
+	sliceCommand[5] = 0x20
+	sliceCommand[6] = 0x23
+	sliceCommand[7] = 0x04
+	sliceCommand[8] = 0x00
+	sliceCommand[9] = 0x00
+	sliceCommand[10] = 0x00
+	sliceCommand[11] = stateOk
+
+	for i := 0; i < 12; i++ {
+		checkSum ^= sliceCommand[i]
+	}
+	sliceCommand[12] = checkSum
+	sliceCommand[13] = 0x99
+
+	fmt.Println("---> 72087 sliceCommandOK.", sliceCommand)
+
+	// TODO Uart.Send()
+
+	// TODO CMD.StateOK
+}
+
+// 单灯召测命令
+func (gzbNode GZBNode)GZB72088QueryLampCalledDataActer(lampNum, modeTX, groupNum, snum int) {
+
+	// 初始化局部变量:校验和&命令缓存
+	checkSum := 0
+	sliceCommand := make([]int, 14)
+
+	// Start
+	sliceCommand[0] = 0x33
+	sliceCommand[1] = snum
+
+	switch modeTX {
+	case 0x01: // 单召
+		sliceCommand[2] = lampNum & 0xFF
+		sliceCommand[3] = modeTX
+		sliceCommand[4] = TYPELAMP | ((lampNum>>8)<<4)
+		sliceCommand[5] = 0x10
+		sliceCommand[6] = 0x09
+		sliceCommand[7] = 0x04
+		sliceCommand[8] = 0x00
+		sliceCommand[9] = 0x00
+		sliceCommand[10] = 0x00
+		sliceCommand[11] = 0x00
+
+		for i := 0; i < 12; i++ {
+			checkSum ^= sliceCommand[i]
+		}
+		sliceCommand[12] = checkSum
+		sliceCommand[13] = 0x99
+
+		fmt.Println("---> 72088 sliceCommandOK.", sliceCommand)
+
+		// TODO Uart.Send()
+
+		// TODO CMD.StateOK
+
+	case 0x02: //召测全部
+		sliceCommand[2] = lampNum & 0xFF
+	default:
+		sliceCommand[2] = groupNum
+	}
+
+	// sliceCommand[3] = modeTX
+	// sliceCommand[4] = TYPELAMP | ((lampNum>>8)<<4)
+	// sliceCommand[5] = 0x20
+	// sliceCommand[6] = 0x25
+	// sliceCommand[7] = 0x04
+	// sliceCommand[8] = 0x00
+	// sliceCommand[9] = 0x00
+	// sliceCommand[10] = 0x00
+	// sliceCommand[11] = 0x00
+
+	// for i := 0; i < 12; i++ {
+	// 	checkSum ^= sliceCommand[i]
+	// }
+	// sliceCommand[12] = checkSum
+	// sliceCommand[13] = 0x99
+
+	// fmt.Println("---> 72053 sliceCommandOK.", sliceCommand)
+
+	// TODO Uart.Send()
+
+	// TODO CMD.StateOK
+}
+
+//单灯手动开主灯
+// stateRelay:标识不同类型(主灯&辅灯&主辅灯)
+func (gzbNode GZBNode)GZB72090SetLampOpenByHandsActer(lampNum, stateRelay, modeTX, groupNum, snum int) {
+
+	// 初始化局部变量:校验和&命令缓存
+	checkSum := 0
+	sliceCommand := make([]int, 14)
+
+	// Start
+	sliceCommand[0] = 0x33
+	sliceCommand[1] = snum
+
+	switch modeTX {
+	case 0x01:
+		sliceCommand[2] = lampNum & 0xFF
+	case 0x02:
+		sliceCommand[2] = lampNum & 0xFF
+	default:
+		sliceCommand[2] = groupNum
+	}
+
+	sliceCommand[3] = modeTX
+	sliceCommand[4] = TYPELAMP | ((lampNum>>8)<<4)
+
+	switch stateRelay {
+	case 0x01: // 开主灯
+		sliceCommand[5] = 0x10
+		sliceCommand[6] = 0x05
+		if modeTX == 0x01 {
+			// 开一个灯
+			fmt.Println("---> modeTx0x01.")
+		} else if modeTX == 0x02 {
+			// 开所有灯
+			fmt.Println("---> modeTx0x02.")
+		} else {
+			// 开一组灯
+			fmt.Println("---> modeTx0x03.")
+		}
+	case 0x02: // 开辅灯
+		sliceCommand[5] = 0x10
+		sliceCommand[6] = 0x07
+		if modeTX == 0x01 {
+			// 开一个灯
+			fmt.Println("---> modeTx0x01.")
+		} else if modeTX == 0x02 {
+			// 开所有灯
+			fmt.Println("---> modeTx0x02.")
+		} else {
+			// 开一组灯
+			fmt.Println("---> modeTx0x03.")
+		}
+	case 0x03: // 开主辅灯
+		sliceCommand[5] = 0x10
+		sliceCommand[6] = 0x03
+		if modeTX == 0x01 {
+			// 开一个灯
+			fmt.Println("---> modeTx0x01.")
+		} else if modeTX == 0x02 {
+			// 开所有灯
+			fmt.Println("---> modeTx0x02.")
+		} else {
+			// 开一组灯
+			fmt.Println("---> modeTx0x03.")
+		}
+	}
+	sliceCommand[7] = 0x04
+	sliceCommand[8] = 0x00
+	sliceCommand[9] = 0x00
+	sliceCommand[10] = 0x00
+	sliceCommand[11] = 0x00
+
+	for i := 0; i < 12; i++ {
+		checkSum ^= sliceCommand[i]
+	}
+	sliceCommand[12] = checkSum
+	sliceCommand[13] = 0x99
+
+	fmt.Println("---> 72090 sliceCommandOK.", sliceCommand)
+
+	// TODO Uart.Send()
+
+	// TODO CMD.StateOK
+}
+
+// 单灯手动关主灯
+// stateRelay:标识不同类型(主灯&辅灯&主辅灯)
+func (gzbNode GZBNode)GZB72091SetLampCloseByHandsActer(lampNum, stateRelay, modeTX, groupNum, snum int) {
+
+	// 初始化局部变量:校验和&命令缓存
+	checkSum := 0
+	sliceCommand := make([]int, 14)
+
+	// Start
+	sliceCommand[0] = 0x33
+	sliceCommand[1] = snum
+
+	switch modeTX {
+	case 0x01:
+		sliceCommand[2] = lampNum & 0xFF
+	case 0x02:
+		sliceCommand[2] = lampNum & 0xFF
+	default:
+		sliceCommand[2] = groupNum
+	}
+
+	sliceCommand[3] = modeTX
+	sliceCommand[4] = TYPELAMP | ((lampNum>>8)<<4)
+
+	switch stateRelay {
+	case 0x01: // 关主灯
+		sliceCommand[5] = 0x10
+		sliceCommand[6] = 0x06
+		if modeTX == 0x01 {
+			// 关一个灯
+			fmt.Println("---> modeTx0x01.")
+		} else if modeTX == 0x02 {
+			// 关所有灯
+			fmt.Println("---> modeTx0x02.")
+		} else {
+			// 关一组灯
+			fmt.Println("---> modeTx0x03.")
+		}
+	case 0x02: // 关辅灯
+		sliceCommand[5] = 0x10
+		sliceCommand[6] = 0x08
+		if modeTX == 0x01 {
+			// 关一个灯
+			fmt.Println("---> modeTx0x01.")
+		} else if modeTX == 0x02 {
+			// 关所有灯
+			fmt.Println("---> modeTx0x02.")
+		} else {
+			// 关一组灯
+			fmt.Println("---> modeTx0x03.")
+		}
+	case 0x03: // 关主辅灯
+		sliceCommand[5] = 0x10
+		sliceCommand[6] = 0x04
+		if modeTX == 0x01 {
+			// 开一个灯
+			fmt.Println("---> modeTx0x01.")
+		} else if modeTX == 0x02 {
+			// 开所有灯
+			fmt.Println("---> modeTx0x02.")
+		} else {
+			// 开一组灯
+			fmt.Println("---> modeTx0x03.")
+		}
+	}
+	sliceCommand[7] = 0x04
+	sliceCommand[8] = 0x00
+	sliceCommand[9] = 0x00
+	sliceCommand[10] = 0x00
+	sliceCommand[11] = 0x00
+
+	for i := 0; i < 12; i++ {
+		checkSum ^= sliceCommand[i]
+	}
+	sliceCommand[12] = checkSum
+	sliceCommand[13] = 0x99
+
+	fmt.Println("---> 72091 sliceCommandOK.", sliceCommand)
+
+	// TODO Uart.Send()
+
+	// TODO CMD.StateOK
+}
+
+// 巡检manny命令
+func (gzbNode GZBNode)GZB72092QueryLampDetecDataMannyActer(lampNum, numMax, numMin, modeTX, groupNum, snum int) {
+
+	// 初始化局部变量:校验和&命令缓存
+	checkSum := 0
+	sliceCommand := make([]int, 14)
+
+	// Start
+	sliceCommand[0] = 0x33
+	sliceCommand[1] = snum
+
+	switch modeTX {
+	case 0x01:
+		sliceCommand[2] = lampNum & 0xFF
+	case 0x02:
+		sliceCommand[2] = lampNum & 0xFF
+	default:
+		sliceCommand[2] = groupNum
+	}
+
+	sliceCommand[3] = modeTX
+	sliceCommand[4] = TYPELAMP | ((lampNum>>8)<<4)
+	sliceCommand[5] = 0x21
+	sliceCommand[6] = 0x04
+	sliceCommand[7] = 0x04
+	sliceCommand[8] = 0x00
+	sliceCommand[9] = 0x00
+	sliceCommand[10] = numMin
+	sliceCommand[11] = numMax
+
+	for i := 0; i < 12; i++ {
+		checkSum ^= sliceCommand[i]
+	}
+	sliceCommand[12] = checkSum
+	sliceCommand[13] = 0x99
+
+	fmt.Println("---> 72092 sliceCommandOK.", sliceCommand)
+
+	// TODO Uart.Send()
+
+	// TODO CMD.StateOK
+
+}
+
+// 巡检内部命令
+func (gzbNode GZBNode)GZB72093QueryLampDetecDataInterActer(lampNum, modeTX, groupNum, snum int) {
+
+	// 初始化局部变量:校验和&命令缓存
+	checkSum := 0
+	sliceCommand := make([]int, 14)
+
+	// Start
+	sliceCommand[0] = 0x33
+	sliceCommand[1] = snum
+
+	switch modeTX {
+	case 0x01:
+		sliceCommand[2] = lampNum & 0xFF
+	case 0x02:
+		sliceCommand[2] = lampNum & 0xFF
+	default:
+		sliceCommand[2] = groupNum
+	}
+
+	sliceCommand[3] = modeTX
+	sliceCommand[4] = TYPELAMP | ((lampNum>>8)<<4)
+	sliceCommand[5] = 0x21
+	sliceCommand[6] = 0x02
+	sliceCommand[7] = 0x04
+	sliceCommand[8] = 0x00
+	sliceCommand[9] = 0x00
+	sliceCommand[10] = 0x00
+	sliceCommand[11] = 0x00
+
+	for i := 0; i < 12; i++ {
+		checkSum ^= sliceCommand[i]
+	}
+	sliceCommand[12] = checkSum
+	sliceCommand[13] = 0x99
+
+	fmt.Println("---> 72093 sliceCommandOK.", sliceCommand)
+
+	// TODO Uart.Send()
+
+	// TODO CMD.StateOK
+
+}
+
+// 节点开关命令
+func (gzbNode GZBNode)GZB72100SetNodeSwitchActer(lampNum, stateOk, snum int) {
+
+	// 初始化局部变量:校验和&命令缓存
+	checkSum := 0
+	sliceCommand := make([]int, 16)
+
+	// Start
+	sliceCommand[0] = 0x33
+	sliceCommand[1] = snum
+	sliceCommand[2] = lampNum & 0xFF
+	sliceCommand[3] = 0x02
+	sliceCommand[4] = TYPENODE | ((lampNum>>8)<<4)
+	sliceCommand[5] = 0x20
+	sliceCommand[6] = 0x21
+	sliceCommand[7] = 0x06
+	sliceCommand[8] = 0x00
+	sliceCommand[9] = 0x00
+	sliceCommand[10] = 0x00
+	sliceCommand[11] = stateOk
+	switch stateOk {
+	case 0x65:
+		sliceCommand[12] = 0x00
+		sliceCommand[13] = stateOk
+	default:
+		sliceCommand[12] = 0x01
+		sliceCommand[13] = stateOk
+
+	}
+	for i := 0; i < 14; i++ {
+		checkSum ^= sliceCommand[i]
+	}
+	sliceCommand[14] = checkSum
+	sliceCommand[15] = 0x99
+
+	fmt.Println("---> 72100 sliceCommandOK.", sliceCommand)
+
+	// TODO Uart.Send()
+
+	// TODO CMD.StateOK
+
+}
+
+
+//单灯调光
+// stateRelay:标识不同类型(主灯&辅灯&主辅灯)
+func (gzbNode GZBNode)GZB72101SetLampDimmer(lampNum, stateRelay, lampPwm, modeTX, groupNum, snum int) {
+
+	// 初始化局部变量:校验和&命令缓存
+	checkSum := 0
+	sliceCommand := make([]int, 14)
+
+	// Start
+	sliceCommand[0] = 0x33
+	sliceCommand[1] = snum
+
+	switch modeTX {
+	case 0x01:
+		sliceCommand[2] = lampNum & 0xFF
+	case 0x02:
+		sliceCommand[2] = lampNum & 0xFF
+	default:
+		sliceCommand[2] = groupNum
+	}
+
+	sliceCommand[3] = modeTX
+	sliceCommand[4] = TYPELAMP | ((lampNum>>8)<<4)
+
+	switch stateRelay {
+	case 0x01: // 主灯调光
+		sliceCommand[5] = 0x10
+		sliceCommand[6] = 0x0B
+		if modeTX == 0x01 {
+			// 一个
+			fmt.Println("---> modeTx0x01.")
+		} else if modeTX == 0x02 {
+			// 所有
+			fmt.Println("---> modeTx0x02.")
+		} else {
+			// 一组
+			fmt.Println("---> modeTx0x03.")
+		}
+	case 0x02: // 辅灯调光
+		sliceCommand[5] = 0x10
+		sliceCommand[6] = 0x0C
+		if modeTX == 0x01 {
+			// 一个
+			fmt.Println("---> modeTx0x01.")
+		} else if modeTX == 0x02 {
+			// 所有
+			fmt.Println("---> modeTx0x02.")
+		} else {
+			// 一组
+			fmt.Println("---> modeTx0x03.")
+		}
+	case 0x03: // 主辅灯调光
+		sliceCommand[5] = 0x10
+		sliceCommand[6] = 0x0A
+		if modeTX == 0x01 {
+			// 开一个灯
+			fmt.Println("---> modeTx0x01.")
+		} else if modeTX == 0x02 {
+			// 开所有灯
+			fmt.Println("---> modeTx0x02.")
+		} else {
+			// 开一组灯
+			fmt.Println("---> modeTx0x03.")
+		}
+	}
+	sliceCommand[7] = 0x04
+	sliceCommand[8] = 0x00
+	sliceCommand[9] = 0x00
+	sliceCommand[10] = 0x00
+	sliceCommand[11] = lampPwm
+
+	for i := 0; i < 12; i++ {
+		checkSum ^= sliceCommand[i]
+	}
+	sliceCommand[12] = checkSum
+	sliceCommand[13] = 0x99
+
+	fmt.Println("---> 72101 sliceCommandOK.", sliceCommand)
+
+	// TODO Uart.Send()
+
+	// TODO CMD.StateOK
+}
+
+// 返回单灯panid
+func (gzbNode GZBNode)GZB72104QueryLampPanidActer(lampNum, modeTX, groupNum, snum int) {
+
+	// 初始化局部变量:校验和&命令缓存
+	checkSum := 0
+	sliceCommand := make([]int, 14)
+
+	// Start
+	sliceCommand[0] = 0x33
+	sliceCommand[1] = snum
+
+	switch modeTX {
+	case 0x01:
+		sliceCommand[2] = lampNum & 0xFF
+	case 0x02:
+		sliceCommand[2] = lampNum & 0xFF
+	default:
+		sliceCommand[2] = groupNum
+	}
+
+	sliceCommand[3] = modeTX
+	sliceCommand[4] = TYPELAMP | ((lampNum>>8)<<4)
+	sliceCommand[5] = 0x10
+	sliceCommand[6] = 0x0F
+	sliceCommand[7] = 0x04
+	sliceCommand[8] = 0x00
+	sliceCommand[9] = 0x00
+	sliceCommand[10] = 0x00
+	sliceCommand[11] = 0x00
+
+	for i := 0; i < 12; i++ {
+		checkSum ^= sliceCommand[i]
+	}
+	sliceCommand[12] = checkSum
+	sliceCommand[13] = 0x99
+
+	fmt.Println("---> 72104 sliceCommandOK.", sliceCommand)
+
+	// TODO Uart.Send()
+
+	// TODO CMD.StateOK
+
+}
+
+// 返回单灯程序版本
+func (gzbNode GZBNode)GZB72105QueryLampProgramVersionActer(lampNum, modeTX, groupNum, snum int) {
+
+	// 初始化局部变量:校验和&命令缓存
+	checkSum := 0
+	sliceCommand := make([]int, 14)
+
+	// Start
+	sliceCommand[0] = 0x33
+	sliceCommand[1] = snum
+
+	switch modeTX {
+	case 0x01:
+		sliceCommand[2] = lampNum & 0xFF
+	case 0x02:
+		sliceCommand[2] = lampNum & 0xFF
+	default:
+		sliceCommand[2] = groupNum
+	}
+
+	sliceCommand[3] = modeTX
+	sliceCommand[4] = TYPELAMP | ((lampNum>>8)<<4)
+	sliceCommand[5] = 0x10
+	sliceCommand[6] = 0x0D
+	sliceCommand[7] = 0x04
+	sliceCommand[8] = 0x00
+	sliceCommand[9] = 0x00
+	sliceCommand[10] = 0x00
+	sliceCommand[11] = 0x00
+
+	for i := 0; i < 12; i++ {
+		checkSum ^= sliceCommand[i]
+	}
+	sliceCommand[12] = checkSum
+	sliceCommand[13] = 0x99
+
+	fmt.Println("---> 72105 sliceCommandOK.", sliceCommand)
+
+	// TODO Uart.Send()
+
+	// TODO CMD.StateOK
+
+}
+
+// 重启单灯
+func (gzbNode GZBNode)GZB72106SetLampResetActer(lampNum, modeTX, groupNum, snum int) {
+
+	// 初始化局部变量:校验和&命令缓存
+	checkSum := 0
+	sliceCommand := make([]int, 14)
+
+	// Start
+	sliceCommand[0] = 0x33
+	sliceCommand[1] = snum
+
+	switch modeTX {
+	case 0x01:
+		sliceCommand[2] = lampNum & 0xFF
+	case 0x02:
+		sliceCommand[2] = lampNum & 0xFF
+	default:
+		sliceCommand[2] = groupNum
+	}
+
+	sliceCommand[3] = modeTX
+	sliceCommand[4] = TYPELAMP | ((lampNum>>8)<<4)
+	sliceCommand[5] = 0x10
+	sliceCommand[6] = 0x0E
+	sliceCommand[7] = 0x04
+	sliceCommand[8] = 0x00
+	sliceCommand[9] = 0x00
+	sliceCommand[10] = 0x00
+	sliceCommand[11] = 0x00
+
+	for i := 0; i < 12; i++ {
+		checkSum ^= sliceCommand[i]
+	}
+	sliceCommand[12] = checkSum
+	sliceCommand[13] = 0x99
+
+	fmt.Println("---> 72106 sliceCommandOK.", sliceCommand)
+
+	// TODO Uart.Send()
+
+	// TODO CMD.StateOK
+
+}
+
+// 查询STC时间
+func (gzbNode GZBNode)GZB72116QueryLampTimeSTC(lampNum, modeTX, groupNum, snum int) {
+
+	// 初始化局部变量:校验和&命令缓存
+	checkSum := 0
+	sliceCommand := make([]int, 14)
+
+	// Start
+	sliceCommand[0] = 0x33
+	sliceCommand[1] = snum
+
+	switch modeTX {
+	case 0x01:
+		sliceCommand[2] = lampNum & 0xFF
+	case 0x02:
+		sliceCommand[2] = lampNum & 0xFF
+	default:
+		sliceCommand[2] = groupNum
+	}
+
+	sliceCommand[3] = modeTX
+	sliceCommand[4] = TYPELAMP | ((lampNum>>8)<<4)
+	sliceCommand[5] = 0x20
+	sliceCommand[6] = 0x25
+	sliceCommand[7] = 0x04
+	sliceCommand[8] = 0x00
+	sliceCommand[9] = 0x00
+	sliceCommand[10] = 0x00
+	sliceCommand[11] = 0x00
+
+	for i := 0; i < 12; i++ {
+		checkSum ^= sliceCommand[i]
+	}
+	sliceCommand[12] = checkSum
+	sliceCommand[13] = 0x99
+
+	fmt.Println("---> 72116 sliceCommandOK.", sliceCommand)
+
+	// TODO Uart.Send()
+
+	// TODO CMD.StateOK
 }
