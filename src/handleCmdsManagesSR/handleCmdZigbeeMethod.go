@@ -264,6 +264,9 @@ func (gzbNode GZBNode)GZB72053InductAndTrigeTimeActer(lampNum, buffA, buffB, mod
 
 	fmt.Println("---> 72053 sliceCommandOK.", sliceCommand)
 
+	// 将数据(id&data&snum)发送到channel
+	HanldeCmdZigbeeLoading(72053, sliceCommand, snum)
+
 	// TODO Uart.Send()
 
 	// TODO CMD.StateOK
@@ -308,6 +311,9 @@ func (gzbNode GZBNode)GZB72054SetLampGroupActer(lampNum, gNum, modeTX, groupNum,
 
 	fmt.Println("---> 72054 sliceCommandOK.", sliceCommand)
 
+	// 将数据(id&data&snum)发送到channel
+	HanldeCmdZigbeeLoading(72054, sliceCommand, snum)
+
 	// TODO Uart.Send()
 
 	// TODO CMD.StateOK
@@ -351,6 +357,9 @@ func (gzbNode GZBNode)GZB72055SetLampRelayChangeActer(lampNum, stateOk, modeTX, 
 
 	fmt.Println("---> 72055 sliceCommandOK.", sliceCommand)
 
+
+	// 将数据(id&data&snum)发送到channel
+	HanldeCmdZigbeeLoading(72055, sliceCommand, snum)
 	// TODO Uart.Send()
 
 	// TODO CMD.StateOK
@@ -394,6 +403,8 @@ func (gzbNode GZBNode)GZB72057SetLampAndNodeRelatedActer(lampNum, numMax, numMin
 
 	fmt.Println("---> 72057 sliceCommandOK.", sliceCommand)
 
+	// 将数据(id&data&snum)发送到channel
+	HanldeCmdZigbeeLoading(72057, sliceCommand, snum)
 	// TODO Uart.Send()
 
 	// TODO CMD.StateOK
@@ -438,6 +449,8 @@ func (gzbNode GZBNode)GZB72058SetLampInductRecoverTimeActer(lampNum, timeRecover
 
 	fmt.Println("---> 72058 sliceCommandOK.", sliceCommand)
 
+	// 将数据(id&data&snum)发送到channel
+	HanldeCmdZigbeeLoading(72058, sliceCommand, snum)
 	// TODO Uart.Send()
 
 	// TODO CMD.StateOK
@@ -482,6 +495,8 @@ func (gzbNode GZBNode)GZB72059SetLampSelfCheckActer(lampNum, modeTX, groupNum, s
 
 	fmt.Println("---> 72059 sliceCommandOK.", sliceCommand)
 
+	// 将数据(id&data&snum)发送到channel
+	HanldeCmdZigbeeLoading(72059, sliceCommand, snum)
 	// TODO Uart.Send()
 
 	// TODO CMD.StateOK
@@ -526,6 +541,8 @@ func (gzbNode GZBNode)GZB72060SetLampFixedKeyActer(lampNum, stateOk, modeTX, gro
 
 	fmt.Println("---> 72060 sliceCommandOK.", sliceCommand)
 
+	// 将数据(id&data&snum)发送到channel
+	HanldeCmdZigbeeLoading(72060, sliceCommand, snum)
 	// TODO Uart.Send()
 
 	// TODO CMD.StateOK
@@ -569,6 +586,8 @@ func (gzbNode GZBNode)GZB72061QueryLampIEEEActer(lampNum, modeTX, groupNum, snum
 
 	fmt.Println("---> 72061 sliceCommandOK.", sliceCommand)
 
+	// 将数据(id&data&snum)发送到channel
+	HanldeCmdZigbeeLoading(72061, sliceCommand, snum)
 	// TODO Uart.Send()
 
 	// TODO CMD.StateOK
@@ -613,6 +632,8 @@ func (gzbNode GZBNode)GZB72062SetLampAlwaysCloseActer(lampNum, stateOk, modeTX, 
 
 	fmt.Println("---> 72062 sliceCommandOK.", sliceCommand)
 
+	// 将数据(id&data&snum)发送到channel
+	HanldeCmdZigbeeLoading(72062, sliceCommand, snum)
 	// TODO Uart.Send()
 
 	// TODO CMD.StateOK
@@ -697,6 +718,8 @@ func (gzbNode GZBNode)GZB72063SetLampInterOpenActer(lampNum, stateRelay, modeTX,
 
 	fmt.Println("---> 72063 sliceCommandOK.", sliceCommand)
 
+	// 将数据(id&data&snum)发送到channel
+	HanldeCmdZigbeeLoading(72063, sliceCommand, snum)
 	// TODO Uart.Send()
 
 	// TODO CMD.StateOK
@@ -781,6 +804,8 @@ func (gzbNode GZBNode)GZB72064SetLampInterCloseActer(lampNum, stateRelay, modeTX
 
 	fmt.Println("---> 72064 sliceCommandOK.", sliceCommand)
 
+	// 将数据(id&data&snum)发送到channel
+	HanldeCmdZigbeeLoading(72064, sliceCommand, snum)
 	// TODO Uart.Send()
 
 	// TODO CMD.StateOK
@@ -824,6 +849,8 @@ func (gzbNode GZBNode)GZB72069SetLampSaveElecsActer(lampNum, modeTX, groupNum, s
 
 	fmt.Println("---> 72069 sliceCommandOK.", sliceCommand)
 
+	// 将数据(id&data&snum)发送到channel
+	HanldeCmdZigbeeLoading(72069, sliceCommand, snum)
 	// TODO Uart.Send()
 
 	// TODO CMD.StateOK
@@ -868,6 +895,8 @@ func (gzbNode GZBNode)GZB72070SetLampAlarmLimitVActer(lampNum, numMax, numMin, m
 
 	fmt.Println("---> 72070 sliceCommandOK.", sliceCommand)
 
+	// 将数据(id&data&snum)发送到channel
+	HanldeCmdZigbeeLoading(72070, sliceCommand, snum)
 	// TODO Uart.Send()
 
 	// TODO CMD.StateOK
@@ -912,6 +941,8 @@ func (gzbNode GZBNode)GZB72071SetLampAlarmLimitIActer(lampNum, numMax, numMin, m
 
 	fmt.Println("---> 72071 sliceCommandOK.", sliceCommand)
 
+	// 将数据(id&data&snum)发送到channel
+	HanldeCmdZigbeeLoading(72071, sliceCommand, snum)
 	// TODO Uart.Send()
 
 	// TODO CMD.StateOK
@@ -956,6 +987,8 @@ func (gzbNode GZBNode)GZB72072SetLampAlarmLimitPActer(lampNum, numMax, numMin, m
 
 	fmt.Println("---> 72072 sliceCommandOK.", sliceCommand)
 
+	// 将数据(id&data&snum)发送到channel
+	HanldeCmdZigbeeLoading(72072, sliceCommand, snum)
 	// TODO Uart.Send()
 
 	// TODO CMD.StateOK
@@ -1000,6 +1033,8 @@ func (gzbNode GZBNode)GZB72073SetLampAlarmLimitPFActer(lampNum, numMax, numMin, 
 
 	fmt.Println("---> 72073 sliceCommandOK.", sliceCommand)
 
+	// 将数据(id&data&snum)发送到channel
+	HanldeCmdZigbeeLoading(72073, sliceCommand, snum)
 	// TODO Uart.Send()
 
 	// TODO CMD.StateOK
@@ -1044,6 +1079,8 @@ func (gzbNode GZBNode)GZB72074SetLampAnergyClearActer(lampNum, modeTX, groupNum,
 
 	fmt.Println("---> 72074 sliceCommandOK.", sliceCommand)
 
+	// 将数据(id&data&snum)发送到channel
+	HanldeCmdZigbeeLoading(72074, sliceCommand, snum)
 	// TODO Uart.Send()
 
 	// TODO CMD.StateOK
@@ -1099,6 +1136,8 @@ func (gzbNode GZBNode)GZB72075SetLampAmplifyVActer(lampNum, stateOk, valueAmpli,
 
 	fmt.Println("---> 72075 sliceCommandOK.", sliceCommand)
 
+	// 将数据(id&data&snum)发送到channel
+	HanldeCmdZigbeeLoading(72075, sliceCommand, snum)
 	// TODO Uart.Send()
 
 	// TODO CMD.StateOK
@@ -1155,6 +1194,8 @@ func (gzbNode GZBNode)GZB72077SetLampAmplifyIActer(lampNum, stateOk, valueAmpli,
 
 	fmt.Println("---> 72077 sliceCommandOK.", sliceCommand)
 
+	// 将数据(id&data&snum)发送到channel
+	HanldeCmdZigbeeLoading(72077, sliceCommand, snum)
 	// TODO Uart.Send()
 
 	// TODO CMD.StateOK
@@ -1190,6 +1231,8 @@ func (gzbNode GZBNode)GZB72079SetLampRN8209OffsetActer(lampNum, snum int) {
 
 	fmt.Println("---> 72079 sliceCommandOK.", sliceCommand)
 
+	// 将数据(id&data&snum)发送到channel
+	HanldeCmdZigbeeLoading(72079, sliceCommand, snum)
 	// TODO Uart.Send()
 
 	// TODO CMD.StateOK
@@ -1225,6 +1268,8 @@ func (gzbNode GZBNode)GZB72080SetLampRN8209ParasActer(lampNum, snum int) {
 
 	fmt.Println("---> 72080 sliceCommandOK.", sliceCommand)
 
+	// 将数据(id&data&snum)发送到channel
+	HanldeCmdZigbeeLoading(72080, sliceCommand, snum)
 	// TODO Uart.Send()
 
 	// TODO CMD.StateOK
@@ -1260,6 +1305,8 @@ func (gzbNode GZBNode)GZB72081SetLampRN8209RatioActer(lampNum, snum int) {
 
 	fmt.Println("---> 72081 sliceCommandOK.", sliceCommand)
 
+	// 将数据(id&data&snum)发送到channel
+	HanldeCmdZigbeeLoading(72081, sliceCommand, snum)
 	// TODO Uart.Send()
 
 	// TODO CMD.StateOK
@@ -1307,6 +1354,8 @@ func (gzbNode GZBNode)GZB72082SetLampRtuSyncTimeActer(lampNum, timeSec, timeMin,
 
 	fmt.Println("---> 72082 sliceCommandOK.", sliceCommand)
 
+	// 将数据(id&data&snum)发送到channel
+	HanldeCmdZigbeeLoading(72082, sliceCommand, snum)
 	// TODO Uart.Send()
 
 	// TODO CMD.StateOK
@@ -1352,6 +1401,8 @@ func (gzbNode GZBNode)GZB72083SetLampSwitchSyncTimeActer(lampNum, timeOnSec, tim
 
 	fmt.Println("---> 72083 sliceCommandOK.", sliceCommand)
 
+	// 将数据(id&data&snum)发送到channel
+	HanldeCmdZigbeeLoading(72083, sliceCommand, snum)
 	// TODO Uart.Send()
 
 	// TODO CMD.StateOK
@@ -1395,6 +1446,8 @@ func (gzbNode GZBNode)GZB72084QueryBatteryVoltActer(lampNum, modeTX, groupNum, s
 
 	fmt.Println("---> 72084 sliceCommandOK.", sliceCommand)
 
+	// 将数据(id&data&snum)发送到channel
+	HanldeCmdZigbeeLoading(72084, sliceCommand, snum)
 	// TODO Uart.Send()
 
 	// TODO CMD.StateOK
@@ -1438,6 +1491,8 @@ func (gzbNode GZBNode)GZB72085QueryTemperatureActer(lampNum, modeTX, groupNum, s
 
 	fmt.Println("---> 72085 sliceCommandOK.", sliceCommand)
 
+	// 将数据(id&data&snum)发送到channel
+	HanldeCmdZigbeeLoading(72085, sliceCommand, snum)
 	// TODO Uart.Send()
 
 	// TODO CMD.StateOK
@@ -1481,6 +1536,8 @@ func (gzbNode GZBNode)GZB72086SetClearNVAdderActer(lampNum, modeTX, groupNum, sn
 
 	fmt.Println("---> 72086 sliceCommandOK.", sliceCommand)
 
+	// 将数据(id&data&snum)发送到channel
+	HanldeCmdZigbeeLoading(72086, sliceCommand, snum)
 	// TODO Uart.Send()
 
 	// TODO CMD.StateOK
@@ -1524,6 +1581,8 @@ func (gzbNode GZBNode)GZB72087SetLampTwinkleActer(lampNum, stateOk, modeTX, grou
 
 	fmt.Println("---> 72087 sliceCommandOK.", sliceCommand)
 
+	// 将数据(id&data&snum)发送到channel
+	HanldeCmdZigbeeLoading(72087, sliceCommand, snum)
 	// TODO Uart.Send()
 
 	// TODO CMD.StateOK
@@ -1562,6 +1621,8 @@ func (gzbNode GZBNode)GZB72088QueryLampCalledDataActer(lampNum, modeTX, groupNum
 
 		fmt.Println("---> 72088 sliceCommandOK.", sliceCommand)
 
+		// 将数据(id&data&snum)发送到channel
+		HanldeCmdZigbeeLoading(72088, sliceCommand, snum)
 		// TODO Uart.Send()
 
 		// TODO CMD.StateOK
@@ -1674,6 +1735,8 @@ func (gzbNode GZBNode)GZB72090SetLampOpenByHandsActer(lampNum, stateRelay, modeT
 
 	fmt.Println("---> 72090 sliceCommandOK.", sliceCommand)
 
+	// 将数据(id&data&snum)发送到channel
+	HanldeCmdZigbeeLoading(72090, sliceCommand, snum)
 	// TODO Uart.Send()
 
 	// TODO CMD.StateOK
@@ -1758,6 +1821,8 @@ func (gzbNode GZBNode)GZB72091SetLampCloseByHandsActer(lampNum, stateRelay, mode
 
 	fmt.Println("---> 72091 sliceCommandOK.", sliceCommand)
 
+	// 将数据(id&data&snum)发送到channel
+	HanldeCmdZigbeeLoading(72091, sliceCommand, snum)
 	// TODO Uart.Send()
 
 	// TODO CMD.StateOK
@@ -1801,6 +1866,8 @@ func (gzbNode GZBNode)GZB72092QueryLampDetecDataMannyActer(lampNum, numMax, numM
 
 	fmt.Println("---> 72092 sliceCommandOK.", sliceCommand)
 
+	// 将数据(id&data&snum)发送到channel
+	HanldeCmdZigbeeLoading(72092, sliceCommand, snum)
 	// TODO Uart.Send()
 
 	// TODO CMD.StateOK
@@ -1845,6 +1912,8 @@ func (gzbNode GZBNode)GZB72093QueryLampDetecDataInterActer(lampNum, modeTX, grou
 
 	fmt.Println("---> 72093 sliceCommandOK.", sliceCommand)
 
+	// 将数据(id&data&snum)发送到channel
+	HanldeCmdZigbeeLoading(72093, sliceCommand, snum)
 	// TODO Uart.Send()
 
 	// TODO CMD.StateOK
@@ -1888,6 +1957,8 @@ func (gzbNode GZBNode)GZB72100SetNodeSwitchActer(lampNum, stateOk, snum int) {
 
 	fmt.Println("---> 72100 sliceCommandOK.", sliceCommand)
 
+	// 将数据(id&data&snum)发送到channel
+	HanldeCmdZigbeeLoading(72100, sliceCommand, snum)
 	// TODO Uart.Send()
 
 	// TODO CMD.StateOK
@@ -1974,6 +2045,8 @@ func (gzbNode GZBNode)GZB72101SetLampDimmer(lampNum, stateRelay, lampPwm, modeTX
 
 	fmt.Println("---> 72101 sliceCommandOK.", sliceCommand)
 
+	// 将数据(id&data&snum)发送到channel
+	HanldeCmdZigbeeLoading(72101, sliceCommand, snum)
 	// TODO Uart.Send()
 
 	// TODO CMD.StateOK
@@ -2017,6 +2090,8 @@ func (gzbNode GZBNode)GZB72104QueryLampPanidActer(lampNum, modeTX, groupNum, snu
 
 	fmt.Println("---> 72104 sliceCommandOK.", sliceCommand)
 
+	// 将数据(id&data&snum)发送到channel
+	HanldeCmdZigbeeLoading(72104, sliceCommand, snum)
 	// TODO Uart.Send()
 
 	// TODO CMD.StateOK
@@ -2061,6 +2136,8 @@ func (gzbNode GZBNode)GZB72105QueryLampProgramVersionActer(lampNum, modeTX, grou
 
 	fmt.Println("---> 72105 sliceCommandOK.", sliceCommand)
 
+	// 将数据(id&data&snum)发送到channel
+	HanldeCmdZigbeeLoading(72105, sliceCommand, snum)
 	// TODO Uart.Send()
 
 	// TODO CMD.StateOK
@@ -2105,6 +2182,8 @@ func (gzbNode GZBNode)GZB72106SetLampResetActer(lampNum, modeTX, groupNum, snum 
 
 	fmt.Println("---> 72106 sliceCommandOK.", sliceCommand)
 
+	// 将数据(id&data&snum)发送到channel
+	HanldeCmdZigbeeLoading(72106, sliceCommand, snum)
 	// TODO Uart.Send()
 
 	// TODO CMD.StateOK
@@ -2149,6 +2228,8 @@ func (gzbNode GZBNode)GZB72116QueryLampTimeSTC(lampNum, modeTX, groupNum, snum i
 
 	fmt.Println("---> 72116 sliceCommandOK.", sliceCommand)
 
+	// 将数据(id&data&snum)发送到channel
+	HanldeCmdZigbeeLoading(72116, sliceCommand, snum)
 	// TODO Uart.Send()
 
 	// TODO CMD.StateOK
