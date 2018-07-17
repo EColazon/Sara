@@ -30,11 +30,15 @@ const (
 // 声明全局缓冲通道用于命令解析到命令分发间通信
 var ChCmd2F = make(chan map[string]interface{}, 1024)
 var ChCmd33 = make(chan map[string]interface{}, 1024)
+
+// 声明全局缓冲channel用于下发zigbee命令
+var ChCmdZigbeeSend = make(chan map[string]interface{}, 1024)
 // 声明eixt通道用于阻塞channel
 var ChExit = make(chan int)
 // 声明map格式用于拼组数据
 var MapCmd2f = make(map[string]interface{})
 var MapCmd33 = make(map[string]interface{})
+var MapCmdZigbee = make(map[string]interface{})
 
 func Cmd33Parsing() {
 	
