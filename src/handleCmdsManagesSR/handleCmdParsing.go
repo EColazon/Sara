@@ -8,6 +8,8 @@ package handleCmdsManagesSR
 		 7代表月
 		 3代表原33格式
 		 000代表三位编号,最大999
+		 000-499下发命令编号
+		 500-999返回命令编号
 
 Author:mengfei.wu@foxmail.com
 ---------start:2018.07.09---------
@@ -31,13 +33,23 @@ const (
 var ChCmd2F = make(chan map[string]interface{}, 1024)
 var ChCmd33 = make(chan map[string]interface{}, 1024)
 
+// zigbee返回数据解析channel
+var ChCmd33Back = make(chan map[string]interface{}, 1024)
+
 // 声明全局缓冲channel用于下发zigbee命令
 var ChCmdZigbeeSend = make(chan map[string]interface{}, 1024)
+
+
 // 声明eixt通道用于阻塞channel
 var ChExit = make(chan int)
 // 声明map格式用于拼组数据
 var MapCmd2f = make(map[string]interface{})
 var MapCmd33 = make(map[string]interface{})
+
+// zigbee返回数据
+var MapCmd33Back = make(map[string]interface{})
+
+// zigbee下发数据
 var MapCmdZigbee = make(map[string]interface{})
 
 func Cmd33Parsing() {

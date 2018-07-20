@@ -37,6 +37,7 @@ type CmdChannel struct {
 	snum 	int
 }
 
+// 下发命令
 // 协程用于监测channel数据;分发不同命令
 func (cmd CmdChannel)HandleCmdGeter() {
 	fmt.Println("---> CmdGeter Start.")
