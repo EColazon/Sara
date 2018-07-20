@@ -137,7 +137,7 @@ type GZigbeeNodeActer interface {
 	// GZB72096SetLampAuxOpenByHandsActer()		// 单灯手动开辅灯
 	// GZB72097SetLampAuxOpenByHandsActer()		// 单灯手动关辅灯
 	GZB72100SetNodeSwitchActer()				// 节点开关命令
-	GZB7210SetLampDimmer()						// 单灯调光主灯
+	GZB72101SetLampDimmer()						// 单灯调光主灯
 	// GZB72102SetLampAdvDimmerActer()			// 单灯调光辅灯
 	// GZB72103SetLampAuxDimmerActer()			// 单灯调光主辅灯
 	GZB72104QueryLampPanidActer()				// 返回单灯panid

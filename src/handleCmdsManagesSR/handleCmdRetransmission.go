@@ -60,15 +60,126 @@ func (cmdZigbee CmdZigbeeChannel)HandleCmdRetransmissionDistributer() {
 				// 记录序列号
 				MapSnum[cmdZigbee.snum] = cmdZigbee.snum
 				// 命令下发处理
-				go HandleCmdDistributerRetransmission(cmdZigbee.data, cmdZigbee.snum)
-				// switch cmdZigbee.id {
-				// case 72053:
-				// 	fmt.Println("---> miss in 72053", cmdZigbee.snum)
-				// 	go HandleCmdDistributerRetransmission(cmdZigbee.snum)
-				// case 0x02:
-				// 	fmt.Println("---> miss in 02", cmdZigbee.snum)
-				// 	go HandleCmdDistributerRetransmission(cmdZigbee.snum)
-				// }
+				// go HandleCmdDistributerRetransmission(cmdZigbee.data, cmdZigbee.snum)
+				switch cmdZigbee.id {
+				case 72053:
+					fmt.Println("---> miss in 72053", cmdZigbee.snum)
+					go HandleCmdDistributerRetransmission(cmdZigbee.data, cmdZigbee.snum)
+				case 0x02:
+					fmt.Println("---> miss in 02", cmdZigbee.snum)
+					go HandleCmdDistributerRetransmission(cmdZigbee.data, cmdZigbee.snum)
+				case 72054:
+					fmt.Println("---> miss in 72054", cmdZigbee.snum)
+					go HandleCmdDistributerRetransmission(cmdZigbee.data, cmdZigbee.snum)
+				case 72055:
+					fmt.Println("---> miss in 72055", cmdZigbee.snum)
+					go HandleCmdDistributerRetransmission(cmdZigbee.data, cmdZigbee.snum)
+				case 72057:
+					fmt.Println("---> miss in 72057", cmdZigbee.snum)
+					go HandleCmdDistributerRetransmission(cmdZigbee.data, cmdZigbee.snum)
+				case 72058:
+					fmt.Println("---> miss in 72058", cmdZigbee.snum)
+					go HandleCmdDistributerRetransmission(cmdZigbee.data, cmdZigbee.snum)
+				case 72059:
+					fmt.Println("---> miss in 72059", cmdZigbee.snum)
+					go HandleCmdDistributerRetransmission(cmdZigbee.data, cmdZigbee.snum)
+				case 72060:
+					fmt.Println("---> miss in 72060", cmdZigbee.snum)
+					go HandleCmdDistributerRetransmission(cmdZigbee.data, cmdZigbee.snum)
+				case 72061:
+					fmt.Println("---> miss in 72061", cmdZigbee.snum)
+					go HandleCmdDistributerRetransmission(cmdZigbee.data, cmdZigbee.snum)
+				case 72062:
+					fmt.Println("---> miss in 72062", cmdZigbee.snum)
+					go HandleCmdDistributerRetransmission(cmdZigbee.data, cmdZigbee.snum)
+				case 72063:
+					fmt.Println("---> miss in 72063", cmdZigbee.snum)
+					go HandleCmdDistributerRetransmission(cmdZigbee.data, cmdZigbee.snum)
+				case 72064:
+					fmt.Println("---> miss in 72064", cmdZigbee.snum)
+					go HandleCmdDistributerRetransmission(cmdZigbee.data, cmdZigbee.snum)
+				case 72069:
+					fmt.Println("---> miss in 72069", cmdZigbee.snum)
+					go HandleCmdDistributerRetransmission(cmdZigbee.data, cmdZigbee.snum)
+				case 72070:
+					fmt.Println("---> miss in 72070", cmdZigbee.snum)
+					go HandleCmdDistributerRetransmission(cmdZigbee.data, cmdZigbee.snum)
+				case 72071:
+					fmt.Println("---> miss in 72071", cmdZigbee.snum)
+					go HandleCmdDistributerRetransmission(cmdZigbee.data, cmdZigbee.snum)
+				case 72072:
+					fmt.Println("---> miss in 72072", cmdZigbee.snum)
+					go HandleCmdDistributerRetransmission(cmdZigbee.data, cmdZigbee.snum)
+				case 72073:
+					fmt.Println("---> miss in 72073", cmdZigbee.snum)
+					go HandleCmdDistributerRetransmission(cmdZigbee.data, cmdZigbee.snum)
+				case 72074:
+					fmt.Println("---> miss in 72074", cmdZigbee.snum)
+					go HandleCmdDistributerRetransmission(cmdZigbee.data, cmdZigbee.snum)
+				case 72075:
+					fmt.Println("---> miss in 72075", cmdZigbee.snum)
+					go HandleCmdDistributerRetransmission(cmdZigbee.data, cmdZigbee.snum)
+				case 72077:
+					fmt.Println("---> miss in 72077", cmdZigbee.snum)
+					go HandleCmdDistributerRetransmission(cmdZigbee.data, cmdZigbee.snum)
+				case 72079:
+					fmt.Println("---> miss in 72079", cmdZigbee.snum)
+					go HandleCmdDistributerRetransmission(cmdZigbee.data, cmdZigbee.snum)
+				case 72080:
+					fmt.Println("---> miss in 72080", cmdZigbee.snum)
+					go HandleCmdDistributerRetransmission(cmdZigbee.data, cmdZigbee.snum)
+				case 72081:
+					fmt.Println("---> miss in 72081", cmdZigbee.snum)
+					go HandleCmdDistributerRetransmission(cmdZigbee.data, cmdZigbee.snum)
+				case 72082:
+					fmt.Println("---> miss in 72082", cmdZigbee.snum)
+					go HandleCmdDistributerRetransmission(cmdZigbee.data, cmdZigbee.snum)
+				case 72083:
+					fmt.Println("---> miss in 72083", cmdZigbee.snum)
+					go HandleCmdDistributerRetransmission(cmdZigbee.data, cmdZigbee.snum)
+				case 72084:
+					fmt.Println("---> miss in 72084", cmdZigbee.snum)
+					go HandleCmdDistributerRetransmission(cmdZigbee.data, cmdZigbee.snum)
+				case 72085:
+					fmt.Println("---> miss in 72085", cmdZigbee.snum)
+					go HandleCmdDistributerRetransmission(cmdZigbee.data, cmdZigbee.snum)
+				case 72087:
+					fmt.Println("---> miss in 72087", cmdZigbee.snum)
+					go HandleCmdDistributerRetransmission(cmdZigbee.data, cmdZigbee.snum)
+				case 72088:
+					fmt.Println("---> miss in 72088", cmdZigbee.snum)
+					go HandleCmdDistributerRetransmission(cmdZigbee.data, cmdZigbee.snum)
+				case 72090:
+					fmt.Println("---> miss in 72090", cmdZigbee.snum)
+					go HandleCmdDistributerRetransmission(cmdZigbee.data, cmdZigbee.snum)
+				case 72091:
+					fmt.Println("---> miss in 72091", cmdZigbee.snum)
+					go HandleCmdDistributerRetransmission(cmdZigbee.data, cmdZigbee.snum)
+				case 72092:
+					fmt.Println("---> miss in 72092", cmdZigbee.snum)
+					go HandleCmdDistributerRetransmission(cmdZigbee.data, cmdZigbee.snum)
+				case 72093:
+					fmt.Println("---> miss in 72093", cmdZigbee.snum)
+					go HandleCmdDistributerRetransmission(cmdZigbee.data, cmdZigbee.snum)
+				case 72100:
+					fmt.Println("---> miss in 72100", cmdZigbee.snum)
+					go HandleCmdDistributerRetransmission(cmdZigbee.data, cmdZigbee.snum)
+				case 72101:
+					fmt.Println("---> miss in 72101", cmdZigbee.snum)
+					go HandleCmdDistributerRetransmission(cmdZigbee.data, cmdZigbee.snum)
+				case 72104:
+					fmt.Println("---> miss in 72104", cmdZigbee.snum)
+					go HandleCmdDistributerRetransmission(cmdZigbee.data, cmdZigbee.snum)
+				case 72105:
+					fmt.Println("---> miss in 72105", cmdZigbee.snum)
+					go HandleCmdDistributerRetransmission(cmdZigbee.data, cmdZigbee.snum)
+				case 72106:
+					fmt.Println("---> miss in 72106", cmdZigbee.snum)
+					go HandleCmdDistributerRetransmission(cmdZigbee.data, cmdZigbee.snum)
+				case 72116:
+					fmt.Println("---> miss in 72116", cmdZigbee.snum)
+					go HandleCmdDistributerRetransmission(cmdZigbee.data, cmdZigbee.snum)
+				}
 
 			}
 		}
@@ -79,10 +190,12 @@ func (cmdZigbee CmdZigbeeChannel)HandleCmdRetransmissionDistributer() {
 func HandleCmdDistributerRetransmission(data []int, snum int) {
 
 	// zigbee 命令下发
-	HandleCmdSendOnce(data) // 换为ZigBee相关发送接口
+	// HandleCmdSendOnce(data) // 换为ZigBee相关发送接口
 	fmt.Println("---> Strat HandleRetransmission.", len(MapSnum), MapSnum)
 	// 计数器
 	timeTick := 0
+	// 标识只重发一次
+	flagTimeOut := 1
 
 	for {
 		_, ok := MapSnum[SnumBack];
@@ -98,10 +211,13 @@ func HandleCmdDistributerRetransmission(data []int, snum int) {
 			timeTick = 0
 			fmt.Println("---> Delete HandleRetransmission.", len(MapSnum), MapSnum)
 			break
-		} else if !ok && timeTick >=5 && timeTick < 10 {
+		} else if !ok && timeTick >=5 && timeTick <=6 && flagTimeOut == 1{
 			// 数据返回超时
-			HandleCmdSendOnce(data)
-			fmt.Println("---> SnumBack is NOT OK and ReTry.", timeTick)
+			// HandleCmdSendOnce(data)
+			flagTimeOut = 0
+			
+			fmt.Println("---> SnumBack is NOT OK and ReTry.", timeTick, snum)
+			
 		} else if !ok && timeTick >= 15 {
 			// 第二次命令下发无数据返回
 			delete(MapSnum, SnumBack)
@@ -138,7 +254,7 @@ func HanldeCmdZigbeeLoading(id int, sliceCommand []int, snum int) {
 func HandleCmdSendOnce(data []int) {
 	fmt.Println("---> Strat handleCmdSendOnce.")
 	for i := 0; i < 3; i++{
-		MapCmdZigbee["id"] = i
+		MapCmdZigbee["id"] = 72053
 		MapCmdZigbee["data"] = data
 		MapCmdZigbee["snum"] = i
 		ChCmdZigbeeSend <- MapCmdZigbee
@@ -179,7 +295,7 @@ func handleAlarmTimeout(snum int) {
 	sliceCommandHead[1] = (length>>16) & 0xFF
 	sliceCommandHead[2] = (length>>8) & 0xFF
 	sliceCommandHead[3] = length & 0xFF
-	sliceCommandHead[5] = snum
+	sliceCommandHead[4] = snum
 
 	for i := 0; i < 5; i++ {
 		sliceCommand[i] = sliceCommandHead[i]
@@ -188,6 +304,8 @@ func handleAlarmTimeout(snum int) {
 		sliceCommand[i+5] = sliceCommand33[i]
 	}
 
+	fmt.Println("---> Alarm Send.")
+	return
 	// TODO TCP.send
 
 
