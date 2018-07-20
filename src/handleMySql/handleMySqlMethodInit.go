@@ -1,26 +1,44 @@
 package handleMySql
 
+//数据库连接池测试
+ 
 import (
-	"fmt"
-	"bytes"
+    "database/sql"
+    "fmt"
+    _ "github.com/go-sql-driver/mysql"
+    "strings"
+	
 )
 
-type elecGeter interface {
-	HandleDBElecGetSingle()		[]interface{}
-	HandleDBElecGetManny()		[]interface{}
-}
-//定义电参量数据库表结构体
-type Buff struct{
-	uid,num int
-	current,volt,pf,power,energy float64
-}
-
+//数据库配置
 const (
-	sqlInHead = "INSERT "
-	SqlUpHead = "UPDATE "
-	sqlInTail = " SET num=?,current=?,volt=?,pf=?,power=?,energy=?,update_time=CURRENT_TIMESTAMP()"
-	sqlUpTail = " SET num=?,current=?,volt=?,pf=?,power=?,energy=?,update_time=CURRENT_TIMESTAMP() WHERE num = ?"
+    userName = "root"
+    password = "hello520Sara"
+    ip = "127.0.0.1"
+    port = "3306"
+    dbName = "dbtest"
 )
+//Db数据库连接池
+var DB *sql.DB
+
+//注意方法名大写，就是public
+func init()  {
+    //构建连接："用户名:密码@tcp(IP:端口)/数据库?charset=utf8"
+    path := strings.Join([]string{userName, ":", password, "@tcp(",ip, ":", port, ")/", dbName, "?charset=utf8"}, "")
+
+    //打开数据库,前者是驱动名，所以要导入： _ "github.com/go-sql-driver/mysql"
+    DB, _ = sql.Open("mysql", path)
+    //设置数据库最大连接数
+    DB.SetConnMaxLifetime(100)
+    //设置上数据库最大闲置连接数
+    DB.SetMaxIdleConns(10)
+    //验证连接
+    if err := DB.Ping(); err != nil{
+        fmt.Println("opon database fail")
+        return
+    }
+    fmt.Println("connnect success")
+}
 
 //创建表
 func HandleDBCreateTable() {
@@ -230,157 +248,52 @@ func HandleDBCreateTable() {
 	fmt.Println("---> sql: 11 ")
 	DB.Exec(sqlDBSlHandST)
 
+	//创建单灯数据表
+	sqlDBSlLamp := "CREATE TABLE IF NOT EXISTS dblamp(" +
+		"uid INT AUTO_INCREMENT NOT NULL ," +
+		"lampNum INT NOT NULL ," +
+		"lampNumGroup INT NOT NULL ," +
+		"lAdvV INT NOT NULL ," +
+		"lAdvI INT NOT NULL ," +
+		"lAdvP INT NOT NULL ," +
+		"lAdvPF INT NOT NULL ," +
+		"lAuxV INT NOT NULL ," +
+		"lAuxI INT NOT NULL ," +
+		"lAuxP INT NOT NULL ," +
+		"lAuxPF INT NOT NULL ," +
+		"lAdvPwm INT NOT NULL ," +
+		"lAuxPwm INT NOT NULL ," +
+		"lStateRelayBT INT NOT NULL ," +
+		"lModeTX INT NOT NULL ," +
+		"lModeRX INT NOT NULL ," +
+		"lTimeAlarm INT NOT NULL ," +
+		"lRelayChange INT NOT NULL ," +
+		"lFlagEX INT NOT NULL ," +
+		"lStateAlarm INT NOT NULL ," +
+		"lBNetAddr INT NOT NULL ," +
+		"lAdvPower INT NOT NULL ," +
+		"lAuxPower INT NOT NULL ," +
+		"lampHigherV INT NOT NULL ," +
+		"lampLowerV INT NOT NULL ," +
+		"lampHigherI INT NOT NULL ," +
+		"lampLowerI INT NOT NULL ," +
+		"lampHigherP INT NOT NULL ," +
+		"lampLowerP INT NOT NULL ," +
+		"lampHigherPF INT NOT NULL ," +
+		"lampLowerPF INT NOT NULL ," +
+		"lFlagSetNum INT NOT NULL ," +
+		"lFlagSetAdu INT NOT NULL ," +
+		"lChecksum INT NOT NULL ," +
+		// "update_time datetime NOT NULL  DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP," +
+		// "create_time datetime NOT NULL  DEFAULT CURRENT_TIMESTAMP," +
+		"update_time TIMESTAMP," +
+		"PRIMARY KEY (uid)" +
+	  ") engine=innodb DEFAULT charset=utf8mb4;"
+	sqlDBSlLampDrop := "DROP TABLE dblamp"
+	DB.Exec(sqlDBSlLampDrop)	
+	fmt.Println("---> sql: 12 ")
+	DB.Exec(sqlDBSlLamp)
 
 
-}
 
-//更新数据
-func HandleDBElecInsert(num int, elecDatas []float64, dbname string) (bool){
-	var buff Buff
-	//开启事务
-	tx, err := DB.Begin()
-	if err != nil{
-		fmt.Println("---> tx fail")
-		return false
-	}
-	//准备sql语句
-	sqlIn := bytes.Buffer{}
-	sqlUp := bytes.Buffer{}
-	//拼组Insert
-	sqlIn.WriteString(sqlInHead)
-	sqlIn.WriteString(dbname)
-	sqlIn.WriteString(sqlInTail)
-	//拼组Update
-	sqlUp.WriteString(SqlUpHead)
-	sqlUp.WriteString(dbname)
-	sqlUp.WriteString(sqlUpTail)
-
-	sqlElecIn := sqlIn.String()
-	sqlElecUp := sqlUp.String() 
-
-	fmt.Println("---> Insert SqlString In", sqlElecIn)
-	fmt.Println("---> Insert SqlString Up", sqlElecUp)
-	// sqlElecIn := "INSERT dbelec SET num=?,current=?,volt=?,pf=?,power=?,energy=?"
-	// sqlElecUp := "UPDATE dbelec SET num=?,current=?,volt=?,pf=?,power=?,energy=? WHERE num = ?"
-	ok := buff.HandleDBElecGetSingle(num)
-	if len(ok) > 0{ //数据存在->更新
-		stmt, err := tx.Prepare(sqlElecUp)
-		fmt.Println("---> Prepare Up")
-		if err != nil{
-			fmt.Println("---> Prepare fail", err)
-			return false
-		}
-		//将参数传递到sql语句中并且执行
-		res, err := stmt.Exec(num,elecDatas[0],elecDatas[1], elecDatas[2], elecDatas[3], elecDatas[4], num)
-		if err != nil{
-			fmt.Println("---> Exec fail", err)
-			tx.Rollback()
-			return false
-		}
-		//将事务提交
-		tx.Commit()
-		//获得上一个插入自增的id
-		fmt.Println(res.LastInsertId())
-		return true
-	} else { //数据不存在->插入
-		stmt, err := tx.Prepare(sqlElecIn)
-		fmt.Println("---> Prepare In")
-		if err != nil{
-			fmt.Println("---> Prepare fail", err)
-			return false
-		}
-		res, err := stmt.Exec(num,elecDatas[0], elecDatas[1], elecDatas[2], elecDatas[3], elecDatas[4])
-		if err != nil{
-			fmt.Println("---> Exec fail", err)
-			tx.Rollback()
-			return false
-		}
-		//将事务提交
-		tx.Commit()
-		//获得上一个插入自增的id
-		fmt.Println(res.LastInsertId())
-		return true
-	}
-}
-
-// 删除数据
-func HandleDBElecDelete(num int) (bool) {
-    //开启事务
-    tx, err := DB.Begin()
-    if err != nil{
-        fmt.Println("---> tx fail")
-    }
-	//准备sql语句
-	sqlDelete := "DELETE FROM dbelec WHERE num = ?"
-    stmt, err := tx.Prepare(sqlDelete)
-    if err != nil{
-        fmt.Println("---> Prepare fail")
-        return false
-    }
-    //设置参数以及执行sql语句
-    res, err := stmt.Exec(num)
-    if err != nil{
-		fmt.Println("---> Exec fail")
-		tx.Rollback()
-        return false
-    }
-    //提交事务
-    tx.Commit()
-    //获得上一个insert的id
-    fmt.Println(res.LastInsertId())
-    return true
-}
-
-// 获取单条数据
-func (buff Buff)HandleDBElecGetSingle(num int) ([]interface{}) {
-	// var buff Buff
-	var buffs []interface{}
-	// var num int
-	// var current,volt,pf,power,energy float64
-	//执行查询语句
-	sqlSelect := "SELECT uid,num,current,volt,pf,power,energy from dbelec where num = ?"
-    rows, err := DB.Query(sqlSelect, num)
-    if err != nil{
-		fmt.Println("---> Select Error.")
-		return buffs
-	}
-	
-	//循环读取结果
-    for rows.Next(){
-        //将每一行的结果都赋值到一个user对象中
-        err := rows.Scan(&buff.uid, &buff.num, &buff.current, &buff.volt, &buff.pf, &buff.power, &buff.energy)
-        if err != nil {
-            fmt.Println("---> rows fail")
-        }
-        //将user追加到users的这个数组中
-        buffs = append(buffs, buff)
-	}
-	fmt.Println("---> buffs: ", buffs)
-    return buffs
-}
-
-// 获取多条数据
-func (buff Buff)HandleDBElecGetManny(index, end int) ([]interface{}) {
-	// var buff Buff
-	// var num int
-	// var current,volt,pf,power,energy float64
-	//执行查询语句
-	sqlSelect := "SELECT uid,num,current,volt,pf,power,energy from dbelec where num >= ? and num <= ?"
-    rows, err := DB.Query(sqlSelect, index, end)
-    if err != nil{
-        fmt.Println("---> Select Error.")    
-	}
-	var buffs []interface{}
-	//循环读取结果
-    for rows.Next(){
-        //将每一行的结果都赋值到一个user对象中
-        err := rows.Scan(&buff.uid, &buff.num, &buff.current, &buff.volt, &buff.pf, &buff.power, &buff.energy)
-        if err != nil {
-            fmt.Println("---> rows fail")
-        }
-        //将user追加到users的这个数组中
-        buffs = append(buffs, buff)
-	}
-	fmt.Println("---> buffs: ", buffs)
-    return buffs
 }
