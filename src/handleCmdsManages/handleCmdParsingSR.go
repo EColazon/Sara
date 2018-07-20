@@ -1,4 +1,4 @@
-package handleCmdsManagesSR
+package handleCmdsManages
 
 /* 72000:2F命令起始编号
 		 7代表月

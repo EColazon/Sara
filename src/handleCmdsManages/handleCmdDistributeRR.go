@@ -1,4 +1,4 @@
-package handleCmdsManagesSR
+package handleCmdsManages
 
 /*
 流程: 
