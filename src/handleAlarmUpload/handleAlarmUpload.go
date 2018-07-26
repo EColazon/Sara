@@ -122,6 +122,29 @@ func HandleModuleAlarm() {
 				// 上传报警信心
 				handleAlarmBuffUpload2Server(1, 0xD0, ValueAlarmD5[0])
 			}
+
+			// 命令解析异常报警
+			// SR 33
+			if FlagAlarmC0[0] == 1 {
+				// 清零报警标志
+				FlagAlarmC0[0] = 0
+				// 上传报警信心
+				handleAlarmBuffUpload2Server(1, 0xC0, ValueAlarmC0[0])
+			}
+			// SR 2F
+			if FlagAlarmC1[0] == 1 {
+				// 清零报警标志
+				FlagAlarmC1[0] = 0
+				// 上传报警信心
+				handleAlarmBuffUpload2Server(1, 0xC0, ValueAlarmC1[0])
+			}
+			// RR 33
+			if FlagAlarmC2[0] == 1 {
+				// 清零报警标志
+				FlagAlarmC2[0] = 0
+				// 上传报警信心
+				handleAlarmBuffUpload2Server(1, 0xC0, ValueAlarmC2[0])
+			}
 		}
 
 	}

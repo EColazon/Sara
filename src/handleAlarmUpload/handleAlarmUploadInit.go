@@ -30,7 +30,7 @@ var (
 	FlagAlarmE6			= make([]int, 6)
 	FlagAlarmE7			= make([]int, 1024)
 	FlagAlarmE8			= make([]int, 1024)
-	
+
 	// E1&E2&E5&E6&E7&E8报警内容
 	ValueAlarmE1			= make([]int, 6)
 	ValueAlarmE2			= make([]int, 6)
@@ -75,6 +75,20 @@ var (
 	ValueAlarmDE			= make([]int, 1)
 	ValueAlarmDF			= make([]int, 1)
 
+	// 命令解析异常报警
+	FlagAlarmC0			= make([]int, 1)		// 33 Fail SR
+	FlagAlarmC1			= make([]int, 1)		// 2F Fail SR
+	FlagAlarmC2			= make([]int, 1)		// 33 Fail RR
+	FlagAlarmC3			= make([]int, 1)		// 
+	FlagAlarmC4			= make([]int, 1)		// 
+	FlagAlarmC5			= make([]int, 1) 		// 
+
+	ValueAlarmC0			= make([]int, 1)
+	ValueAlarmC1			= make([]int, 1)
+	ValueAlarmC2			= make([]int, 1)
+	ValueAlarmC3			= make([]int, 1)
+	ValueAlarmC4			= make([]int, 1)
+	ValueAlarmC5			= make([]int, 1)
 )
 
 func init() {

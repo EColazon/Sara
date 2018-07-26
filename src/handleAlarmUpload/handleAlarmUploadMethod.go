@@ -149,6 +149,38 @@ func HandleAlarmBuffParsing(alarmBuff []int) {
 						ValueAlarmDF[indexEBase] = alarmBuff[9] << 16 | alarmBuff[10] << 8 | alarmBuff[11]
 						fmt.Println("---> Alarm 0xDF.")
 					}
+				case 0x1003: // 命令解析异常报警
+					if alarmBuff[7] == 0xC0 { // 33 Fail SR
+						indexEBase = alarmBuff[6] << 8 | alarmBuff[7]
+						FlagAlarmC0[indexEBase] = 1
+						ValueAlarmC0[indexEBase] = alarmBuff[9] << 16 | alarmBuff[10] << 8 | alarmBuff[11]
+						fmt.Println("---> Alarm 0xC0.")
+					} else if alarmBuff[7] == 0xC1 { // 2F Fail SR
+						indexEBase = alarmBuff[6] << 8 | alarmBuff[7]
+						FlagAlarmC1[indexEBase] = 1
+						ValueAlarmC1[indexEBase] = alarmBuff[9] << 16 | alarmBuff[10] << 8 | alarmBuff[11]
+						fmt.Println("---> Alarm 0xC1.")
+					} else if alarmBuff[7] == 0xC2 { // 33 Fail RR
+						indexEBase = alarmBuff[6] << 8 | alarmBuff[7]
+						FlagAlarmC2[indexEBase] = 1
+						ValueAlarmC2[indexEBase] = alarmBuff[9] << 16 | alarmBuff[10] << 8 | alarmBuff[11]
+						fmt.Println("---> Alarm 0xD2.")
+					} else if alarmBuff[7] == 0xD3 { // 
+						indexEBase = alarmBuff[6] << 8 | alarmBuff[7]
+						FlagAlarmC3[indexEBase] = 1
+						ValueAlarmC3[indexEBase] = alarmBuff[9] << 16 | alarmBuff[10] << 8 | alarmBuff[11]
+						fmt.Println("---> Alarm 0xC3.")
+					} else if alarmBuff[7] == 0xC4 { // 
+						indexEBase = alarmBuff[6] << 8 | alarmBuff[7]
+						FlagAlarmC4[indexEBase] = 1
+						ValueAlarmC4[indexEBase] = alarmBuff[9] << 16 | alarmBuff[10] << 8 | alarmBuff[11]
+						fmt.Println("---> Alarm 0xC4.")
+					} else if alarmBuff[7] == 0xC5 { // 
+						indexEBase = alarmBuff[6] << 8 | alarmBuff[7]
+						FlagAlarmC5[indexEBase] = 1
+						ValueAlarmC5[indexEBase] = alarmBuff[9] << 16 | alarmBuff[10] << 8 | alarmBuff[11]
+						fmt.Println("---> Alarm 0xC5.")
+					}
 					
 				default:
 					fmt.Println("---> Alarm DoNothing.")

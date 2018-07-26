@@ -3,6 +3,8 @@ package handleCmdsManages
 import (
 	"fmt"
 	"reflect"
+
+	alarmMethod "handleAlarmUpload"
 )
 
 // ZigBee返回数据解析处理
@@ -441,8 +443,23 @@ func Cmd33ParsingBack() {
 						default:
 							fmt.Println("---> Another Cmds.")
 						}
+					} else {
+						AlarmBuffParsing[8] = 0xC2
+						alarmMethod.HandleAlarmBuffParsing(AlarmBuffParsing)
+						fmt.Println("RR Head33 is error.")
+						break
 					}
+				} else {
+					AlarmBuffParsing[8] = 0xC2
+					alarmMethod.HandleAlarmBuffParsing(AlarmBuffParsing)
+					fmt.Println("RR Head33 is error.")
+					break
 				}
+			} else {
+				AlarmBuffParsing[8] = 0xC2
+				alarmMethod.HandleAlarmBuffParsing(AlarmBuffParsing)
+				fmt.Println("RRHead33 is error.")
+				break
 			}
 		}
 	}

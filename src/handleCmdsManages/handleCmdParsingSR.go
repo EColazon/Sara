@@ -18,6 +18,8 @@ Author:mengfei.wu@foxmail.com
 import (
 	"fmt"
 	"reflect"
+
+	alarmMethod "handleAlarmUpload"
 )
 
 func Cmd33Parsing() {
@@ -115,15 +117,21 @@ func Cmd33Parsing() {
 							return
 						}
 					} else {
-						fmt.Println("Check33 is error.")
+						AlarmBuffParsing[8] = 0xC0
+						alarmMethod.HandleAlarmBuffParsing(AlarmBuffParsing)
+						fmt.Println("SR Check33 is error.")
 						break
 					}
 				} else {
-					fmt.Println("Tail33 is error.")
+					AlarmBuffParsing[8] = 0xC0
+					alarmMethod.HandleAlarmBuffParsing(AlarmBuffParsing)
+					fmt.Println("SR Tail33 is error.")
 					break
 				}
 			} else {
-				fmt.Println("Head33 is error.")
+				AlarmBuffParsing[8] = 0xC0
+				alarmMethod.HandleAlarmBuffParsing(AlarmBuffParsing)
+				fmt.Println("SR Head33 is error.")
 				break
 			}
 		} else {
@@ -222,7 +230,9 @@ func Cmd2FParsing() {
 				}
 				
 			} else {
-					fmt.Println("Head2f is error.")
+                	AlarmBuffParsing[8] = 0xC1
+					alarmMethod.HandleAlarmBuffParsing(AlarmBuffParsing)
+					fmt.Println("Head2f Tail2f is error.")
 					break
 			}
 		} else {

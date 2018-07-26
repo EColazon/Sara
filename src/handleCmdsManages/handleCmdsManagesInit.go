@@ -35,6 +35,10 @@ var MapCmd33Back = make(map[string]interface{})
 // zigbee下发数据
 var MapCmdZigbee = make(map[string]interface{})
 
+// 命令解析异常报警
+var (
+	AlarmBuffParsing = []int{0x33, 0x01, 0x10, 0x04, 0x00, 0x06, 0x00, 0x01, 0xD0, 0x00, 0x00, 0x00, 0x32, 0x99}
+)
 func init() {
 	fmt.Println("---> handleCmdsManagesInit.")
 }
