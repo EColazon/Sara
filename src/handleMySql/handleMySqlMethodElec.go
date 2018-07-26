@@ -3,6 +3,7 @@ package handleMySql
 import (
 	"fmt"
 	"bytes"
+	alarmMethod "handleAlarmUpload"
 )
 
 type elecGeter interface {
@@ -64,6 +65,8 @@ func HandleDBElecInsert(num int, elecDatas []float64, dbname string) (bool){
 		if err != nil{
 			fmt.Println("---> Exec fail", err)
 			tx.Rollback()
+			AlarmBuffDB[8] = 0xD0
+			alarmMethod.HandleAlarmBuffParsing(AlarmBuffDB)
 			return false
 		}
 		//将事务提交
@@ -82,6 +85,8 @@ func HandleDBElecInsert(num int, elecDatas []float64, dbname string) (bool){
 		if err != nil{
 			fmt.Println("---> Exec fail", err)
 			tx.Rollback()
+			AlarmBuffDB[8] = 0xD0
+			alarmMethod.HandleAlarmBuffParsing(AlarmBuffDB)
 			return false
 		}
 		//将事务提交
@@ -111,6 +116,8 @@ func HandleDBElecDelete(num int) (bool) {
     if err != nil{
 		fmt.Println("---> Exec fail")
 		tx.Rollback()
+		AlarmBuffDB[8] = 0xD0
+		alarmMethod.HandleAlarmBuffParsing(AlarmBuffDB)
         return false
     }
     //提交事务
@@ -130,6 +137,8 @@ func (buff Buff)HandleDBElecGetSingle(num int) ([]interface{}) {
 	sqlSelect := "SELECT uid,num,current,volt,pf,power,energy from dbelec where num = ?"
     rows, err := DB.Query(sqlSelect, num)
     if err != nil{
+		AlarmBuffDB[8] = 0xD0
+		alarmMethod.HandleAlarmBuffParsing(AlarmBuffDB)
 		fmt.Println("---> Select Error.")
 		return buffs
 	}
@@ -157,6 +166,8 @@ func (buff Buff)HandleDBElecGetManny(index, end int) ([]interface{}) {
 	sqlSelect := "SELECT uid,num,current,volt,pf,power,energy from dbelec where num >= ? and num <= ?"
     rows, err := DB.Query(sqlSelect, index, end)
     if err != nil{
+		AlarmBuffDB[8] = 0xD0
+		alarmMethod.HandleAlarmBuffParsing(AlarmBuffDB)
         fmt.Println("---> Select Error.")    
 	}
 	var buffs []interface{}

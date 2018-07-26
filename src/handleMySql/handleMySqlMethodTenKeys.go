@@ -3,6 +3,7 @@ package handleMySql
 import (
 	"fmt"
 	"bytes"
+	alarmMethod "handleAlarmUpload"
 )
 
 //03
@@ -81,6 +82,8 @@ func HandleDBTenKeysInsert(num int, tenDatas []int, dbname string) (bool){
 		if err != nil{
 			fmt.Println("---> Exec fail", err)
 			tx.Rollback()
+			AlarmBuffDB[8] = 0xD4
+			alarmMethod.HandleAlarmBuffParsing(AlarmBuffDB)
 			return false
 		}
 		//将事务提交
@@ -99,6 +102,8 @@ func HandleDBTenKeysInsert(num int, tenDatas []int, dbname string) (bool){
 		if err != nil{
 			fmt.Println("---> Exec fail", err)
 			tx.Rollback()
+			AlarmBuffDB[8] = 0xD4
+			alarmMethod.HandleAlarmBuffParsing(AlarmBuffDB)
 			return false
 		}
 		//将事务提交
@@ -135,6 +140,8 @@ func HandleDBTenKeysDelete(num int, dbname string) (bool) {
     if err != nil{
 		fmt.Println("---> Exec fail")
 		tx.Rollback()
+		AlarmBuffDB[8] = 0xD4
+		alarmMethod.HandleAlarmBuffParsing(AlarmBuffDB)
         return false
     }
     //提交事务
@@ -162,6 +169,8 @@ func (buff BuffTenKeys)HandleDBTenKeysGetSingle(num int, dbname string) ([]inter
 	// sqlSlct := "SELECT uid,t01,t02,t03,t04,t05,t06,t07,t08,t09,t10 from dbelec where num = ?"
     rows, err := DB.Query(sqlSlct, num)
     if err != nil{
+		AlarmBuffDB[8] = 0xD4
+		alarmMethod.HandleAlarmBuffParsing(AlarmBuffDB)
 		fmt.Println("---> Select Error.")
 		return buffs
 	}
@@ -197,6 +206,8 @@ func (buff BuffTenKeys)HandleDBTenKeysGetManny(index, end int, dbname string) ([
 	// sqlSlct := "SELECT uid,t01,t02,t03,t04,t05,t06,t07,t08,t09,t10 from dbelec where num >= ? and num <= ?"
     rows, err := DB.Query(sqlSlct, index, end)
     if err != nil{
+		AlarmBuffDB[8] = 0xD4
+		alarmMethod.HandleAlarmBuffParsing(AlarmBuffDB)
         fmt.Println("---> Select Error.")    
 	}
 	var buffs []interface{}

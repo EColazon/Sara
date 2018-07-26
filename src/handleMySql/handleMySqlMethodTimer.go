@@ -3,6 +3,7 @@ package handleMySql
 import (
 	"fmt"
 	"bytes"
+	alarmMethod "handleAlarmUpload"
 )
 
 type timerGeter interface {
@@ -66,6 +67,8 @@ func HandleDBSlTimerSwitchInsert(num int, timerDatas []int, dbname string) (bool
 		if err != nil{
 			fmt.Println("---> Exec fail", err)
 			tx.Rollback()
+			AlarmBuffDB[8] = 0xD5
+			alarmMethod.HandleAlarmBuffParsing(AlarmBuffDB)
 			return false
 		}
 		//将事务提交
@@ -84,6 +87,8 @@ func HandleDBSlTimerSwitchInsert(num int, timerDatas []int, dbname string) (bool
 		if err != nil{
 			fmt.Println("---> Exec fail", err)
 			tx.Rollback()
+			AlarmBuffDB[8] = 0xD5
+			alarmMethod.HandleAlarmBuffParsing(AlarmBuffDB)
 			return false
 		}
 		//将事务提交
@@ -113,6 +118,8 @@ func HandleDBSlTimerSwitchDelete(num int) (bool) {
     if err != nil{
 		fmt.Println("---> Exec fail")
 		tx.Rollback()
+		AlarmBuffDB[8] = 0xD5
+		alarmMethod.HandleAlarmBuffParsing(AlarmBuffDB)
         return false
     }
     //提交事务
@@ -132,6 +139,8 @@ func (buff BuffTimer)HandleDBSlTimerSwitchGetSingle(num int) ([]interface{}) {
 	sqlSelect := "SELECT uid,num,lampMOpen,lampMClose,lampFOpen,lampFClose from dbsltimer where num = ?"
     rows, err := DB.Query(sqlSelect, num)
     if err != nil{
+		AlarmBuffDB[8] = 0xD5
+		alarmMethod.HandleAlarmBuffParsing(AlarmBuffDB)
 		fmt.Println("---> Select Error.")
 		return buffs
 	}
@@ -159,6 +168,8 @@ func (buff BuffTimer)HandleDBSlTimerSwitchGetManny(index, end int) ([]interface{
 	sqlSelect := "SELECT uid,num,lampMOpen,lampMClose,lampFOpen,lampFClose from dbsltimer where num >= ? and num <= ?"
     rows, err := DB.Query(sqlSelect, index, end)
     if err != nil{
+		AlarmBuffDB[8] = 0xD5
+		alarmMethod.HandleAlarmBuffParsing(AlarmBuffDB)
         fmt.Println("---> Select Error.")    
 	}
 	var buffs []interface{}

@@ -3,6 +3,7 @@ package handleMySql
 import (
 	"fmt"
 	"bytes"
+	alarmMethod "handleAlarmUpload"
 )
 
 type lampGeter interface {
@@ -95,6 +96,8 @@ func HandleDBSlLampInsert(num int, timerDatas []int, dbname string) (bool){
 		if err != nil{
 			fmt.Println("---> Exec fail", err)
 			tx.Rollback()
+			AlarmBuffDB[8] = 0xD1
+			alarmMethod.HandleAlarmBuffParsing(AlarmBuffDB)
 			return false
 		}
 		//将事务提交
@@ -113,6 +116,8 @@ func HandleDBSlLampInsert(num int, timerDatas []int, dbname string) (bool){
 		if err != nil{
 			fmt.Println("---> Exec fail", err)
 			tx.Rollback()
+			AlarmBuffDB[8] = 0xD1
+			alarmMethod.HandleAlarmBuffParsing(AlarmBuffDB)
 			return false
 		}
 		//将事务提交
@@ -142,6 +147,8 @@ func HandleDBSlLampDelete(num int) (bool) {
     if err != nil{
 		fmt.Println("---> Exec fail")
 		tx.Rollback()
+		AlarmBuffDB[8] = 0xD1
+		alarmMethod.HandleAlarmBuffParsing(AlarmBuffDB)
         return false
     }
     //提交事务
@@ -161,6 +168,8 @@ func (buff BuffLamp)HandleDBSlLampGetSingle(num int) ([]interface{}) {
 	sqlSelect := "SELECT uid,lampNum,lampNumGroup,lAdvV,lAdvI,lAdvP,lAdvPF,lAuxV,lAuxI,lAuxP,lAuxPF,lAdvPwm,lAuxPwm,lStateRelayBT,lModeTX,lModeRX,lTimeAlarm,lRelayChange,lFlagEX,lStateAlarm,lBNetAddr,lAdvPower,lAuxPower,lampHigherV,lampLowerV,lampHigherI,lampLowerI,lampHigherP,lampLowerP,lampHigherPF,lampLowerPF,lFlagSetNum,lFlagSetAdu,lChecksum from dbsltimer where num = ?"
     rows, err := DB.Query(sqlSelect, num)
     if err != nil{
+		AlarmBuffDB[8] = 0xD1
+		alarmMethod.HandleAlarmBuffParsing(AlarmBuffDB)
 		fmt.Println("---> Select Error.")
 		return buffs
 	}
@@ -188,6 +197,8 @@ func (buff BuffLamp)HandleDBSlLampManny(index, end int) ([]interface{}) {
 	sqlSelect := "SELECT uid,lampNum,lampNumGroup,lAdvV,lAdvI,lAdvP,lAdvPF,lAuxV,lAuxI,lAuxP,lAuxPF,lAdvPwm,lAuxPwm,lStateRelayBT,lModeTX,lModeRX,lTimeAlarm,lRelayChange,lFlagEX,lStateAlarm,lBNetAddr,lAdvPower,lAuxPower,lampHigherV,lampLowerV,lampHigherI,lampLowerI,lampHigherP,lampLowerP,lampHigherPF,lampLowerPF,lFlagSetNum,lFlagSetAdu,lChecksum from dbsltimer where num >= ? and num <= ?"
     rows, err := DB.Query(sqlSelect, index, end)
     if err != nil{
+		AlarmBuffDB[8] = 0xD1
+		alarmMethod.HandleAlarmBuffParsing(AlarmBuffDB)
         fmt.Println("---> Select Error.")    
 	}
 	var buffs []interface{}

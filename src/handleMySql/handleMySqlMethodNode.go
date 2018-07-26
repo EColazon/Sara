@@ -3,6 +3,7 @@ package handleMySql
 import (
 	"fmt"
 	"bytes"
+	alarmMethod "handleAlarmUpload"
 )
 
 //02
@@ -76,6 +77,8 @@ func HandleDBNodeInsert(num int, nodeDatas []int, dbname string) (bool){
 		if err != nil{
 			fmt.Println("---> Exec fail", err)
 			tx.Rollback()
+			AlarmBuffDB[8] = 0xD2
+			alarmMethod.HandleAlarmBuffParsing(AlarmBuffDB)
 			return false
 		}
 		//将事务提交
@@ -94,6 +97,8 @@ func HandleDBNodeInsert(num int, nodeDatas []int, dbname string) (bool){
 		if err != nil{
 			fmt.Println("---> Exec fail", err)
 			tx.Rollback()
+			AlarmBuffDB[8] = 0xD2
+			alarmMethod.HandleAlarmBuffParsing(AlarmBuffDB)
 			return false
 		}
 		//将事务提交
@@ -123,6 +128,8 @@ func HandleDBNodeDelete(num int) (bool) {
     if err != nil{
 		fmt.Println("---> Exec fail")
 		tx.Rollback()
+		AlarmBuffDB[8] = 0xD2
+		alarmMethod.HandleAlarmBuffParsing(AlarmBuffDB)
         return false
     }
     //提交事务
@@ -142,6 +149,8 @@ func (buff BuffNode)HandleDBNodeGetSingle(num int) ([]interface{}) {
 	sqlSelect := "SELECT uid,num,stateNode,timeTrigeH,timeTrighM,stateLight,timeRecoverH,timeRecoverM,timeOpenH,timeOpenM,timeCloseH,timeCloseM from dbnode where num = ?"
     rows, err := DB.Query(sqlSelect, num)
     if err != nil{
+		AlarmBuffDB[8] = 0xD2
+		alarmMethod.HandleAlarmBuffParsing(AlarmBuffDB)
 		fmt.Println("---> Select Error.")
 		return buffs
 	}
@@ -169,6 +178,8 @@ func (buff BuffNode)HandleDBNodeGetManny(index, end int) ([]interface{}) {
 	sqlSelect := "SELECT uid,num,stateNode,timeTrigeH,timeTrighM,stateLight,timeRecoverH,timeRecoverM,timeOpenH,timeOpenM,timeCloseH,timeCloseM from dbnode where num >= ? and num <= ?"
     rows, err := DB.Query(sqlSelect, index, end)
     if err != nil{
+		AlarmBuffDB[8] = 0xD2
+		alarmMethod.HandleAlarmBuffParsing(AlarmBuffDB)
         fmt.Println("---> Select Error.")    
 	}
 	var buffs []interface{}
