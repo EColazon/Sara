@@ -4,12 +4,20 @@ import (
 	"fmt"
 )
 const (
-	CMD33HEAD = 0x33
-	CMD33TAIL = 0x99
-	CMD2FHEAD00 = 0x2F
-	CMD2FHEAD01 = 0x43
-	CMD2FHEAD02 = 0x2F
-	CMD2FTAIL = 0xCC
+	CMD33HEAD 			= 0x33
+	CMD33TAIL 			= 0x99
+	CMD2FHEAD00 		= 0x2F
+	CMD2FHEAD01 		= 0x43
+	CMD2FHEAD02 		= 0x2F
+	CMD2FTAIL 			= 0xCC
+
+	// dbname
+	DBNameErr 		= "dblogcmderr" 
+	DBNameOK00 		= "dblogcmdok00"
+	DBNameOK01 		= "dblogcmdok01"
+	DBNameOK02 		= "dblogcmdok02"
+	DBNameOK03 		= "dblogcmdok03"
+	DBNameOK04 		= "dblogcmdok04"
 
 )
 // 声明全局缓冲通道用于命令解析到命令分发间通信
