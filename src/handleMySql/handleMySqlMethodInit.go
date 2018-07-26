@@ -20,7 +20,7 @@ const (
 )
 // 数据库读写异常报警
 var (
-	AlarmBuffDB = []int{0x33, 0x01, 0x10, 0x01, 0x00, 0x06, 0x00, 0x01, 0xD0, 0x00, 0x00, 0x00, 0x32, 0x99}
+	AlarmBuffDB = []int{0x33, 0x01, 0x10, 0x03, 0x00, 0x06, 0x00, 0x01, 0xD0, 0x00, 0x00, 0x00, 0x32, 0x99}
 )
 //Db数据库连接池
 var DB *sql.DB
@@ -298,6 +298,96 @@ func HandleDBCreateTable() {
 	fmt.Println("---> sql: 12 ")
 	DB.Exec(sqlDBSlLamp)
 
+
+	//创建命令解析异常记录表
+	sqlDBLogCmdErr := "CREATE TABLE IF NOT EXISTS dblogcmderr(" +
+		"uid INT AUTO_INCREMENT NOT NULL ," +
+		"flag INT NOT NULL ," +
+		"content CHAR(73) NOT NULL ," +
+		// "update_time datetime NOT NULL  DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP," +
+		// "create_time datetime NOT NULL  DEFAULT CURRENT_TIMESTAMP," +
+		"update_time TIMESTAMP," +
+		"PRIMARY KEY (uid)" +
+	  ") engine=innodb DEFAULT charset=utf8mb4;"
+	sqlDBLogCmdErrDrop := "DROP TABLE dblogcmderr"
+	DB.Exec(sqlDBLogCmdErrDrop)	
+	fmt.Println("---> sql: 08 ")
+	DB.Exec(sqlDBLogCmdErr)
+
+	// 创建命令解析正常记录表 server->RTU
+	sqlDBLogCmd00 := "CREATE TABLE IF NOT EXISTS dblogcmdok00(" +
+		"uid INT AUTO_INCREMENT NOT NULL ," +
+		"flag INT NOT NULL ," +
+		"content CHAR(73) NOT NULL ," +
+		// "update_time datetime NOT NULL  DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP," +
+		// "create_time datetime NOT NULL  DEFAULT CURRENT_TIMESTAMP," +
+		"update_time TIMESTAMP," +
+		"PRIMARY KEY (uid)" +
+	  ") engine=innodb DEFAULT charset=utf8mb4;"
+	sqlDBLogCmd00Drop := "DROP TABLE dblogcmdok00"
+	DB.Exec(sqlDBLogCmd00Drop)	
+	fmt.Println("---> sql: 09 ")
+	DB.Exec(sqlDBLogCmd00)
+
+	// 创建命令解析正常记录表 RTU->router
+	sqlDBLogCmd01 := "CREATE TABLE IF NOT EXISTS dblogcmdok01(" +
+		"uid INT AUTO_INCREMENT NOT NULL ," +
+		"flag INT NOT NULL ," +
+		"content CHAR(73) NOT NULL ," +
+		// "update_time datetime NOT NULL  DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP," +
+		// "create_time datetime NOT NULL  DEFAULT CURRENT_TIMESTAMP," +
+		"update_time TIMESTAMP," +
+		"PRIMARY KEY (uid)" +
+	  ") engine=innodb DEFAULT charset=utf8mb4;"
+	sqlDBLogCmd01Drop := "DROP TABLE dblogcmdok01"
+	DB.Exec(sqlDBLogCmd01Drop)	
+	fmt.Println("---> sql: 10 ")
+	DB.Exec(sqlDBLogCmd01)
+
+	// 创建命令解析正常记录表 router->RTU
+	sqlDBLogCmd02 := "CREATE TABLE IF NOT EXISTS dblogcmdok02(" +
+		"uid INT AUTO_INCREMENT NOT NULL ," +
+		"flag INT NOT NULL ," +
+		"content CHAR(73) NOT NULL ," +
+		// "update_time datetime NOT NULL  DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP," +
+		// "create_time datetime NOT NULL  DEFAULT CURRENT_TIMESTAMP," +
+		"update_time TIMESTAMP," +
+		"PRIMARY KEY (uid)" +
+	  ") engine=innodb DEFAULT charset=utf8mb4;"
+	sqlDBLogCmd02Drop := "DROP TABLE dblogcmdok02"
+	DB.Exec(sqlDBLogCmd02Drop)	
+	fmt.Println("---> sql: 11 ")
+	DB.Exec(sqlDBLogCmd02)
+
+	// 创建命令解析正常记录表 RTU->server
+	sqlDBLogCmd03 := "CREATE TABLE IF NOT EXISTS dblogcmdok03(" +
+		"uid INT AUTO_INCREMENT NOT NULL ," +
+		"flag INT NOT NULL ," +
+		"content CHAR(73) NOT NULL ," +
+		// "update_time datetime NOT NULL  DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP," +
+		// "create_time datetime NOT NULL  DEFAULT CURRENT_TIMESTAMP," +
+		"update_time TIMESTAMP," +
+		"PRIMARY KEY (uid)" +
+	  ") engine=innodb DEFAULT charset=utf8mb4;"
+	sqlDBLogCmd03Drop := "DROP TABLE dblogcmdok03"
+	DB.Exec(sqlDBLogCmd03Drop)	
+	fmt.Println("---> sql: 12 ")
+	DB.Exec(sqlDBLogCmd03)
+
+	// 创建命令解析正常记录表 RTUDect
+	sqlDBLogCmd04 := "CREATE TABLE IF NOT EXISTS dblogcmdok04(" +
+		"uid INT AUTO_INCREMENT NOT NULL ," +
+		"flag INT NOT NULL ," +
+		"content CHAR(73) NOT NULL ," +
+		// "update_time datetime NOT NULL  DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP," +
+		// "create_time datetime NOT NULL  DEFAULT CURRENT_TIMESTAMP," +
+		"update_time TIMESTAMP," +
+		"PRIMARY KEY (uid)" +
+	  ") engine=innodb DEFAULT charset=utf8mb4;"
+	sqlDBLogCmd04Drop := "DROP TABLE dblogcmdok04"
+	DB.Exec(sqlDBLogCmd04Drop)	
+	fmt.Println("---> sql: 13 ")
+	DB.Exec(sqlDBLogCmd04)
 
 
 }
