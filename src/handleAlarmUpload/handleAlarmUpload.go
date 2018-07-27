@@ -92,35 +92,35 @@ func HandleModuleAlarm() {
 				// 清零报警标志
 				FlagAlarmD1[0] = 0
 				// 上传报警信心
-				handleAlarmBuffUpload2Server(1, 0xD0, ValueAlarmD1[0])
+				handleAlarmBuffUpload2Server(1, 0xD1, ValueAlarmD1[0])
 			}
 			// DBNode
 			if FlagAlarmD2[0] == 1 {
 				// 清零报警标志
 				FlagAlarmD2[0] = 0
 				// 上传报警信心
-				handleAlarmBuffUpload2Server(1, 0xD0, ValueAlarmD2[0])
+				handleAlarmBuffUpload2Server(1, 0xD2, ValueAlarmD2[0])
 			}
 			// DBOneKeys
 			if FlagAlarmD3[0] == 1 {
 				// 清零报警标志
 				FlagAlarmD3[0] = 0
 				// 上传报警信心
-				handleAlarmBuffUpload2Server(1, 0xD0, ValueAlarmD3[0])
+				handleAlarmBuffUpload2Server(1, 0xD3, ValueAlarmD3[0])
 			}
 			// DBTenKeys
 			if FlagAlarmD4[0] == 1 {
 				// 清零报警标志
 				FlagAlarmD4[0] = 0
 				// 上传报警信心
-				handleAlarmBuffUpload2Server(1, 0xD0, ValueAlarmD4[0])
+				handleAlarmBuffUpload2Server(1, 0xD4, ValueAlarmD4[0])
 			}
 			// DBTimer
 			if FlagAlarmD5[0] == 1 {
 				// 清零报警标志
 				FlagAlarmD5[0] = 0
 				// 上传报警信心
-				handleAlarmBuffUpload2Server(1, 0xD0, ValueAlarmD5[0])
+				handleAlarmBuffUpload2Server(1, 0xD5, ValueAlarmD5[0])
 			}
 
 			// 命令解析异常报警
@@ -136,15 +136,96 @@ func HandleModuleAlarm() {
 				// 清零报警标志
 				FlagAlarmC1[0] = 0
 				// 上传报警信心
-				handleAlarmBuffUpload2Server(1, 0xC0, ValueAlarmC1[0])
+				handleAlarmBuffUpload2Server(1, 0xC1, ValueAlarmC1[0])
 			}
 			// RR 33
 			if FlagAlarmC2[0] == 1 {
 				// 清零报警标志
 				FlagAlarmC2[0] = 0
 				// 上传报警信心
-				handleAlarmBuffUpload2Server(1, 0xC0, ValueAlarmC2[0])
+				handleAlarmBuffUpload2Server(1, 0xC2, ValueAlarmC2[0])
 			}
+
+			// 清空日志异常报警
+			//
+			// dbloghearta0
+			if FlagDBLog10[0] == 1 {
+				// 清零报警标志
+				FlagDBLog10[0] = 0
+				// 上传报警信心
+				handleAlarmBuffUpload2Server(1, 0x10, ValueDBLog10[0])
+			}
+			// dbloghearta1
+			if FlagDBLog11[0] == 1 {
+				// 清零报警标志
+				FlagDBLog11[0] = 0
+				// 上传报警信心
+				handleAlarmBuffUpload2Server(1, 0x11, ValueDBLog11[0])
+			}
+			// dblogokd0
+			if FlagDBLog12[0] == 1 {
+				// 清零报警标志
+				FlagDBLog12[0] = 0
+				// 上传报警信心
+				handleAlarmBuffUpload2Server(1, 0x12, ValueDBLog12[0])
+			}
+			// dblogokd1
+			if FlagDBLog13[0] == 1 {
+				// 清零报警标志
+				FlagDBLog13[0] = 0
+				// 上传报警信心
+				handleAlarmBuffUpload2Server(1, 0x13, ValueDBLog13[0])
+			}
+			// dblogokd2
+			if FlagDBLog14[0] == 1 {
+				// 清零报警标志
+				FlagDBLog14[0] = 0
+				// 上传报警信心
+				handleAlarmBuffUpload2Server(1, 0x14, ValueDBLog14[0])
+			}
+			// dblogokd3
+			if FlagDBLog15[0] == 1 {
+				// 清零报警标志
+				FlagDBLog15[0] = 0
+				// 上传报警信心
+				handleAlarmBuffUpload2Server(1, 0x15, ValueDBLog15[0])
+			}
+			// dblogokd4
+			if FlagDBLog16[0] == 1 {
+				// 清零报警标志
+				FlagDBLog16[0] = 0
+				// 上传报警信心
+				handleAlarmBuffUpload2Server(1, 0x16, ValueDBLog16[0])
+			}
+			// dblogcmderr
+			if FlagDBLog17[0] == 1 {
+				// 清零报警标志
+				FlagDBLog17[0] = 0
+				// 上传报警信心
+				handleAlarmBuffUpload2Server(1, 0x17, ValueDBLog17[0])
+			}
+			// dblogsysb
+			if FlagDBLog18[0] == 1 {
+				// 清零报警标志
+				FlagDBLog18[0] = 0
+				// 上传报警信心
+				handleAlarmBuffUpload2Server(1, 0x18, ValueDBLog18[0])
+			}
+			// dblogmodulec
+			if FlagDBLog19[0] == 1 {
+				// 清零报警标志
+				FlagDBLog19[0] = 0
+				// 上传报警信心
+				handleAlarmBuffUpload2Server(1, 0x19, ValueDBLog19[0])
+			}
+			// dblogalarme
+			if FlagDBLog1A[0] == 1 {
+				// 清零报警标志
+				FlagDBLog1A[0] = 0
+				// 上传报警信心
+				handleAlarmBuffUpload2Server(1, 0x1A, ValueDBLog1A[0])
+			}
+
 		}
 
 	}

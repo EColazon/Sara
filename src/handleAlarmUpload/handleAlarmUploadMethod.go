@@ -181,6 +181,63 @@ func HandleAlarmBuffParsing(alarmBuff []int) {
 						ValueAlarmC5[indexEBase] = alarmBuff[9] << 16 | alarmBuff[10] << 8 | alarmBuff[11]
 						fmt.Println("---> Alarm 0xC5.")
 					}
+				case 0x1004: // 清空日志异常报警
+					if alarmBuff[7] == 0x10 { // dbloghearta0
+						indexEBase = alarmBuff[6] << 8 | alarmBuff[7]
+						FlagDBLog10[indexEBase] = 1
+						ValueDBLog10[indexEBase] = alarmBuff[9] << 16 | alarmBuff[10] << 8 | alarmBuff[11]
+						fmt.Println("---> DBLog 0x10.")
+					} else if alarmBuff[7] == 0x11 { // dbloghearta1
+						indexEBase = alarmBuff[6] << 8 | alarmBuff[7]
+						FlagDBLog11[indexEBase] = 1
+						ValueDBLog11[indexEBase] = alarmBuff[9] << 16 | alarmBuff[10] << 8 | alarmBuff[11]
+						fmt.Println("---> DBLog 0x11.")
+					} else if alarmBuff[7] == 0x12 { // dblogokd0
+						indexEBase = alarmBuff[6] << 8 | alarmBuff[7]
+						FlagDBLog12[indexEBase] = 1
+						ValueDBLog12[indexEBase] = alarmBuff[9] << 16 | alarmBuff[10] << 8 | alarmBuff[11]
+						fmt.Println("---> DBLog 0x12.")
+					} else if alarmBuff[7] == 0x13 { // dblogokd1
+						indexEBase = alarmBuff[6] << 8 | alarmBuff[7]
+						FlagDBLog13[indexEBase] = 1
+						ValueDBLog13[indexEBase] = alarmBuff[9] << 16 | alarmBuff[10] << 8 | alarmBuff[11]
+						fmt.Println("---> DBLog 0x13.")
+					} else if alarmBuff[7] == 0x14 { // dblogokd2
+						indexEBase = alarmBuff[6] << 8 | alarmBuff[7]
+						FlagDBLog14[indexEBase] = 1
+						ValueDBLog14[indexEBase] = alarmBuff[9] << 16 | alarmBuff[10] << 8 | alarmBuff[11]
+						fmt.Println("---> DBLog 0x14.")
+					} else if alarmBuff[7] == 0x15 { // dblogokd3
+						indexEBase = alarmBuff[6] << 8 | alarmBuff[7]
+						FlagDBLog15[indexEBase] = 1
+						ValueDBLog15[indexEBase] = alarmBuff[9] << 16 | alarmBuff[10] << 8 | alarmBuff[11]
+						fmt.Println("---> DBLog 0x15.")
+					} else if alarmBuff[7] == 0x16 { // dblogokd4
+						indexEBase = alarmBuff[6] << 8 | alarmBuff[7]
+						FlagDBLog16[indexEBase] = 1
+						ValueDBLog16[indexEBase] = alarmBuff[9] << 16 | alarmBuff[10] << 8 | alarmBuff[11]
+						fmt.Println("---> DBLog 0x16.")
+					} else if alarmBuff[7] == 0x17 { // dblogcmderr
+						indexEBase = alarmBuff[6] << 8 | alarmBuff[7]
+						FlagDBLog17[indexEBase] = 1
+						ValueDBLog17[indexEBase] = alarmBuff[9] << 16 | alarmBuff[10] << 8 | alarmBuff[11]
+						fmt.Println("---> DBLog 0x17.")
+					} else if alarmBuff[7] == 0x18 { // dblogsysb
+						indexEBase = alarmBuff[6] << 8 | alarmBuff[7]
+						FlagDBLog18[indexEBase] = 1
+						ValueDBLog18[indexEBase] = alarmBuff[9] << 16 | alarmBuff[10] << 8 | alarmBuff[11]
+						fmt.Println("---> DBLog 0x18.")
+					} else if alarmBuff[7] == 0x19 { // dblogmodulec
+						indexEBase = alarmBuff[6] << 8 | alarmBuff[7]
+						FlagDBLog19[indexEBase] = 1
+						ValueDBLog19[indexEBase] = alarmBuff[9] << 16 | alarmBuff[10] << 8 | alarmBuff[11]
+						fmt.Println("---> DBLog 0x19.")
+					} else if alarmBuff[7] == 0x1A { // dblogalarme
+						indexEBase = alarmBuff[6] << 8 | alarmBuff[7]
+						FlagDBLog1A[indexEBase] = 1
+						ValueDBLog1A[indexEBase] = alarmBuff[9] << 16 | alarmBuff[10] << 8 | alarmBuff[11]
+						fmt.Println("---> DBLog 0x1A.")
+					} 
 					
 				default:
 					fmt.Println("---> Alarm DoNothing.")

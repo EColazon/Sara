@@ -89,6 +89,31 @@ var (
 	ValueAlarmC3			= make([]int, 1)
 	ValueAlarmC4			= make([]int, 1)
 	ValueAlarmC5			= make([]int, 1)
+
+	// 清空日志异常报警
+	FlagDBLog10			= make([]int, 1)
+	FlagDBLog11			= make([]int, 1)
+	FlagDBLog12			= make([]int, 1)
+	FlagDBLog13			= make([]int, 1)
+	FlagDBLog14			= make([]int, 1)
+	FlagDBLog15			= make([]int, 1)
+	FlagDBLog16			= make([]int, 1)
+	FlagDBLog17			= make([]int, 1)
+	FlagDBLog18			= make([]int, 1)
+	FlagDBLog19			= make([]int, 1)
+	FlagDBLog1A			= make([]int, 1)
+
+	ValueDBLog10			= make([]int, 1)
+	ValueDBLog11			= make([]int, 1)
+	ValueDBLog12			= make([]int, 1)
+	ValueDBLog13			= make([]int, 1)
+	ValueDBLog14			= make([]int, 1)
+	ValueDBLog15			= make([]int, 1)
+	ValueDBLog16			= make([]int, 1)
+	ValueDBLog17			= make([]int, 1)
+	ValueDBLog18			= make([]int, 1)
+	ValueDBLog19			= make([]int, 1)
+	ValueDBLog1A			= make([]int, 1)
 )
 
 func init() {
