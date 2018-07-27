@@ -2,19 +2,23 @@ package main
 
 import (
 	"fmt"
-	"reflect"
-	"handleCmdParsing"
-	"timefunc"
-	//"time"
+	"os"
+	"os/signal"
+	"syscall"
+	// "strconv"
+	// "bytes"
+	// "reflect"
+	// "handleCmdsManages"
+	// "timefunc"
+	// "gyjson"
+	"time"
 	/*
 	"handleShared"
-	"bytes"
 	"strconv"
 	*/
 	/*
 	"chgoroutines"
 	"godistrabutor"
-	"gyjson"
 	"gyrwio"
 	"interfaces"
 	
@@ -24,24 +28,141 @@ import (
 	//"workerpool"
 	//"handleRedis"
 	"handleMySql"
+	Sheard "handleShared"
+	
 )
 
 func main() {
 	fmt.Println("Hello Go")
-	arraya := []int{1, 2, 3, 4, 56, 7}
-	arrayb := [3]int{1, 2, 3}
-	slice := make([]int, 3, 10)
-	fmt.Println("---> AAA--- > ", reflect.TypeOf(arraya))
-	fmt.Println("---> BBB--- > ", reflect.TypeOf(arrayb))
-	fmt.Println("---> SSS--- > ", reflect.TypeOf(slice))
+	sig := make(chan os.Signal, 2)
+	signal.Notify(sig, syscall.SIGTERM, syscall.SIGINT)
+	Sheard.ExecShell("ls")
+
+	data := []int{0x01, 0x02, 34, 0x05, 0x06}
+	
+	strFinal := Sheard.Slice2String(data)
+	fmt.Println("---> str: ", strFinal)
+
+	OK := handleMySql.HandleDBLogDelete(7, "dbelec")
+	fmt.Println("---> Del OK：", OK)	
+
+	timeNowHour := time.Now().Hour()
+	timeNowMinute := time.Now().Minute()
+	timeNowWeek	  := time.Now().Weekday().String()
+	if timeNowHour == 11 {
+		fmt.Println("---> HHH.")
+	}
+	if timeNowWeek == "Friday" {
+		fmt.Println("---> FFF.")
+	}
+
+	fmt.Println("---> TimeNow: ", timeNowHour, timeNowMinute, timeNowWeek)
+	
+
+
+	// sqlSelect := "SELECT uid,num,current,volt,pf,power,energy from dbelec where num = ?"
+	// sqlSelect := "select * from dbelec where DATE_SUB(CURDATE(), INTERVAL  1 MONTH) <= date(update_time) "
+	// rows, _ := handleMySql.DB.Query(sqlSelect)
+	// fmt.Println("---> row: ", rows)
+	
+	//循环读取结果
+    // for rows.Next(){
+    //     //将每一行的结果都赋值到一个user对象中
+    //     err := rows.Scan(&buff.uid, &buff.num, &buff.current, &buff.volt, &buff.pf, &buff.power, &buff.energy)
+    //     if err != nil {
+    //         fmt.Println("---> rows fail")
+    //     }
+    //     //将user追加到users的这个数组中
+    //     buffs = append(buffs, buff)
+	// }
+	// fmt.Println("---> buffs: ", buffs)
+
+	// for i := 1; i <= 256; i++ {
+	// 	a := So.DecimalToAny(i, 16, 8)
+	// 	fmt.Println("---> stra: ", a)
+	// }
+	// arraya := []int{1, 2, 3, 4, 56, 7}
+	// arrayb := [3]int{1, 2, 3}
+	// slice := make([]int, 3, 10)
+	// fmt.Println("---> AAA--- > ", reflect.TypeOf(arraya))
+	// fmt.Println("---> BBB--- > ", reflect.TypeOf(arrayb))
+	// fmt.Println("---> SSS--- > ", reflect.TypeOf(slice))
 	//命令解析模块测试
-	timefunc.TimeFunc(handleCmdParsing.Cmd2FParsing)
-	timefunc.TimeFunc(handleCmdParsing.Cmd33Parsing)
+	// timefunc.TimeFunc(handleCmdsManagesSR.Cmd2FParsing)
+	// timefunc.TimeFunc(handleCmdsManagesSR.Cmd33Parsing)
 	// timefunc.TimeFunc(forRange)
-	fmt.Println("---Start 33 ---")
-	handleCmdParsing.Cmd33Parsing()
-	fmt.Println("---Start 2F ---")
-	handleCmdParsing.Cmd2FParsing()
+	
+	// 命令解析select-channel测试
+	
+	
+	// fmt.Println("---> 000 ", handleCmdsManagesSR.GZigbeeNode)
+	
+
+	
+
+	// // // czbNode = append(czbNode, zbNode)
+	// // fmt.Println("---> zbNode: ", zbNode)
+	// // fmt.Println("---> czbNode: ", czbNode)
+	// // for i := 0; i < 5; i++ {
+	// 	// zbNode.id = i
+	// // }
+	// // zbNode.ZigbeeNode72052SetNodeInductTrigeTimeActer(0, 1, 1, 1, 1)
+		
+	// var cmd  handleCmdsManagesSR.CmdChannel
+	// fmt.Println("---Start 33 ---")
+	// for i := 0; i < 1; i++ {
+	// 	go handleCmdsManagesSR.Cmd33Parsing()
+	// 	fmt.Println("---> 33 id : ", i)
+	// }
+	
+	// // time.Sleep(1*time.Second)
+	// fmt.Println("---Start 2F ---")
+	// for i := 0; i < 1; i++ {
+	// 	go handleCmdsManagesSR.Cmd2FParsing()
+	// 	fmt.Println("---> 2f id : ", i)
+	// }
+	
+	
+	// cmd.HandleCmdGeter()
+	// time.Sleep(10*time.Second)
+	// fmt.Println("----------------------------------------------> ")
+	// for i := 0; i < 10; i++ {
+	// 	go handleCmdsManagesSR.Cmd33Parsing()
+	// 	fmt.Println("---> 33 id : ", i)
+	// }
+	
+	// // time.Sleep(1*time.Second)
+	// fmt.Println("---Start 2F ---")
+	// for i := 0; i < 10; i++ {
+	// 	go handleCmdsManagesSR.Cmd2FParsing()
+	// 	fmt.Println("---> 2f id : ", i)
+	// }
+
+	// 超时重传测试
+	/*
+	var ccc handleCmdsManages.CmdZigbeeChannel
+	data := []int{1, 2, 34, 5, 6}
+
+	go handleCmdsManages.HandleCmdSendOnce(data)
+	var mm = make(map[int]int, 1024)
+	mm[1] = 1
+	mm[2] = 2
+	fmt.Println("---> mm ",len(mm), mm)
+	
+	ccc.HandleCmdRetransmissionDistributer()
+
+	// for i := 0; i < 5; i++ {
+
+	// 	handleCmdsManagesSR.HandleCmdDistributerRetransmission(0)
+	// }
+	
+	time.Sleep(5*time.Second)
+	<-sig
+	// <-handleCmdsManagesSR.ChExit
+
+	*/
+
+	
 	/*
 
 	data := []int{0x01, 0x02, 0x03, 0x04, 0x05, 0x06}
@@ -132,26 +253,26 @@ func main() {
 	// handleMySql.HandleMySqlPool()
 	// handleMySql.HandleDBCreateTable()
 	//电参量测试
-	/*
-	var buffElec handleMySql.Buff
-	elecDatas := make([]float64, 5)
-	// elecDatas = append(elecDatas, 1.21, 1.31, 1.401, 1.5001, 1.5)
 	
-	for i := 0; i < 5; i++ {
-		elecDatas[i] = float64(i)+100.11
-	}
-	fmt.Println("---> elecDatas: ", elecDatas)
+	// var buffElec handleMySql.Buff
+	// elecDatas := make([]float64, 5)
+	// // elecDatas = append(elecDatas, 1.21, 1.31, 1.401, 1.5001, 1.5)
+	
+	// for i := 0; i < 5; i++ {
+	// 	elecDatas[i] = float64(i)+100.11
+	// }
+	// fmt.Println("---> elecDatas: ", elecDatas)
 	
 	
-	handleMySql.HandleDBElecInsert(1, elecDatas, "dbelec")
+	// handleMySql.HandleDBElecInsert(774, elecDatas, "dbelec")
 
-	//handleMySql.HandleDBElecDelete(18)
-	fmt.Println("---> Select Single.")
-	buff := buffElec.HandleDBElecGetSingle(2)
-	fmt.Println("---> buff: ", len(buff), buff)
-	fmt.Println("---> Select Manny.")
-	buffElec.HandleDBElecGetManny(1, 10)
-	*/
+	// //handleMySql.HandleDBElecDelete(18)
+	// fmt.Println("---> Select Single.")
+	// buff := buffElec.HandleDBElecGetSingle(2)
+	// fmt.Println("---> buff: ", len(buff), buff)
+	// fmt.Println("---> Select Manny.")
+	// buffElec.HandleDBElecGetManny(1, 10)
+	
 	//节点测试
 	/*
 	var buffnode handleMySql.BuffNode
@@ -226,6 +347,7 @@ func main() {
 	buffOneKeys.HandleDBOneKeysGetManny(1, 10, dbname)
 	*/
 	//单灯定时开关测试
+	/*
 	var buffTimer handleMySql.BuffTimer
 	FourDatas := make([]int, 10)
 	dbname := "dbsltimer"
@@ -246,7 +368,7 @@ func main() {
 	fmt.Println("---> buff: ", len(buff), buff)
 	fmt.Println("---> Select Manny.")
 	buffTimer.HandleDBSlTimerSwitchGetManny(1, 10)
-	
+	*/
 	/*
 	//chgoroutines.Main()
 	//chgoroutines.SelectMain()
@@ -291,6 +413,10 @@ func main() {
 	print("---> Go Redis Json Test <---\n")
 	goredis.GoRedisJson()
 	*/
+	// gyjson.ChanJson()
+
+	
+
 
 }
 
@@ -309,4 +435,3 @@ func test() *int {
 func testOpts(s string, any ...interface{}) {
 	fmt.Println("---> ", s, any)
 }
-
