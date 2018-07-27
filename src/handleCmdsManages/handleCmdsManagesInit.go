@@ -13,11 +13,11 @@ const (
 
 	// dbname
 	DBNameErr 		= "dblogcmderr" 
-	DBNameOK00 		= "dblogcmdok00"
-	DBNameOK01 		= "dblogcmdok01"
-	DBNameOK02 		= "dblogcmdok02"
-	DBNameOK03 		= "dblogcmdok03"
-	DBNameOK04 		= "dblogcmdok04"
+	DBNameOK00 		= "dblogcmdokd0"
+	DBNameOK01 		= "dblogcmdokd1"
+	DBNameOK02 		= "dblogcmdokd2"
+	DBNameOK03 		= "dblogcmdokd3"
+	DBNameOK04 		= "dblogcmdokd4"
 
 )
 // 声明全局缓冲通道用于命令解析到命令分发间通信

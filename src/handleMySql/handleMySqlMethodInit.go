@@ -315,7 +315,7 @@ func HandleDBCreateTable() {
 	DB.Exec(sqlDBLogCmdErr)
 
 	// 创建命令解析正常记录表 server->RTU
-	sqlDBLogCmd00 := "CREATE TABLE IF NOT EXISTS dblogcmdok00(" +
+	sqlDBLogCmd00 := "CREATE TABLE IF NOT EXISTS dblogcmdokd0(" +
 		"uid INT AUTO_INCREMENT NOT NULL ," +
 		"flag INT NOT NULL ," +
 		"content CHAR(73) NOT NULL ," +
@@ -324,13 +324,13 @@ func HandleDBCreateTable() {
 		"update_time TIMESTAMP," +
 		"PRIMARY KEY (uid)" +
 	  ") engine=innodb DEFAULT charset=utf8mb4;"
-	sqlDBLogCmd00Drop := "DROP TABLE dblogcmdok00"
+	sqlDBLogCmd00Drop := "DROP TABLE dblogcmdokd0"
 	DB.Exec(sqlDBLogCmd00Drop)	
 	fmt.Println("---> sql: 09 ")
 	DB.Exec(sqlDBLogCmd00)
 
 	// 创建命令解析正常记录表 RTU->router
-	sqlDBLogCmd01 := "CREATE TABLE IF NOT EXISTS dblogcmdok01(" +
+	sqlDBLogCmd01 := "CREATE TABLE IF NOT EXISTS dblogcmdokd1(" +
 		"uid INT AUTO_INCREMENT NOT NULL ," +
 		"flag INT NOT NULL ," +
 		"content CHAR(73) NOT NULL ," +
@@ -339,13 +339,13 @@ func HandleDBCreateTable() {
 		"update_time TIMESTAMP," +
 		"PRIMARY KEY (uid)" +
 	  ") engine=innodb DEFAULT charset=utf8mb4;"
-	sqlDBLogCmd01Drop := "DROP TABLE dblogcmdok01"
+	sqlDBLogCmd01Drop := "DROP TABLE dblogcmdokd1"
 	DB.Exec(sqlDBLogCmd01Drop)	
 	fmt.Println("---> sql: 10 ")
 	DB.Exec(sqlDBLogCmd01)
 
 	// 创建命令解析正常记录表 router->RTU
-	sqlDBLogCmd02 := "CREATE TABLE IF NOT EXISTS dblogcmdok02(" +
+	sqlDBLogCmd02 := "CREATE TABLE IF NOT EXISTS dblogcmdokd2(" +
 		"uid INT AUTO_INCREMENT NOT NULL ," +
 		"flag INT NOT NULL ," +
 		"content CHAR(73) NOT NULL ," +
@@ -354,13 +354,13 @@ func HandleDBCreateTable() {
 		"update_time TIMESTAMP," +
 		"PRIMARY KEY (uid)" +
 	  ") engine=innodb DEFAULT charset=utf8mb4;"
-	sqlDBLogCmd02Drop := "DROP TABLE dblogcmdok02"
+	sqlDBLogCmd02Drop := "DROP TABLE dblogcmdokd2"
 	DB.Exec(sqlDBLogCmd02Drop)	
 	fmt.Println("---> sql: 11 ")
 	DB.Exec(sqlDBLogCmd02)
 
 	// 创建命令解析正常记录表 RTU->server
-	sqlDBLogCmd03 := "CREATE TABLE IF NOT EXISTS dblogcmdok03(" +
+	sqlDBLogCmd03 := "CREATE TABLE IF NOT EXISTS dblogcmdokd3(" +
 		"uid INT AUTO_INCREMENT NOT NULL ," +
 		"flag INT NOT NULL ," +
 		"content CHAR(73) NOT NULL ," +
@@ -369,13 +369,13 @@ func HandleDBCreateTable() {
 		"update_time TIMESTAMP," +
 		"PRIMARY KEY (uid)" +
 	  ") engine=innodb DEFAULT charset=utf8mb4;"
-	sqlDBLogCmd03Drop := "DROP TABLE dblogcmdok03"
+	sqlDBLogCmd03Drop := "DROP TABLE dblogcmdokd3"
 	DB.Exec(sqlDBLogCmd03Drop)	
 	fmt.Println("---> sql: 12 ")
 	DB.Exec(sqlDBLogCmd03)
 
 	// 创建命令解析正常记录表 RTUDect
-	sqlDBLogCmd04 := "CREATE TABLE IF NOT EXISTS dblogcmdok04(" +
+	sqlDBLogCmd04 := "CREATE TABLE IF NOT EXISTS dblogcmdokd4(" +
 		"uid INT AUTO_INCREMENT NOT NULL ," +
 		"flag INT NOT NULL ," +
 		"content CHAR(73) NOT NULL ," +
@@ -384,7 +384,7 @@ func HandleDBCreateTable() {
 		"update_time TIMESTAMP," +
 		"PRIMARY KEY (uid)" +
 	  ") engine=innodb DEFAULT charset=utf8mb4;"
-	sqlDBLogCmd04Drop := "DROP TABLE dblogcmdok04"
+	sqlDBLogCmd04Drop := "DROP TABLE dblogcmdokd4"
 	DB.Exec(sqlDBLogCmd04Drop)	
 	fmt.Println("---> sql: 13 ")
 	DB.Exec(sqlDBLogCmd04)
