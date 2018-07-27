@@ -13,9 +13,9 @@ const (
 
 	// dbname
 	DBNameErr 		= "dblogcmderr" 
-	DBNameOK00 		= "dblogcmdokd0"
-	DBNameOK01 		= "dblogcmdokd1"
-	DBNameOK02 		= "dblogcmdokd2"
+	DBNameOK00 		= "dblogcmdokd0" //命令解析正常 Server->RTU
+	DBNameOK01 		= "dblogcmdokd1" 
+	DBNameOK02 		= "dblogcmdokd2" //命令解析正常 Router->RTU
 	DBNameOK03 		= "dblogcmdokd3"
 	DBNameOK04 		= "dblogcmdokd4"
 
