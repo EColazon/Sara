@@ -31,7 +31,7 @@ const (
 	SqlUpHeadLog = "UPDATE "
 	SqlDelHeadLog = "DELETE FROM "
 	sqlInTailLog = " SET flag=?,content=?,update_time=CURRENT_TIMESTAMP()"
-	SqlDelTailLog = " WHERE flag = ?"
+	SqlDelTailLog = " WHERE DATE_SUB(CURDATE(), INTERVAL ? DAY) <= date(update_time)"
 )
 
 
@@ -79,7 +79,9 @@ func HandleDBLogInsert(flag int, content string, dbname string) (bool){
 }
 
 // 删除数据
-func HandleDBLogDelete(num int, dbname string) (bool) {
+// days: 删除N天前
+// dbname: 数据表名
+func HandleDBLogDelete(days int, dbname string) (bool) {
     //开启事务
     tx, err := DB.Begin()
     if err != nil{
@@ -99,7 +101,7 @@ func HandleDBLogDelete(num int, dbname string) (bool) {
         return false
     }
     //设置参数以及执行sql语句
-    res, err := stmt.Exec(num)
+    res, err := stmt.Exec(days)
     if err != nil{
 		fmt.Println("---> Exec fail")
 		tx.Rollback()
