@@ -389,5 +389,77 @@ func HandleDBCreateTable() {
 	fmt.Println("---> sql: 13 ")
 	DB.Exec(sqlDBLogCmd04)
 
+	// 新建RTU&单灯异常报警表
+	sqlDBLogAlarmE := "CREATE TABLE IF NOT EXISTS dblogalarme(" +
+		"uid INT AUTO_INCREMENT NOT NULL ," +
+		"flag INT NOT NULL ," +
+		"content CHAR(73) NOT NULL ," +
+		// "update_time datetime NOT NULL  DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP," +
+		// "create_time datetime NOT NULL  DEFAULT CURRENT_TIMESTAMP," +
+		"update_time TIMESTAMP," +
+		"PRIMARY KEY (uid)" +
+	  ") engine=innodb DEFAULT charset=utf8mb4;"
+	sqlDBLogAlarmEDrop := "DROP TABLE dblogalarme"
+	DB.Exec(sqlDBLogAlarmEDrop)	
+	fmt.Println("---> sql: 14 ")
+	DB.Exec(sqlDBLogAlarmE)
 
+	// 新建心跳包记录表
+	sqlDBLogHeartA0 := "CREATE TABLE IF NOT EXISTS dbloghearta0(" +
+		"uid INT AUTO_INCREMENT NOT NULL ," +
+		"flag INT NOT NULL ," +
+		"content CHAR(73) NOT NULL ," +
+		// "update_time datetime NOT NULL  DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP," +
+		// "create_time datetime NOT NULL  DEFAULT CURRENT_TIMESTAMP," +
+		"update_time TIMESTAMP," +
+		"PRIMARY KEY (uid)" +
+	  ") engine=innodb DEFAULT charset=utf8mb4;"
+	sqlDBLogHeartA0Drop := "DROP TABLE dbloghearta0"
+	DB.Exec(sqlDBLogHeartA0Drop)	
+	fmt.Println("---> sql: 15 ")
+	DB.Exec(sqlDBLogHeartA0)
+
+	sqlDBLogHeartA1 := "CREATE TABLE IF NOT EXISTS dbloghearta1(" +
+		"uid INT AUTO_INCREMENT NOT NULL ," +
+		"flag INT NOT NULL ," +
+		"content CHAR(73) NOT NULL ," +
+		// "update_time datetime NOT NULL  DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP," +
+		// "create_time datetime NOT NULL  DEFAULT CURRENT_TIMESTAMP," +
+		"update_time TIMESTAMP," +
+		"PRIMARY KEY (uid)" +
+	  ") engine=innodb DEFAULT charset=utf8mb4;"
+	sqlDBLogHeartA1Drop := "DROP TABLE dbloghearta1"
+	DB.Exec(sqlDBLogHeartA1Drop)	
+	fmt.Println("---> sql: 16 ")
+	DB.Exec(sqlDBLogHeartA1)
+
+	// 新建系统参数记录表
+	sqlDBLogSysB := "CREATE TABLE IF NOT EXISTS dblogsysb(" +
+		"uid INT AUTO_INCREMENT NOT NULL ," +
+		"flag INT NOT NULL ," +
+		"content CHAR(73) NOT NULL ," +
+		// "update_time datetime NOT NULL  DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP," +
+		// "create_time datetime NOT NULL  DEFAULT CURRENT_TIMESTAMP," +
+		"update_time TIMESTAMP," +
+		"PRIMARY KEY (uid)" +
+	  ") engine=innodb DEFAULT charset=utf8mb4;"
+	sqlDBLogSysBDrop := "DROP TABLE dblogsysb"
+	DB.Exec(sqlDBLogSysBDrop)	
+	fmt.Println("---> sql: 17 ")
+	DB.Exec(sqlDBLogSysB)
+
+	// 新建程序模块异常记录表
+	sqlDBLogModuleC := "CREATE TABLE IF NOT EXISTS dblogmodulec(" +
+		"uid INT AUTO_INCREMENT NOT NULL ," +
+		"flag INT NOT NULL ," +
+		"content CHAR(73) NOT NULL ," +
+		// "update_time datetime NOT NULL  DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP," +
+		// "create_time datetime NOT NULL  DEFAULT CURRENT_TIMESTAMP," +
+		"update_time TIMESTAMP," +
+		"PRIMARY KEY (uid)" +
+	  ") engine=innodb DEFAULT charset=utf8mb4;"
+	sqlDBLogModuleCDrop := "DROP TABLE dblogmodulec"
+	DB.Exec(sqlDBLogModuleCDrop)	
+	fmt.Println("---> sql: 18 ")
+	DB.Exec(sqlDBLogModuleC)
 }
