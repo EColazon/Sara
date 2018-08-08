@@ -521,6 +521,9 @@ func (cmd CmdBackChannel)HandleCmdBackGeter() {
 					DBLog.HandleDBLogInsert(cmd.id, content, DBNameOK02)
 					fmt.Println("---> id 73557")
 				case 73558: // 获取温度
+					
+					// 温度采样成功
+					Sheard.WDFlagTempreratureBack = 1
 
 					// 日志记录
 					content := Sheard.Slice2String(cmd.data)

@@ -34,5 +34,29 @@ var (
 	WDLampAlarmShielding		= 0				// 设置单灯报警屏蔽
 	WDDetcTimeLamp				= 0				// 设置单灯巡检时间
 	WDLoopAlwaysOn				= 0 			// 设置回路常开模式
+
+
+	WDFlagTempreratureBack		= 0 			// 温度采样返回标志
+	WDFlagNoTempreratureCeiling = 0				// 温度采样未返回数据标志
 	
+	// Redis相关
+	WDTimeLatitude00			= "Latitude00"	// 经度
+	WDTimeLatitude01			= "Latitude01"	// 经度
+	WDTimeLatitude02			= "Latitude02"	// 经度
+	WDTimeLatitude03			= "Latitude03"	// 经度
+	WDTimeLongitude00			= "Longitude00"	// 纬度
+	WDTimeLongitude01			= "Longitude01"	// 纬度
+	WDTimeLongitude02			= "Longitude02"	// 纬度
+	WDTimeLongitude03			= "Longitude03"	// 纬度
+	
+)
+
+const (
+	WDMCPADDR20					= 0x20 // MCP23008页地址
+	WDPCFADDR51					= 0x51  // PCF8563页地址0x51
+	WDEEPADDR57					= 0x57  // eeprom页地址0x57
+
+	WDMCP20CHECK001				= 1 // MCP23008: 0x20-1
+	WDEEP57CHECK001				= 1 // eeprom: 0x57-1
+	WDPCF51CHECK001				= 1 // PCF8563: 0x51-1
 )

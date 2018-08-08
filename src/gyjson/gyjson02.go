@@ -5,7 +5,34 @@ import (
 	"log"
 	"encoding/json"
 	"reflect"
+	"time"
 )
+func ChanJson() {
+	chJson := make(chan map[string]interface{}, 1024)
+	mapJson := make(map[string]interface{})
+	go func() {
+		for i := 0; i < 10; i++ {
+			chRecv := <- chJson
+			fmt.Println("---> chRecv: ", chRecv["id"], chRecv["data"])
+	}
+		
+	}()
+	for i := 0; i < 10; i++ {
+			mapJson["id"] = i
+			mapJson["data"] = i*i
+			chJson <- mapJson
+	}
+	fmt.Println("---> Send Done.")
+	// select {
+	// case msg := <- chJson:
+	// 	fmt.Println("---> ", msg)
+	// default:
+	// 	time.Sleep(2*time.Second)
+	// }
+	
+	time.Sleep(2*time.Second)
+	
+}
 
 func GYJson02() {
 	instore := make(map[string]interface{})

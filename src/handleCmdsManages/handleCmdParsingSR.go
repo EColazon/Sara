@@ -309,12 +309,12 @@ func cmdZigbeeParsing(buff []int, snumData int) {
 	} else {
 		fmt.Println("sliceCmdZig---> inter to parsingZigDeeper.")
 
-		cmdZigbeeParsingDeeper(sliceCmdZig, snumData)
+		CmdZigbeeParsingDeeper(sliceCmdZig, snumData)
 	}
 
 }
 
-func cmdZigbeeParsingDeeper(buff []int, snumData int) {
+func CmdZigbeeParsingDeeper(buff []int, snumData int) {
 	// zigbee命令深层解析
 	sliceCmdZigDeep := buff
 

@@ -21,6 +21,7 @@ import (
 	"handleShared"
 	DBLog "handleMySql"
 	Sheard "handleShared"
+	Redis "handleRedis"
 )
 
 // 实现两个接口s
@@ -49,6 +50,7 @@ type CmdChannel struct {
 // 协程用于监测channel数据;分发不同命令
 func (cmd CmdChannel)HandleCmdGeter() {
 	fmt.Println("---> CmdGeter Start.")
+	kvJson := make(map[string]interface{})
 	go func() {
 		for{
 			select {
@@ -239,14 +241,36 @@ func (cmd CmdChannel)HandleCmdGeter() {
 					fmt.Println("---> id 72009")
 				case 72010: //设置经度
 					handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
-
+					WDTimeLatitude00 := cmd.data[16]
+					WDTimeLatitude01 := cmd.data[17]
+					WDTimeLatitude02 := cmd.data[18]
+					WDTimeLatitude03 := cmd.data[19]
+					kvJson[Sheard.WDTimeLatitude00] = WDTimeLatitude00
+					Redis.HandleRedisJsonInsert(Sheard.WDTimeLatitude00, kvJson)
+					kvJson[Sheard.WDTimeLatitude01] = WDTimeLatitude01
+					Redis.HandleRedisJsonInsert(Sheard.WDTimeLatitude01, kvJson)
+					kvJson[Sheard.WDTimeLatitude02] = WDTimeLatitude02
+					Redis.HandleRedisJsonInsert(Sheard.WDTimeLatitude02, kvJson)
+					kvJson[Sheard.WDTimeLatitude03] = WDTimeLatitude03
+					Redis.HandleRedisJsonInsert(Sheard.WDTimeLatitude03, kvJson)
 					// 日志记录
 					content := Sheard.Slice2String(cmd.data)
 					DBLog.HandleDBLogInsert(cmd.id, content, DBNameOK00)
 					fmt.Println("---> id 72010")
 				case 72011: //设置纬度
 					handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
-
+					WDTimeLongitude00 := cmd.data[16]
+					WDTimeLongitude01 := cmd.data[17]
+					WDTimeLongitude02 := cmd.data[18]
+					WDTimeLongitude03 := cmd.data[19]
+					kvJson[Sheard.WDTimeLongitude00] = WDTimeLongitude00
+					Redis.HandleRedisJsonInsert(Sheard.WDTimeLongitude00, kvJson)
+					kvJson[Sheard.WDTimeLongitude01] = WDTimeLongitude01
+					Redis.HandleRedisJsonInsert(Sheard.WDTimeLongitude01, kvJson)
+					kvJson[Sheard.WDTimeLongitude02] = WDTimeLongitude02
+					Redis.HandleRedisJsonInsert(Sheard.WDTimeLongitude02, kvJson)
+					kvJson[Sheard.WDTimeLongitude03] = WDTimeLongitude03
+					Redis.HandleRedisJsonInsert(Sheard.WDTimeLongitude03, kvJson)
 					// 日志记录
 					content := Sheard.Slice2String(cmd.data)
 					DBLog.HandleDBLogInsert(cmd.id, content, DBNameOK00)
