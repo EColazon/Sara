@@ -2,15 +2,16 @@ package handleShared
 
 import (
 	"fmt"
-	"math"
-	Redis "handleRedis"
+	// "math"
+	// Redis "handleRedis"
 )
 
 func HandleUpdateTimeLatiLongi() {
 	fmt.Println("---> HandleUpdateTimeLatiLongi")
 	// 获取PCF时间
-	timePCF := HandleSharedExecCSoPCFRead()
+	// timePCF := HandleSharedExecCSoPCFRead()
 	// 获取经度
+	/*
 	WDTimeLatitude00 := Redis.HandleRedisJsonGet(WDTimeLatitude00) 
 	WDTimeLatitude01 := Redis.HandleRedisJsonGet(WDTimeLatitude01) 
 	WDTimeLatitude02 := Redis.HandleRedisJsonGet(WDTimeLatitude02) 
@@ -21,7 +22,7 @@ func HandleUpdateTimeLatiLongi() {
 	WDTimeLongitude01 := Redis.HandleRedisJsonGet(WDTimeLongitude01)
 	WDTimeLongitude02 := Redis.HandleRedisJsonGet(WDTimeLongitude02)
 	WDTimeLongitude03 := Redis.HandleRedisJsonGet(WDTimeLongitude03)
-
+    
 	tDay := (timePCF[5] - 1)*30 + timePCF[3]
 	WDTimeLatitude := WDTimeLatitude02 + WDTimeLatitude01 / 60.0 + WDTimeLatitude00 / 3600.0
 	WDTimeLongitude := WDTimeLongitude02 + WDTimeLongitude01 / 60.0 + WDTimeLongitude00 / 3600.0
@@ -30,6 +31,7 @@ func HandleUpdateTimeLatiLongi() {
 	handleUpDownMeasure(WDTimeLatitude, WDTimeLongitude, tDay, tDayNum, 1)
 	handleUpDownTransfrom()
 	handleUpDownMeasure(WDTimeLatitude, WDTimeLongitude, tDay, tDayNum, 0)
+	*/
 }
 
 func handleUpDownMeasure(timeLatitude float32, timeLongitude float32, tDay int, tDayNum int, flag int) int {
@@ -54,6 +56,7 @@ func handleUpDownMeasure(timeLatitude float32, timeLongitude float32, tDay int, 
 	}
 
 	// 经纬度在正范围内，通过公式计算
+	/*
 	tDayNum = 8
 	m1 := math.Cos(360*(tDay + 9) / 365 * 3.14 / 180) * (-23.4)
 	m2 := -math.Tan(m1 * 3.14 / 180) * math.Tan(timeLongitude * 3.14 / 180)
@@ -65,7 +68,8 @@ func handleUpDownMeasure(timeLatitude float32, timeLongitude float32, tDay int, 
 	} else {
 		return m4
 	}
-
+	*/
+	return 32730
 }
 
 func handleUpDownTransfrom() {
