@@ -319,7 +319,29 @@ func (cmd CmdChannel)HandleCmdGeter() {
 					fmt.Println("---> id 72017")
 				case 72018: //设置回路数量
 					handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
-
+					loopQuantity := cmd.data[19]
+					// 回路数量最大为6路
+					if loopQuantity > 6 {
+						loopQuantity = 6
+					}
+					// 存储回路数量
+					kvJson[Sheard.WDQuantityLoop] = loopQuantity
+					Redis.HandleRedisJsonInsert(Sheard.WDQuantityLoop, kvJson)
+					// 计算回路状态
+					temp := 0
+					loopState := 0 // 回路状态
+					relayStateChange := 0  // 继电器状态改变
+					for (i := 0; i < loopQuantity; i++) {
+						temp |= (1 << i)
+					}
+					loopState &= temp
+					// 存储回路状态
+					kvJson[Sheard.WDStateLoop] = loopState
+					Redis.HandleRedisJsonInsert(Sheard.WDStateLoop, kvJson) 
+					relayStateChange = 0x55
+					// 存储继电器状态
+					kvJson[Sheard.WDStateChangeRelay] = relayStateChange
+					Redis.HandleRedisJsonInsert(Sheard.WDStateChangeRelay, kvJson)
 					// 日志记录
 					content := Sheard.Slice2String(cmd.data)
 					DBLog.HandleDBLogInsert(cmd.id, content, DBNameOK00)

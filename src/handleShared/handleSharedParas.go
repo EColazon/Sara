@@ -20,7 +20,9 @@ var (
 	WDValueLongitude 			= 0 			//设置纬度
 	WDIntervalTimeElec 			= 0				//设置RTU电参数采样间隔时间
 	WDRatioTransformer			= 0 			//设置外接电流互感器比例
-	WDValueLoop					= 0				//设置回路数量
+	WDQuantityLoop				= "WDQuantityLoop"				//设置回路数量
+	WDStateLoop					= "WDStateLoop"					//回路状态
+	WDStateChangeRelay			= "WDStateChangeRelay"			//继电器状态改变
 	WDAlarmShielding 			= 0				//设置报警屏蔽
 	WDValueLamp					= 0				//设置单灯数量
 	WDRelayOpenAllBit			= 0				//按位开继电器(总开)
@@ -48,6 +50,9 @@ var (
 	WDTimeLongitude01			= "Longitude01"	// 纬度
 	WDTimeLongitude02			= "Longitude02"	// 纬度
 	WDTimeLongitude03			= "Longitude03"	// 纬度
+
+	// 回路相关
+	
 	
 )
 
@@ -56,7 +61,13 @@ const (
 	WDPCFADDR51					= 0x51  // PCF8563页地址0x51
 	WDEEPADDR57					= 0x57  // eeprom页地址0x57
 
+	// 0x20
 	WDMCP20CHECK001				= 1 // MCP23008: 0x20-1
+	WDMCP20PINMODE				= 2 // PINMODE
+	WDMCP20PINVALUE				= 3 // PINVALUE
+	// 0x57
 	WDEEP57CHECK001				= 1 // eeprom: 0x57-1
+
+	// 0x51
 	WDPCF51CHECK001				= 1 // PCF8563: 0x51-1
 )
