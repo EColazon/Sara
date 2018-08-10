@@ -7,6 +7,7 @@ import (
 
 	Sheard "handleShared"
 	Cmd "handleCmdsManages"
+	Alarm "handleAlarmUpload"
 )
 
 var (
@@ -17,6 +18,8 @@ var (
 	timeCountClock				= 60*1
 
 	timeAbsSysPCF 				= 60*3 // 系统时间和时钟芯片绝对值差默认3分钟
+	
+	AlarmBuffChipErr = []int{0x33, 0x01, 0x10, 0x05, 0x00, 0x06, 0x00, 0x01, 0xD0, 0x00, 0x00, 0x00, 0x32, 0x99}
 )
 
 func HandleChipsSelfCheckManages() {
@@ -26,10 +29,11 @@ func HandleChipsSelfCheckManages() {
 
 	
 	checkTimeCount 			:= 0
-	checkCountEeprom 		:= 0 // EEPROM检测计数
-	checkCountPCF8563 		:= 0 // PCF8563检测计数
-	checkCountRN8209 		:= 0 // RN8209检测计数
-	checkCountZigbee 		:= 0 // zigbeeIEEE地址读取检测计数
+	errPinCount				:= 0 // 控制指示灯闪烁频率
+	// checkCountEeprom 		:= 0 // EEPROM检测计数
+	// checkCountPCF8563 		:= 0 // PCF8563检测计数
+	// checkCountRN8209 		:= 0 // RN8209检测计数
+	// checkCountZigbee 		:= 0 // zigbeeIEEE地址读取检测计数
 	checkCountClock 		:= 0 // 时钟校时检测计数
 	checkCountTemperature 	:= 0 // 温度采样计数
 	checkCountTemperatureBack 	:= 0 // 温度采样返回计数
@@ -41,10 +45,10 @@ func HandleChipsSelfCheckManages() {
 	checkFlagMCP23008		:= 1 // MCP23008检测标志
 	checkFlagRN8209 		:= 1 // RN8209检测标志
 	checkFlagZigbee 		:= 1 // zigbeeIEEE地址读取检测标志
-	checkFlagClock 			:= 1 // 时钟校时标志
-	checkFlagTemperature 	:= 1 // 温度采样标志
-	checkFlagLiVolt 		:= 1 // 锂电池采样标志
-	checkFlagLatLong 		:= 1 // 经纬度时间更新标志
+	// checkFlagClock 			:= 1 // 时钟校时标志
+	// checkFlagTemperature 	:= 1 // 温度采样标志
+	// checkFlagLiVolt 		:= 1 // 锂电池采样标志
+	// checkFlagLatLong 		:= 1 // 经纬度时间更新标志
 
 	errFlagEeprom 		:= 0 // EEPROM检测异常标志
 	errFlagPCF8563 		:= 0 // PCF8563检测异常标志
@@ -52,17 +56,18 @@ func HandleChipsSelfCheckManages() {
 	errFlag01RN8209 	:= 0 // RN8209检测异常标志
 	errFlag02RN8209 	:= 0 // RN8209检测异常标志
 	errFlag03RN8209 	:= 0 // RN8209检测异常标志
-	errFlagZigbee 		:= 0 // zigbeeIEEE地址读取检测异常标志
+	// errFlagZigbee 		:= 0 // zigbeeIEEE地址读取检测异常标志
 	errFlagClock 		:= 0 // 时钟校时异常标志
-	errFlagTemperature 	:= 0 // 温度采样异常标志
-	errFlagLiVolt 		:= 0 // 锂电池采样异常标志
-	errFlagLatLong 		:= 0 // 经纬度时间更新异常标志
+	// errFlagTemperature 	:= 0 // 温度采样异常标志
+	// errFlagLiVolt 		:= 0 // 锂电池采样异常标志
+	// errFlagLatLong 		:= 0 // 经纬度时间更新异常标志
 
 
 
 	for {
 		// 计数自增
 		checkTimeCount += 1
+		errPinCount += 1
 		checkCountTemperature += 1 // 温度采样
 		checkCountTemperatureBack += 1 // 温度采样返回
 		checkCountLiVolt += 1 // 锂电池采样
@@ -70,6 +75,13 @@ func HandleChipsSelfCheckManages() {
 		time.Sleep(1 * time.Second)
 
 		
+		if errFlagEeprom == 1 || errFlagPCF8563 == 1 || errFlagMCP23008 == 1 || errFlag01RN8209 == 1 || errFlag02RN8209 == 1 || errFlag03RN8209 == 1 {
+			if errPinCount > 3 {
+				errPinCount = 0
+				Sheard.HandleSharedExecCSoGpioOutput(pinErr, 1)
+			}
+
+		}
 
 		// EEPROM检测计数
 		if (checkFlagEeprom == 1) {
@@ -84,6 +96,9 @@ func HandleChipsSelfCheckManages() {
 				// EEPROM异常
 				errFlagEeprom = 1
 				// TODO socketToServer
+				AlarmBuffChipErr[8] = 0x10
+				Alarm.HandleAlarmBuffParsing(AlarmBuffChipErr)
+
 			}
 
 		} else if (checkFlagPCF8563 == 1) {
@@ -98,6 +113,8 @@ func HandleChipsSelfCheckManages() {
 				// PCF8563异常
 				errFlagPCF8563 = 1
 				// TODO socketToServer
+				AlarmBuffChipErr[8] = 0x11
+				Alarm.HandleAlarmBuffParsing(AlarmBuffChipErr)
 
 			}
 
@@ -112,6 +129,8 @@ func HandleChipsSelfCheckManages() {
 				// MCP23008异常
 				errFlagMCP23008 = 1
 				// TODO socketToServer
+				AlarmBuffChipErr[8] = 0x12
+				Alarm.HandleAlarmBuffParsing(AlarmBuffChipErr)
 
 			}
 		} else if (checkFlagRN8209 == 1) {
@@ -120,16 +139,22 @@ func HandleChipsSelfCheckManages() {
 			if readData01[0] != 0x82 || readData01[1] != 0x09 {
 				errFlag01RN8209 = 1
 				// TODO socketToServer
+				AlarmBuffChipErr[8] = 0x13
+				Alarm.HandleAlarmBuffParsing(AlarmBuffChipErr)
 			}
 			readData02 := Sheard.HandleSharedExecCSoRN8209ReadFromID(2)
 			if readData02[0] != 0x82 || readData02[1] != 0x09 {
 				errFlag02RN8209 = 1
 				// TODO socketToServer
+				AlarmBuffChipErr[8] = 0x14
+				Alarm.HandleAlarmBuffParsing(AlarmBuffChipErr)
 			}
 			readData03 := Sheard.HandleSharedExecCSoRN8209ReadFromID(3)
 			if readData03[0] != 0x82 || readData03[1] != 0x09 {
 				errFlag03RN8209 = 1
 				// TODO socketToServer
+				AlarmBuffChipErr[8] = 0x15
+				Alarm.HandleAlarmBuffParsing(AlarmBuffChipErr)
 			}
 
 		} else if checkFlagZigbee == 1 {
@@ -184,10 +209,11 @@ func HandleChipsSelfCheckManages() {
 			timePCF = Sheard.HandleSharedExecCSoPCFRead() // 秒、分、时、天、星期、月、年
 
 			countSysTime = timeSys[0] + timeSys[1]*60 + timeSys[2]*60*60
-			countPCFTime = timePCF[0] = timePCF[1]*60 + timePCF{2}*60*60
+			countPCFTime = timePCF[0] + timePCF[1]*60 + timePCF{2}*60*60
 
 			// 系统时间和时钟芯片绝对值差
 			if math.Abs(countSysTime - countPCFTime) >= timeAbsSysPCF {
+				errFlagClock = 1
 				fmt.Println("---> ERR timeAbsSysPCF.")
 				Sheard.HandleSharedCmdOk(22, sliceTimeAlarm[12:19], sliceTimeAlarm[21])
 
