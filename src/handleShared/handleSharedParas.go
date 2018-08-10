@@ -15,11 +15,11 @@ var (
 	FQStateDoor					= 0				//查询RTU门的状态
 	FQValueBattery				= 0 			//查询锂电池电平值
 
-	WDLevelTopUnusualSwitch		= 0 			//RTU意外亮灭灯报警阈值
+	WDLevelTopUnusualSwitch		= "LevelTopUnusualSwitch" 			//RTU意外亮灭灯报警阈值 syspara.I_oc
 	WDValueLatitude 			= 0				//设置经度
 	WDValueLongitude 			= 0 			//设置纬度
 	WDIntervalTimeElec 			= 0				//设置RTU电参数采样间隔时间
-	WDRatioTransformer			= 0 			//设置外接电流互感器比例
+	WDRatioTransformer			= "RatioTransformer" 			//设置外接电流互感器比例
 	WDQuantityLoop				= "WDQuantityLoop"				//设置回路数量
 	WDStateLoop					= "WDStateLoop"					//回路状态
 	WDStateChangeRelay			= "WDStateChangeRelay"			//继电器状态改变
@@ -62,6 +62,8 @@ var (
 	WDSysPowerMode				= "SysPowerMode" //供电方式
 
 	// 回路相关
+
+	WDFlagLampState				= "FlagLampState" // 定时开状态
 	
 	
 )

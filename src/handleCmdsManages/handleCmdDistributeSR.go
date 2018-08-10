@@ -225,9 +225,12 @@ func (cmd CmdChannel)HandleCmdGeter() {
 					content := Sheard.Slice2String(cmd.data)
 					DBLog.HandleDBLogInsert(cmd.id, content, DBNameOK00)
 					fmt.Println("---> id 72007")
-				case 72008: //设置RTU意外亮灭灯报警阈值
+				case 72008: //设置RTU意外亮灭灯报警阈值syspara.I_oc
 					handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
-
+					
+					levelTopUnusualSwitch := cmd.data[18] <<8 | cmd.data[19]
+					kvJson[Sheard.WDLevelTopUnusualSwitch] = levelTopUnusualSwitch
+					Redis.HandleRedisJsonInsert(Sheard.WDLevelTopUnusualSwitch, kvJson)
 					// 日志记录
 					content := Sheard.Slice2String(cmd.data)
 					DBLog.HandleDBLogInsert(cmd.id, content, DBNameOK00)
@@ -312,7 +315,11 @@ func (cmd CmdChannel)HandleCmdGeter() {
 					fmt.Println("---> id 72016")
 				case 72017: //设置外接电流互感器比例
 					handleShared.HandleSharedCmdOk(22, cmd.data[:8], cmd.snum)
-
+					
+					// 外接电流互感器比例:syspara.I_t
+					ratioTransformerI := cmd.data[18] << 8 | cmd.data[19]
+					kvJson[Sheard.WDRatioTransformer] = ratioTransformerI
+					Redis.HandleRedisJsonInsert(Sheard.WDRatioTransformer, kvJson)
 					// 日志记录
 					content := Sheard.Slice2String(cmd.data)
 					DBLog.HandleDBLogInsert(cmd.id, content, DBNameOK00)
@@ -331,8 +338,9 @@ func (cmd CmdChannel)HandleCmdGeter() {
 					temp := 0
 					loopState := 0 // 回路状态
 					relayStateChange := 0  // 继电器状态改变
-					for (i := 0; i < loopQuantity; i++) {
-						temp |= (1 << i)
+					for i := 0; i < loopQuantity; i++ {
+						// temp |= (1 << i)
+						temp |= (i >> 1) // 什么鬼操作
 					}
 					loopState &= temp
 					// 存储回路状态

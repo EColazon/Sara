@@ -4,7 +4,9 @@ import (
 	"fmt"
 	"time"
 
-	sharePara "handleShared"
+	// sharePara "handleShared"
+	Shared "handleShared"
+	Redis "handleRedis"
 )
 
 func HandleModuleAlarm() {
@@ -14,12 +16,15 @@ func HandleModuleAlarm() {
 	// 计数:1s/once
 	alarmTimeCount 	  := 0
 	index := 0
+	loopQuantity := 0 // 回路数量
 
 	for {
 		// 计数自增
 		alarmTimeCount += 1
 		time.Sleep(1 * time.Second)
 
+		loopQuantityBase := Redis.HandleRedisJsonGet(Shared.WDQuantityLoop)
+		loopQuantity = loopQuantityBase.(int)
 		if alarmTimeCount >= alarmTimeInterval {
 			fmt.Println("---> alarmTimeCount: ", alarmTimeCount)
 			// 报警计数清零
@@ -27,7 +32,7 @@ func HandleModuleAlarm() {
 			// 检测单回路数量报警
 
 			// 电压报警
-			for index = 0; index < sharePara.WDValueLoop; index++ {
+			for index = 0; index < loopQuantity; index++ {
 				if FlagAlarmE1[index] == 1 {
 					// 清零报警标志
 					FlagAlarmE1[index] = 0
@@ -35,7 +40,7 @@ func HandleModuleAlarm() {
 				}
 			}
 			// 电流报警
-			for index = 0; index < sharePara.WDValueLoop; index++ {
+			for index = 0; index < loopQuantity; index++ {
 				if FlagAlarmE2[index] == 1 {
 					// 清零报警标志
 					FlagAlarmE2[index] = 0
@@ -43,7 +48,7 @@ func HandleModuleAlarm() {
 				}
 			}
 			// 意外灭灯报警
-			for index = 0; index < sharePara.WDValueLoop; index++ {
+			for index = 0; index < loopQuantity; index++ {
 				if FlagAlarmE5[index] == 1 {
 					// 清零报警标志
 					FlagAlarmE5[index] = 0
@@ -51,7 +56,7 @@ func HandleModuleAlarm() {
 				}
 			}
 			// 意外亮灯报警
-			for index = 0; index < sharePara.WDValueLoop; index++ {
+			for index = 0; index < loopQuantity; index++ {
 				if FlagAlarmE6[index] == 1 {
 					// 清零报警标志
 					FlagAlarmE6[index] = 0
@@ -59,7 +64,7 @@ func HandleModuleAlarm() {
 				}
 			}
 			// 单灯失恋报警
-			for index = 0; index < sharePara.WDValueLamp+1; index++ {
+			for index = 0; index < Shared.WDValueLamp+1; index++ {
 				if FlagAlarmE7[index] == 1 {
 					// TODO新增E7报警标志判断
 					// 清零报警标志
@@ -69,7 +74,7 @@ func HandleModuleAlarm() {
 				}
 			}
 			// 单灯异常报警
-			for index = 0; index < sharePara.WDValueLamp+1; index++ {
+			for index = 0; index < Shared.WDValueLamp+1; index++ {
 				if FlagAlarmE8[index] == 1 {
 					// TODO新增E8报警标志判断
 					// 清零报警标志

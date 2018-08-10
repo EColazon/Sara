@@ -6,6 +6,7 @@ import (
 	"math"
 	// Shread "handleShared"
 	// Redis "handleRedis"
+	AlarmUpload "handleAlarmUpload"
 )
 
 const (
@@ -378,5 +379,603 @@ func handleClearEnergyRN8209(numRN int) {
 func handleCheckAlarmForElec() {
 
 	fmt.Println("---> handleCheckAlarmForElec.")
+
+	// 初始化
+	alarmBuff := []int{0x33,0x01,0x10,0x00,0x00,0x06,0x01,0xE1,0x00,0x00,0x00,0x00,0x32,0x99}
+	countAlarmDect := 5
+
+	// 第1路电压
+	if valueEleC1["volt"] > valueEleC1["volt_limit_max"] || valueEleC1["volt"] < valueEleC1["volt_limit_min"] {
+		countRTUE1[0] += 1
+		if countRTUE1[0] >= countAlarmDect {
+			countRTUE1[0] = 0
+			flagRTUE1[0] = 1
+			if flagE1V1 <= 3 {
+				flagE1V1 += 1
+				alarmBuff[6] = 1
+				alarmBuff[7] = 0xE1
+				alarmBuff[8] = ((int(valueEleC1["volt"]*100))>>24) & 0xFF
+				alarmBuff[9] = ((int(valueEleC1["volt"]*100))>>16) & 0xFF
+				alarmBuff[10] = ((int(valueEleC1["volt"]*100))>>8) & 0xFF
+				alarmBuff[11] = ((int(valueEleC1["volt"]*100))) & 0xFF
+				AlarmUpload.HandleAlarmBuffParsing(alarmBuff)
+			}
+		}
+	} else {
+		countRTUE1[0] = 0
+		flagRTUE1[0] = 0
+		flagE1V1 = 0
+	}
+
+	// 第2路电压
+	if valueEleC2["volt"] > valueEleC2["volt_limit_max"] || valueEleC2["volt"] < valueEleC2["volt_limit_min"] {
+		countRTUE1[1] += 1
+		if countRTUE1[1] >= countAlarmDect {
+			countRTUE1[1] = 0
+			flagRTUE1[1] = 1
+			if flagE1V2 <= 3 {
+				flagE1V2 += 1
+				alarmBuff[6] = 1
+				alarmBuff[7] = 0xE1
+				alarmBuff[8] = ((int(valueEleC2["volt"]*100))>>24) & 0xFF
+				alarmBuff[9] = ((int(valueEleC2["volt"]*100))>>16) & 0xFF
+				alarmBuff[10] = ((int(valueEleC2["volt"]*100))>>8) & 0xFF
+				alarmBuff[11] = ((int(valueEleC2["volt"]*100))) & 0xFF
+				AlarmUpload.HandleAlarmBuffParsing(alarmBuff)
+			}
+		}
+	} else {
+		countRTUE1[1] = 0
+		flagRTUE1[1] = 0
+		flagE1V2 = 0
+	}
+
+	// 第3路电压
+	if valueEleC3["volt"] > valueEleC3["volt_limit_max"] || valueEleC3["volt"] < valueEleC3["volt_limit_min"] {
+		countRTUE1[2] += 1
+		if countRTUE1[2] >= countAlarmDect {
+			countRTUE1[2] = 0
+			flagRTUE1[2] = 1
+			if flagE1V3 <= 3 {
+				flagE1V3 += 1
+				alarmBuff[6] = 1
+				alarmBuff[7] = 0xE1
+				alarmBuff[8] = ((int(valueEleC3["volt"]*100))>>24) & 0xFF
+				alarmBuff[9] = ((int(valueEleC3["volt"]*100))>>16) & 0xFF
+				alarmBuff[10] = ((int(valueEleC3["volt"]*100))>>8) & 0xFF
+				alarmBuff[11] = ((int(valueEleC3["volt"]*100))) & 0xFF
+				AlarmUpload.HandleAlarmBuffParsing(alarmBuff)
+			}
+		}
+	} else {
+		countRTUE1[2] = 0
+		flagRTUE1[2] = 0
+		flagE1V3 = 0
+	}
+
+	// 第4路电压
+	if valueEleC4["volt"] > valueEleC4["volt_limit_max"] || valueEleC4["volt"] < valueEleC4["volt_limit_min"] {
+		countRTUE1[3] += 1
+		if countRTUE1[3] >= countAlarmDect {
+			countRTUE1[3] = 0
+			flagRTUE1[3] = 1
+			if flagE1V4 <= 3 {
+				flagE1V4 += 1
+				alarmBuff[6] = 1
+				alarmBuff[7] = 0xE1
+				alarmBuff[8] = ((int(valueEleC4["volt"]*100))>>24) & 0xFF
+				alarmBuff[9] = ((int(valueEleC4["volt"]*100))>>16) & 0xFF
+				alarmBuff[10] = ((int(valueEleC4["volt"]*100))>>8) & 0xFF
+				alarmBuff[11] = ((int(valueEleC4["volt"]*100))) & 0xFF
+				AlarmUpload.HandleAlarmBuffParsing(alarmBuff)
+			}
+		}
+	} else {
+		countRTUE1[3] = 0
+		flagRTUE1[3] = 0
+		flagE1V4 = 0
+	}
+
+	// 第5路电压
+	if valueEleC5["volt"] > valueEleC5["volt_limit_max"] || valueEleC5["volt"] < valueEleC5["volt_limit_min"] {
+		countRTUE1[4] += 1
+		if countRTUE1[4] >= countAlarmDect {
+			countRTUE1[4] = 0
+			flagRTUE1[4] = 1
+			if flagE1V5 <= 3 {
+				flagE1V5 += 1
+				alarmBuff[6] = 1
+				alarmBuff[7] = 0xE1
+				alarmBuff[8] = ((int(valueEleC5["volt"]*100))>>24) & 0xFF
+				alarmBuff[9] = ((int(valueEleC5["volt"]*100))>>16) & 0xFF
+				alarmBuff[10] = ((int(valueEleC5["volt"]*100))>>8) & 0xFF
+				alarmBuff[11] = ((int(valueEleC5["volt"]*100))) & 0xFF
+				AlarmUpload.HandleAlarmBuffParsing(alarmBuff)
+			}
+		}
+	} else {
+		countRTUE1[4] = 0
+		flagRTUE1[4] = 0
+		flagE1V5 = 0
+	}
+
+	// 第6路电压
+	if valueEleC6["volt"] > valueEleC6["volt_limit_max"] || valueEleC6["volt"] < valueEleC6["volt_limit_min"] {
+		countRTUE1[5] += 1
+		if countRTUE1[5] >= countAlarmDect {
+			countRTUE1[5] = 0
+			flagRTUE1[5] = 1
+			if flagE1V6 <= 3 {
+				flagE1V6 += 1
+				alarmBuff[6] = 1
+				alarmBuff[7] = 0xE1
+				alarmBuff[8] = ((int(valueEleC6["volt"]*100))>>24) & 0xFF
+				alarmBuff[9] = ((int(valueEleC6["volt"]*100))>>16) & 0xFF
+				alarmBuff[10] = ((int(valueEleC6["volt"]*100))>>8) & 0xFF
+				alarmBuff[11] = ((int(valueEleC6["volt"]*100))) & 0xFF
+				AlarmUpload.HandleAlarmBuffParsing(alarmBuff)
+			}
+		}
+	} else {
+		countRTUE1[5] = 0
+		flagRTUE1[5] = 0
+		flagE1V6 = 0
+	}
+
+	// 获取回路状态
+	// loopState := Redis.HandleRedisJsonGet(Shared.WDStateLoop) // syspara.r_value
+	loopState := 0
+
+	// 获取外接电流互感器比例
+	// ratioTransformerI := Redis.HandleRedisJsonGet(Shared.WDRatioTransformer)
+	ratioTransformerI := 0
+
+	// 获取RTU意外亮灭灯报警阈值
+	// levelTopUnusualSwitch := Redis.HandleRedisJsonGet(Shared.WDLevelTopUnusualSwitch)
+	levelTopUnusualSwitch := 0
+
+	// 获取定时开状态
+	// flagLampState := Redis.HandleRedisJsonGet(Shared.WDFlagLampState)
+	flagLampState := 0
+
+	// conditionLoopState := loopState & 0x01 // 回路关状态
+	// if loopState & 0x01 {
+	// 第1路电流
+	if loopState & 0x01 == 0 { // 回路关状态
+		countRTUE2[0] = 0
+		flagRTUE2[0] = 0
+	} else if valueEleC1["current"] * float64(ratioTransformerI) > valueEleC1["current_limit_max"] / 10.0 || valueEleC1["current"] * float64(ratioTransformerI) < valueEleC1["current_limit_min"] / 10.0 {
+		// 电流上下限放大10倍
+		countRTUE2[0] += 1
+		if countRTUE2[0] >= countAlarmDect {
+			countRTUE2[0] = 0
+			flagRTUE2[0] = 1
+			if flagE2I1 <= 3 {
+				flagE2I1 += 1
+				alarmBuff[6] = 1
+				alarmBuff[7] = 0xE2
+				alarmBuff[8] = ((int(valueEleC1["current"]*100))>>24) & 0xFF
+				alarmBuff[9] = ((int(valueEleC1["current"]*100))>>16) & 0xFF
+				alarmBuff[10] = ((int(valueEleC1["current"]*100))>>8) & 0xFF
+				alarmBuff[11] = ((int(valueEleC1["current"]*100))) & 0xFF
+				AlarmUpload.HandleAlarmBuffParsing(alarmBuff)
+			}
+		}
+	} else {
+		countRTUE2[0] = 0
+		flagRTUE2[0] = 0
+		flagE2I1 = 0
+	}
+
+	if valueEleC1["current"] * float64(ratioTransformerI) <= float64(levelTopUnusualSwitch) / 10.0 {
+		// 意外亮灭灯电流阈值放大10倍
+		if flagLampState & 0x01 != 0 {
+			countRTUE5[0] += 1
+			if countRTUE5[0] >= countAlarmDect {
+				countRTUE5[0] = 0
+				flagRTUE5[0] = 1
+				alarmBuff[6] = 1
+				alarmBuff[7] = 0xE5
+				alarmBuff[8] = ((int(valueEleC1["current"]*100))>>24) & 0xFF
+				alarmBuff[9] = ((int(valueEleC1["current"]*100))>>16) & 0xFF
+				alarmBuff[10] = ((int(valueEleC1["current"]*100))>>8) & 0xFF
+				alarmBuff[11] = ((int(valueEleC1["current"]*100))) & 0xFF
+				AlarmUpload.HandleAlarmBuffParsing(alarmBuff)
+			}
+		} else {
+			countRTUE5[0] = 0
+			flagRTUE5[0] = 0
+		}
+		// 小于阈值就不会出现意外亮灯的情况
+		countRTUE6[0] = 0
+		flagRTUE6[0] = 0
+	} else {
+		if flagLampState & 0x01 == 0 {
+			// 定时关，检测电流大于阈值，意外亮灯
+			countRTUE6[0] += 1
+			if countRTUE6[0] >= countAlarmDect {
+				countRTUE6[0] =0
+				flagRTUE6[0] = 1
+				alarmBuff[6] = 1
+				alarmBuff[7] = 0xE6
+				alarmBuff[8] = ((int(valueEleC1["current"]*100))>>24) & 0xFF
+				alarmBuff[9] = ((int(valueEleC1["current"]*100))>>16) & 0xFF
+				alarmBuff[10] = ((int(valueEleC1["current"]*100))>>8) & 0xFF
+				alarmBuff[11] = ((int(valueEleC1["current"]*100))) & 0xFF
+				AlarmUpload.HandleAlarmBuffParsing(alarmBuff)
+			}
+		} else {
+			countRTUE6[0] = 0
+			flagRTUE6[0] = 0
+		}
+		// 大于阈值就不会出现意外灭灯的情况
+		countRTUE5[0] = 0
+		flagRTUE5[0] = 0
+	} 
+
+	// 第2路电流
+	if loopState & 0x02 == 0 { // 回路关状态
+		countRTUE2[1] = 0
+		flagRTUE2[1] = 0
+	} else if valueEleC2["current"] * float64(ratioTransformerI) > valueEleC2["current_limit_max"] / 10.0 || valueEleC2["current"] * float64(ratioTransformerI) < valueEleC2["current_limit_min"] / 10.0 {
+		// 电流上下限放大10倍
+		countRTUE2[1] += 1
+		if countRTUE2[1] >= countAlarmDect {
+			countRTUE2[1] = 0
+			flagRTUE2[1] = 1
+			if flagE2I2 <= 3 {
+				flagE2I2 += 1
+				alarmBuff[6] = 2
+				alarmBuff[7] = 0xE2
+				alarmBuff[8] = ((int(valueEleC2["current"]*100))>>24) & 0xFF
+				alarmBuff[9] = ((int(valueEleC2["current"]*100))>>16) & 0xFF
+				alarmBuff[10] = ((int(valueEleC2["current"]*100))>>8) & 0xFF
+				alarmBuff[11] = ((int(valueEleC2["current"]*100))) & 0xFF
+				AlarmUpload.HandleAlarmBuffParsing(alarmBuff)
+			}
+		}
+	} else {
+		countRTUE2[1] = 0
+		flagRTUE2[1] = 0
+		flagE2I2 = 0
+	}
+
+	if valueEleC2["current"] * float64(ratioTransformerI) <= float64(levelTopUnusualSwitch) / 10.0 {
+		// 意外亮灭灯电流阈值放大10倍
+		if flagLampState & 0x02 != 0 {
+			countRTUE5[1] += 1
+			if countRTUE5[1] >= countAlarmDect {
+				countRTUE5[1] = 0
+				flagRTUE5[1] = 1
+				alarmBuff[6] = 2
+				alarmBuff[7] = 0xE5
+				alarmBuff[8] = ((int(valueEleC2["current"]*100))>>24) & 0xFF
+				alarmBuff[9] = ((int(valueEleC2["current"]*100))>>16) & 0xFF
+				alarmBuff[10] = ((int(valueEleC2["current"]*100))>>8) & 0xFF
+				alarmBuff[11] = ((int(valueEleC2["current"]*100))) & 0xFF
+				AlarmUpload.HandleAlarmBuffParsing(alarmBuff)
+			}
+		} else {
+			countRTUE5[1] = 0
+			flagRTUE5[1] = 0
+		}
+		// 小于阈值就不会出现意外亮灯的情况
+		countRTUE6[1] = 0
+		flagRTUE6[1] = 0
+	} else {
+		if flagLampState & 0x02 == 0 {
+			// 定时关，检测电流大于阈值，意外亮灯
+			countRTUE6[1] += 1
+			if countRTUE6[1] >= countAlarmDect {
+				countRTUE6[1] =0
+				flagRTUE6[1] = 1
+				alarmBuff[6] = 2
+				alarmBuff[7] = 0xE6
+				alarmBuff[8] = ((int(valueEleC2["current"]*100))>>24) & 0xFF
+				alarmBuff[9] = ((int(valueEleC2["current"]*100))>>16) & 0xFF
+				alarmBuff[10] = ((int(valueEleC2["current"]*100))>>8) & 0xFF
+				alarmBuff[11] = ((int(valueEleC2["current"]*100))) & 0xFF
+				AlarmUpload.HandleAlarmBuffParsing(alarmBuff)
+			}
+		} else {
+			countRTUE6[1] = 0
+			flagRTUE6[1] = 0
+		}
+		// 大于阈值就不会出现意外灭灯的情况
+		countRTUE5[1] = 0
+		flagRTUE5[1] = 0
+	} 
+
+	// 第3路电流
+	if loopState & 0x04 == 0 { // 回路关状态
+		countRTUE2[2] = 0
+		flagRTUE2[2] = 0
+	} else if valueEleC3["current"] * float64(ratioTransformerI) > valueEleC3["current_limit_max"] / 10.0 || valueEleC3["current"] * float64(ratioTransformerI) < valueEleC3["current_limit_min"] / 10.0 {
+		// 电流上下限放大10倍
+		countRTUE2[2] += 1
+		if countRTUE2[2] >= countAlarmDect {
+			countRTUE2[2] = 0
+			flagRTUE2[2] = 1
+			if flagE2I3 <= 3 {
+				flagE2I3 += 1
+				alarmBuff[6] = 3
+				alarmBuff[7] = 0xE2
+				alarmBuff[8] = ((int(valueEleC3["current"]*1000))>>24) & 0xFF
+				alarmBuff[9] = ((int(valueEleC3["current"]*1000))>>16) & 0xFF
+				alarmBuff[10] = ((int(valueEleC3["current"]*1000))>>8) & 0xFF
+				alarmBuff[11] = ((int(valueEleC3["current"]*1000))) & 0xFF
+				AlarmUpload.HandleAlarmBuffParsing(alarmBuff)
+			}
+		}
+	} else {
+		countRTUE2[2] = 0
+		flagRTUE2[2] = 0
+		flagE2I3 = 0
+	}
+
+	if valueEleC3["current"] * float64(ratioTransformerI) <= float64(levelTopUnusualSwitch) / 10.0 {
+		// 意外亮灭灯电流阈值放大10倍
+		if flagLampState & 0x04 != 0 {
+			countRTUE5[2] += 1
+			if countRTUE5[2] >= countAlarmDect {
+				countRTUE5[2] = 0
+				flagRTUE5[2] = 1
+				alarmBuff[6] = 3
+				alarmBuff[7] = 0xE5
+				alarmBuff[8] = ((int(valueEleC3["current"]*1000))>>24) & 0xFF
+				alarmBuff[9] = ((int(valueEleC3["current"]*1000))>>16) & 0xFF
+				alarmBuff[10] = ((int(valueEleC3["current"]*1000))>>8) & 0xFF
+				alarmBuff[11] = ((int(valueEleC3["current"]*1000))) & 0xFF
+				AlarmUpload.HandleAlarmBuffParsing(alarmBuff)
+			}
+		} else {
+			countRTUE5[2] = 0
+			flagRTUE5[2] = 0
+		}
+		// 小于阈值就不会出现意外亮灯的情况
+		countRTUE6[2] = 0
+		flagRTUE6[2] = 0
+	} else {
+		if flagLampState & 0x04 == 0 {
+			// 定时关，检测电流大于阈值，意外亮灯
+			countRTUE6[2] += 1
+			if countRTUE6[2] >= countAlarmDect {
+				countRTUE6[2] =0
+				flagRTUE6[2] = 1
+				alarmBuff[6] = 3
+				alarmBuff[7] = 0xE6
+				alarmBuff[8] = ((int(valueEleC3["current"]*1000))>>24) & 0xFF
+				alarmBuff[9] = ((int(valueEleC3["current"]*1000))>>16) & 0xFF
+				alarmBuff[10] = ((int(valueEleC3["current"]*1000))>>8) & 0xFF
+				alarmBuff[11] = ((int(valueEleC3["current"]*1000))) & 0xFF
+				AlarmUpload.HandleAlarmBuffParsing(alarmBuff)
+			}
+		} else {
+			countRTUE6[2] = 0
+			flagRTUE6[2] = 0
+		}
+		// 大于阈值就不会出现意外灭灯的情况
+		countRTUE5[2] = 0
+		flagRTUE5[2] = 0
+	} 
+
+	// 第4路电流
+	if loopState & 0x08 == 0 { // 回路关状态
+		countRTUE2[3] = 0
+		flagRTUE2[3] = 0
+	} else if valueEleC4["current"] * float64(ratioTransformerI) > valueEleC4["current_limit_max"] / 10.0 || valueEleC4["current"] * float64(ratioTransformerI) < valueEleC4["current_limit_min"] / 10.0 {
+		// 电流上下限放大10倍
+		countRTUE2[3] += 1
+		if countRTUE2[3] >= countAlarmDect {
+			countRTUE2[3] = 0
+			flagRTUE2[3] = 1
+			if flagE2I4 <= 3 {
+				flagE2I4 += 1
+				alarmBuff[6] = 4
+				alarmBuff[7] = 0xE2
+				alarmBuff[8] = ((int(valueEleC4["current"]*1000))>>24) & 0xFF
+				alarmBuff[9] = ((int(valueEleC4["current"]*1000))>>16) & 0xFF
+				alarmBuff[10] = ((int(valueEleC4["current"]*1000))>>8) & 0xFF
+				alarmBuff[11] = ((int(valueEleC4["current"]*1000))) & 0xFF
+				AlarmUpload.HandleAlarmBuffParsing(alarmBuff)
+			}
+		}
+	} else {
+		countRTUE2[3] = 0
+		flagRTUE2[3] = 0
+		flagE2I4 = 0
+	}
+
+	if valueEleC4["current"] * float64(ratioTransformerI) <= float64(levelTopUnusualSwitch) / 10.0 {
+		// 意外亮灭灯电流阈值放大10倍
+		if flagLampState & 0x08 != 0 {
+			countRTUE5[3] += 1
+			if countRTUE5[3] >= countAlarmDect {
+				countRTUE5[3] = 0
+				flagRTUE5[3] = 1
+				alarmBuff[6] = 4
+				alarmBuff[7] = 0xE5
+				alarmBuff[8] = ((int(valueEleC4["current"]*1000))>>24) & 0xFF
+				alarmBuff[9] = ((int(valueEleC4["current"]*1000))>>16) & 0xFF
+				alarmBuff[10] = ((int(valueEleC4["current"]*1000))>>8) & 0xFF
+				alarmBuff[11] = ((int(valueEleC4["current"]*1000))) & 0xFF
+				AlarmUpload.HandleAlarmBuffParsing(alarmBuff)
+			}
+		} else {
+			countRTUE5[3] = 0
+			flagRTUE5[3] = 0
+		}
+		// 小于阈值就不会出现意外亮灯的情况
+		countRTUE6[3] = 0
+		flagRTUE6[3] = 0
+	} else {
+		if flagLampState & 0x08 == 0 {
+			// 定时关，检测电流大于阈值，意外亮灯
+			countRTUE6[3] += 1
+			if countRTUE6[3] >= countAlarmDect {
+				countRTUE6[3] =0
+				flagRTUE6[3] = 1
+				alarmBuff[6] = 4
+				alarmBuff[7] = 0xE6
+				alarmBuff[8] = ((int(valueEleC4["current"]*1000))>>24) & 0xFF
+				alarmBuff[9] = ((int(valueEleC4["current"]*1000))>>16) & 0xFF
+				alarmBuff[10] = ((int(valueEleC4["current"]*1000))>>8) & 0xFF
+				alarmBuff[11] = ((int(valueEleC4["current"]*1000))) & 0xFF
+				AlarmUpload.HandleAlarmBuffParsing(alarmBuff)
+			}
+		} else {
+			countRTUE6[3] = 0
+			flagRTUE6[3] = 0
+		}
+		// 大于阈值就不会出现意外灭灯的情况
+		countRTUE5[3] = 0
+		flagRTUE5[3] = 0
+	} 
+
+	// 第5路电流
+	if loopState & 0x10 == 0 { // 回路关状态
+		countRTUE2[4] = 0
+		flagRTUE2[4] = 0
+	} else if valueEleC5["current"] * float64(ratioTransformerI) > valueEleC5["current_limit_max"] / 10.0 || valueEleC5["current"] * float64(ratioTransformerI) < valueEleC5["current_limit_min"] / 10.0 {
+		// 电流上下限放大10倍
+		countRTUE2[4] += 1
+		if countRTUE2[4] >= countAlarmDect {
+			countRTUE2[4] = 0
+			flagRTUE2[4] = 1
+			if flagE2I5 <= 3 {
+				flagE2I5 += 1
+				alarmBuff[6] = 5
+				alarmBuff[7] = 0xE2
+				alarmBuff[8] = ((int(valueEleC5["current"]*1000))>>24) & 0xFF
+				alarmBuff[9] = ((int(valueEleC5["current"]*1000))>>16) & 0xFF
+				alarmBuff[10] = ((int(valueEleC5["current"]*1000))>>8) & 0xFF
+				alarmBuff[11] = ((int(valueEleC5["current"]*1000))) & 0xFF
+				AlarmUpload.HandleAlarmBuffParsing(alarmBuff)
+			}
+		}
+	} else {
+		countRTUE2[4] = 0
+		flagRTUE2[4] = 0
+		flagE2I5 = 0
+	}
+
+	if valueEleC5["current"] * float64(ratioTransformerI) <= float64(levelTopUnusualSwitch) / 10.0 {
+		// 意外亮灭灯电流阈值放大10倍
+		if flagLampState & 0x10 != 0 {
+			countRTUE5[4] += 1
+			if countRTUE5[4] >= countAlarmDect {
+				countRTUE5[4] = 0
+				flagRTUE5[4] = 1
+				alarmBuff[6] = 5
+				alarmBuff[7] = 0xE5
+				alarmBuff[8] = ((int(valueEleC5["current"]*1000))>>24) & 0xFF
+				alarmBuff[9] = ((int(valueEleC5["current"]*1000))>>16) & 0xFF
+				alarmBuff[10] = ((int(valueEleC5["current"]*1000))>>8) & 0xFF
+				alarmBuff[11] = ((int(valueEleC5["current"]*1000))) & 0xFF
+				AlarmUpload.HandleAlarmBuffParsing(alarmBuff)
+			}
+		} else {
+			countRTUE5[4] = 0
+			flagRTUE5[4] = 0
+		}
+		// 小于阈值就不会出现意外亮灯的情况
+		countRTUE6[4] = 0
+		flagRTUE6[4] = 0
+	} else {
+		if flagLampState & 0x10 == 0 {
+			// 定时关，检测电流大于阈值，意外亮灯
+			countRTUE6[4] += 1
+			if countRTUE6[4] >= countAlarmDect {
+				countRTUE6[4] =0
+				flagRTUE6[4] = 1
+				alarmBuff[6] = 5
+				alarmBuff[7] = 0xE6
+				alarmBuff[8] = ((int(valueEleC5["current"]*1000))>>24) & 0xFF
+				alarmBuff[9] = ((int(valueEleC5["current"]*1000))>>16) & 0xFF
+				alarmBuff[10] = ((int(valueEleC5["current"]*1000))>>8) & 0xFF
+				alarmBuff[11] = ((int(valueEleC5["current"]*1000))) & 0xFF
+				AlarmUpload.HandleAlarmBuffParsing(alarmBuff)
+			}
+		} else {
+			countRTUE6[4] = 0
+			flagRTUE6[4] = 0
+		}
+		// 大于阈值就不会出现意外灭灯的情况
+		countRTUE5[4] = 0
+		flagRTUE5[4] = 0
+	} 
+
+	// 第6路电流
+	if loopState & 0x20 == 0 { // 回路关状态
+		countRTUE2[5] = 0
+		flagRTUE2[5] = 0
+	} else if valueEleC6["current"] * float64(ratioTransformerI) > valueEleC6["current_limit_max"] / 10.0 || valueEleC6["current"] * float64(ratioTransformerI) < valueEleC6["current_limit_min"] / 10.0 {
+		// 电流上下限放大10倍
+		countRTUE2[5] += 1
+		if countRTUE2[5] >= countAlarmDect {
+			countRTUE2[5] = 0
+			flagRTUE2[5] = 1
+			if flagE2I6 <= 3 {
+				flagE2I6 += 1
+				alarmBuff[6] = 6
+				alarmBuff[7] = 0xE2
+				alarmBuff[8] = ((int(valueEleC6["current"]*1000))>>24) & 0xFF
+				alarmBuff[9] = ((int(valueEleC6["current"]*1000))>>16) & 0xFF
+				alarmBuff[10] = ((int(valueEleC6["current"]*1000))>>8) & 0xFF
+				alarmBuff[11] = ((int(valueEleC6["current"]*1000))) & 0xFF
+				AlarmUpload.HandleAlarmBuffParsing(alarmBuff)
+			}
+		}
+	} else {
+		countRTUE2[5] = 0
+		flagRTUE2[5] = 0
+		flagE2I6 = 0
+	}
+
+	if valueEleC6["current"] * float64(ratioTransformerI) <= float64(levelTopUnusualSwitch) / 10.0 {
+		// 意外亮灭灯电流阈值放大10倍
+		if flagLampState & 0x20 != 0 {
+			countRTUE5[5] += 1
+			if countRTUE5[5] >= countAlarmDect {
+				countRTUE5[5] = 0
+				flagRTUE5[5] = 1
+				alarmBuff[6] = 6
+				alarmBuff[7] = 0xE5
+				alarmBuff[8] = ((int(valueEleC6["current"]*1000))>>24) & 0xFF
+				alarmBuff[9] = ((int(valueEleC6["current"]*1000))>>16) & 0xFF
+				alarmBuff[10] = ((int(valueEleC6["current"]*1000))>>8) & 0xFF
+				alarmBuff[11] = ((int(valueEleC6["current"]*1000))) & 0xFF
+				AlarmUpload.HandleAlarmBuffParsing(alarmBuff)
+			}
+		} else {
+			countRTUE5[5] = 0
+			flagRTUE5[5] = 0
+		}
+		// 小于阈值就不会出现意外亮灯的情况
+		countRTUE6[5] = 0
+		flagRTUE6[5] = 0
+	} else {
+		if flagLampState & 0x20 == 0 {
+			// 定时关，检测电流大于阈值，意外亮灯
+			countRTUE6[5] += 1
+			if countRTUE6[5] >= countAlarmDect {
+				countRTUE6[5] =0
+				flagRTUE6[5] = 1
+				alarmBuff[6] = 6
+				alarmBuff[7] = 0xE6
+				alarmBuff[8] = ((int(valueEleC6["current"]*1000))>>24) & 0xFF
+				alarmBuff[9] = ((int(valueEleC6["current"]*1000))>>16) & 0xFF
+				alarmBuff[10] = ((int(valueEleC6["current"]*1000))>>8) & 0xFF
+				alarmBuff[11] = ((int(valueEleC6["current"]*1000))) & 0xFF
+				AlarmUpload.HandleAlarmBuffParsing(alarmBuff)
+			}
+		} else {
+			countRTUE6[5] = 0
+			flagRTUE6[5] = 0
+		}
+		// 大于阈值就不会出现意外灭灯的情况
+		countRTUE5[5] = 0
+		flagRTUE5[5] = 0
+	} 
 }
 
