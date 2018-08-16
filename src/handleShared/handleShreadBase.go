@@ -3,7 +3,7 @@ package handleShared
 import (
 	"fmt"
 	// "math"
-	// Redis "handleRedis"
+	Redis "handleRedis"
 )
 
 func HandleUpdateTimeLatiLongi() {
@@ -74,4 +74,43 @@ func handleUpDownMeasure(timeLatitude float32, timeLongitude float32, tDay int, 
 
 func handleUpDownTransfrom() {
 	fmt.Println("---> handleUpDownTransfrom.")
+}
+
+func HandlerelayOpen(state int) {
+
+	stateChangeRelay := 0x55 // 继电器状态
+	stateLoop := 0 // 回路状态
+	jsonState := make(map[string]interface{})
+	jsonState[WDStateChangeRelay] = stateChangeRelay
+	Redis.HandleRedisJsonInsert(WDStateChangeRelay, jsonState)
+	// 获取回路状态
+	stateLoopBase := Redis.HandleRedisJsonGet(WDStateLoop)
+	stateLoop = stateLoopBase.(int)
+	tmp := stateLoop
+	tmp |= state
+	stateLoop = tmp
+
+	jsonState[WDStateLoop] = stateLoop
+	Redis.HandleRedisJsonInsert(WDStateLoop, jsonState)
+	
+}
+
+func HandlerelayClose(state int) {
+
+	stateChangeRelay := 0x55 // 继电器状态
+	stateLoop := 0 // 回路状态
+	jsonState := make(map[string]interface{})
+	jsonState[WDStateChangeRelay] = stateChangeRelay
+	Redis.HandleRedisJsonInsert(WDStateChangeRelay, jsonState)
+	// 获取回路状态
+	stateLoopBase := Redis.HandleRedisJsonGet(WDStateLoop)
+	stateLoop = stateLoopBase.(int)
+	tmp := stateLoop
+	tmp = ^tmp
+	tmp |= state
+	stateLoop = ^tmp
+
+	jsonState[WDStateLoop] = stateLoop
+	Redis.HandleRedisJsonInsert(WDStateLoop, jsonState)
+	
 }

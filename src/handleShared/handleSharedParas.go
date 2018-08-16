@@ -25,7 +25,9 @@ var (
 	WDStateChangeRelay			= "WDStateChangeRelay"			//继电器状态改变
 	WDAlarmShielding 			= 0				//设置报警屏蔽
 	WDValueLamp					= 0				//设置单灯数量
-	WDRelayOpenAllBit			= 0				//按位开继电器(总开)
+
+	WDRelayOpenAllBit			= "RelayOpenAllBit"			//按位开继电器(总开)
+	WDRelayCloseAllBit			= "RelayCloseAllBit"		//按位关继电器(总开)
 	WDGroupLamp					= 0				//设置单灯组数
 	WDRelayOpenAll				= 0 			//设置RTU继电器全开
 	WDRelayCloseAll				= 0 			//设置RTU继电器全关
@@ -64,7 +66,61 @@ var (
 	// 回路相关
 
 	WDFlagLampState				= "FlagLampState" // 定时开状态
+
+	// 特殊策略和节假日策略不执行阶段调光，阶段开关标志
+	WDFlagMaskStep 				= "FlagMaskStep" // syspara.step_mask
+
+	// 回路常开标志
+	WDFlagLoopAlwaysON			= "FlagLoopAlwaysON" // syspara.sc_hl_alwayson
+
+	// 定时开关标志
+	WDFlagLight					= "FlagLight"
+
+	// 远程控制器金给杜开关采用查表
+	WDTypeLatiLongi				= "TypeLatiLongi"
+
+	// 经纬度开关正负偏移标志
+	WDFlagROffsetON				= "FlagROffsetON"
+	WDFlagROffsetOFF			= "FlagROffsetOFF"
+
+	// 策略数量
+	WDNumSpecial				= make([]int, 8)
+	WDNumHoliday				= make([]int, 8)
+
+	// 策略数据内容
+	WDDataStgSpecial			= make([]int, 150)
+	WDDataStgHoliday			= make([]int, 150)
+
+	// 定时开关时间
+	WDTimerRON					= make([]int, 24)
+	WDTimerROFF					= make([]int, 24)
 	
+	// 开关策略类型
+	WDTypeStrategyON			= make([]int, 8)
+	WDTypeStrategyOFF			= make([]int, 8)
+
+	// timer_R_ON_time
+	WDTimerRONTime				= make([]int, 24)
+	// timer_R_OFF_time
+	WDTimerROFFTime				= make([]int, 24)
+	
+	// 周定时开关
+	WDTimerRONWeek				= make([]int, 168)
+	WDTimerROFFWeek				= make([]int, 168)
+
+	// IEEADDR
+	WDAddrBoard					= make([]int, 8)
+
+	// 经纬度定时开关
+	WDTimerLatiLongiON 			= make([]int, 3)
+	WDTimerLatiLongiOFF			= make([]int, 3)
+
+	// 经纬度偏移值
+	WDTimeLatiLongiROffsetON 		= make([]int, 8)
+	WDTimeLatiLongiROffsetOFF 		= make([]int, 8)
+
+
+
 	
 )
 
